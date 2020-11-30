@@ -3,7 +3,7 @@
 ---
 
 ## I.1 구성 파일
-서버는 오로지 UTF16-LE 형식의 JSON 파일을 통해 구성됩니다. UTF8 파일 인코딩을 사용하는 것이 효과가 있는 것처럼 보일 수 있지만 잘못된 reading으로 이어질 수 있습니다. 일반적으로 JSON 구문에 사용되거나 [online syntax check](https://jsonformatter.curiousconcept.com/)을 통해 당신의 구성을 테스트할 수 있는 것은 좋은 생각입니다.
+서버는 오로지 UTF16-LE 형식의 JSON 파일을 통해 구성됩니다. UTF8 파일 인코딩을 사용하는 것이 효과가 있는 것처럼 보일 수 있지만 잘못된 reading으로 이어질 수 있습니다. 일반적으로 JSON 구문에 사용되거나 [online syntax check](https://jsonformatter.curiousconcept.com/)을 통해 구성을 테스트할 수 있는 것이 좋습니다.
 깨끗하게 새로 시작하려면 .json 파일을 제거하고 서버를 한 번 시작하면 현재 기본값으로 자동 생성됩니다. 또한, 새 속성을 생성하기 위한 각 파일의 configVersion을 줄일 수 있습니다 (모든 구성에서 해당됩니다). 특정 "고급" 세팅은 프로세스가 실행중일때 configVersion 값이 기본 값으로 설정되는 동안 숨겨집니다.
 The configuration is split into different files, which represent different levels of what you would possibly like to keep or change frequently:
 
@@ -31,7 +31,7 @@ The configuration is split into different files, which represent different level
 |udpPort|연결된 클라이언트는 이 포트를 사용하여 차랑 위치를 스트리밍하고 핑 테스트를 위해 사용합니다. 서버가 ping 값을 얻지 못하는 경우, 이것은 udpPort에 액세스할 수 없음을 나타냅니다.|
 |registerToLobby|0 이 되면, 이 서버는 백엔드에 등록되지 않습니다. 이것은 LAN 세션에서 유용합니다. 만약 0이 될 경우, 이 서버는 Private Multiplayer로 선언됩니다.|
 |maxConnections|"maxClients"를 대체합니다. 서버가 한 번에 허용할 최대 연결 수를 의미합니다. 만약 하드웨어 서버를 소유하고 있다면, 원하는 숫자를 설정하기만 하면 됩니다. 만약 16 또는 24개의 슬롯 서버를 대여한 경우, 호스트 공급자가 이 구성 파일에 대한 액세스 권한을 부여하지 않을 수도 있습니다.|
-|lanDiscovery|서버가 LAN 검색 요청을 수신할지 여부를 정의하세요. 전용 서버가 이 옵션을 해체할 수 있습니다.|
+|lanDiscovery|서버가 LAN 검색 요청을 수신할지 여부를 정의하세요. Private Server는 이 옵션을 해체할 수 있습니다.|
 
 ## I.1.2 settings.json
 이 설정은 때때로 변경될 수 있는 당신의 개인 서버 설정을 정의하며, 서버 자체도 정의합니다.
@@ -64,11 +64,11 @@ The configuration is split into different files, which represent different level
 |carGroup|이 서버의 차량 그룹을 정의하십시오. 가능한 값은 "FreeForAll", "GT3", "GT4", "Cup", "ST" 이며, "FreeForAll"은 드라이버가 어떤 차량이든 탈 수 있게 합니다 (자신이 직접 고른 차량을 말합니다). GT3, GT4은 차량을 GT3, GT4 클래스로 제한시키며, Cup은 포르쉐 컵카로, ST는 람보르기니 슈퍼트로페오로 제한시킵니다.|
 |trackMedalsRequirement|사용자가 해당 트랙에 대해 보유해야 하는 트랙 메달의 양 (값 0, 1, 2, 3)을 정의합니다.|
 |safetyRatingRequirement|사용자가 이 서버에 들어올 수 있는 세이프티 레이팅(SA)을 정의합니다. (값 -1,0,..,99)|
-|racecraftRatingRequirement|사용자가 이 서버에 들어올 수 있는 세이프티 레이팅(RC))을 정의합니다. (값 -1,0,..,99)|
+|racecraftRatingRequirement|사용자가 이 서버에 들어올 수 있는 세이프티 레이팅(RC)을 정의합니다. (값 -1,0,..,99)|
 |password|이 서버를 입력하는 데 필요한 비밀번호입니다. 비밀번호가 설정되면 서버는 "Private Multiplayer"로 선언됩니다.|
 |spectatorPassword|서버를 관전자로써 들어가기 위한 비밀번호입니다. "password"와 같이 둘 다 설정된 경우 "password"랑 달라야 합니다.|
 |maxCarSlots|"maxClientsOverride" 및 "spectatorSlots"를 대체합니다. 서버가 점유할 수 있는 차량 슬롯의 양을 규정합니다. this value is overridden if the pit count of the track is lower,Public Multiplayer의 경우 30개로 이 값이 덮어쓰여집니다.|
-|dumpLeaderboards|1로 설정하면, 모든 세션의 결과 순위표를 "resuluts" 폴더에 기록합니다 (수동으로 작성되야 합니다). 자세한 건 "Session results"를 참고하세요.|
+|dumpLeaderboards|1로 설정하면, 모든 세션의 결과 순위표를 "results" 폴더에 기록합니다 (수동으로 작성되야 합니다). 자세한 건 "Session results"를 참고하세요.|
 |isRaceLocked|0으로 설정하면, 레이스 세션동안 누군가 들어오는 것을 허용합니다. 사용자-서버 매칭이 레이스 세션을 무시하므로 "Public Multiplayer"에서는 유용하지 않습니다.|
 |randomizeTrackWhenEmpty|1로 설정하면, 마지막 드라이버가 떠날 때 서버가 임의의 트랙으로 변경됩니다(FP1으로 재설정됩니다) "track" 속성은 첫 번째 세션의 기본상태로 정의될 것입니다.|
 |centralEntryListPath|다수의 ACC 서버가 있는 하드웨어가 같은 엔트리 목록(및 사용자 지정 차량 파일)을 사용할 수 있도록 기본 엔트리 목록 경로인 "cfg/entrylist.json"으로 덮어쓰기 할 수 있게 해줍니다. 엔트리 목록이 들어가 있는 "C:/customEntryListSeriesA/"와 같은 전체 경로를 설정할 경우 주의하세요: 경로 구분자는 슬래시(/)여야 하며, 백슬래시(\)는 작동하지 않습니다.|
@@ -78,8 +78,7 @@ The configuration is split into different files, which represent different level
 |formationLapType|서버에서 영구적으로 사용되는 포메이션 랩 유형을 전환합니다:<br> 3 – 위치 제어 및 UI가 있는 기본 포메이션 랩<br> 0 – 구식 리미터 랩<br> 1 – free (대체/ 수동 시작), Private Server에서만 사용 가능합니다|
 
 ## I.1.3 event.json
-Defines the race weekend the server runs. This configuration file is meant to be swappable, so you
-can easily switch between different event templates by renaming/overwriting them.
+서버에서 실행되는 Race Weekend를 정의하십시오. 이 구성 파일은 스왑이 가능하므로 다른 이벤트 템플릿의 이름을 바꾸거나 덮어쓰면 쉽게 전환할 수 있다.
 
 ```python
 {
@@ -116,39 +115,36 @@ can easily switch between different event templates by renaming/overwriting them
  ]
 }
 ```
-|Property|Remarks|
+|속성|비고|
 |---|---|
-|track|The track we run, see “Track name list”. Setting a wrong value will also print out the available track keys in the log. With the 1.1 update containing the 2019 season content, each track has a _2019 variant. Using this track will set the BoP and track grip correspondingly.|
-|preRaceWaitingTimeSeconds|Preparation time before a race. Cannot be less than 30s.|
-|sessionOverTimeSeconds|Time after that a session is forcibly closing after the timer reached 0:00. Something like 107% of the expected laptime is recommended (careful: default 2 minutes does not properly cover tracks like Spa or Silverstone).|
-|ambientTemp|Sets the baseline ambient temperature in °C, see “Race weekend simulation”|
-|trackTemp|Obsolete: Track temperatures are always simulated based on ambient temperature, sun angle, clouds and other aspects.|
-|cloudLevel|Sets the baseline cloud level, see “Race weekend simulation”. Has large impact on the cloud levels and rain chances. Values (0.0, 0.1, …. 1.0)|
-|rain|If weather randomness is off, defines the static rain level. With dynamic weather, it defines the expected rain level, dependent on weatherRandomness Values (0.0, 0.1, …. 1.0)|
-|weatherRandomness|Sets the dynamic weather level, see “Race weekend simulation”.<br>0 = static weather;<br> 1-4 fairly realistic weather;<br> 5-7 more sensational|
-|postQualySeconds|The time after the last driver is finished (or the sessionOverTimeSeconds passed) in Q sessions and the race start. Should not be set to 0, otherwise grid spawning is not secure.|
-|postRaceSeconds|Additional time after the race ended for everyone, before the next race weekend starts.|
-|sessions|A list of session objects, see the next table|
-|metaData|A user defined string that will be transferred to the result outputs.|
-|simracerWeatherConditions|Experimental/not supported: if set to 1, this will limit the maximum rain/wetness to roughly 2/3 of the maximum values, translating to something between medium and heavy rain. It may be useful if you feel forced to run very low cloudLevel and weatherRandomness values just to avoid thunderstorm; however high levels (0.4+ clouds combined with 5+ randomness) will still result in quite serious conditions.|
-|isFixedConditionQualification|Experimental/not supported: if set to 1, the server will take the rain, cloud, temperature, rain levels literally and make sure whatever is set up never changes. Daytime transitions still happen visually, but do not affect the temperatures or road wetness. Also rubber/grip is always the same. This is intended  to be used for private league qualification servers only.|
-
-Sessions are expressed as an array of:
+|track|실행 중인 트랙은 "트랙 이름 목록"을 참조하십시오. 잘못된 값을 설정하면 로그에 사용 가능한 트랙 키도 출력됩니다. 이 트랙을 사용하면 그에 따라 BoP와 트랙 그립이 설정된다.|
+|preRaceWaitingTimeSeconds|경기 전 준비 시간. 30초 이하일 수 없습니다.|
+|sessionOverTimeSeconds|타이머가 0:00에 도달한 후 세션이 강제로 닫히는 시간. 예상 랩타임의 107%가 권장됩니다(주의: Spa 또는 Silverstone과 같은 트랙은 기본 2분으로 제대로 커버하지 못합니다).|
+|ambientTemp|기준 외부 온도(°C) 설정("Race weekend simulation" 참조)|
+|trackTemp|잉여옵션: 트랙 온도가 항상 주변 온도, 태양 각도, 구름 및 기타 측면에 기초하여 시뮬레이션됩니다.|
+|cloudLevel|기본 구름 레벨(구름이 있는 정도)을 설정하세요. 자세한 건 "Race weekend simulation" 참조. 이 값은 구름 레벨에 큰 영향을 미치고 비가 올 가능성이 생깁니다. 값(0.0, 0.1, … 1.0) |
+|rain|weather randomness가 꺼져 있는 경우 정적 강우량을 정의하세요. 동적인 날씨와 함께, weatherRandomneess 값 (0.0, 0.1, ..., 1.0)에 따라 예상 강수량이 정의됩니다.|
+|weatherRandomness|동적 날씨 레벨을 설정하세요. 자세한 건 "Race weekend simulation"을 참조하세요.<br>0 = 정적 날씨;<br> 1-4 상당히 현실적인 날씨;<br> 5-7 과장된 날씨|
+|postQualySeconds|Q 세션(예선)에서 마지막 드라이버가 종료(또는 sessionOverTimeSeconds가 경과한 후)와 경주가 시작되는 시간. 0으로 설정해서는 안 되며, 그렇지 않으면 그리드 스폰 기능이 안전하지 않습니다.|
+|postRaceSeconds|모든 사람이 경주가 끝난 후, 다음 경주가 시작되기 전까지의 추가 시간.|
+|sessions|세션 개체 목록, 다음 표를 참조하세요.|
+|metaData|결과 출력으로 전송될 사용자 정의 문자열|
+|simracerWeatherConditions|Experimental/not supported: 1로 설정하면 최대 비/습도가 최대 값의 약 2/3로 제한되어 중우와 강우 사이로 변환됩니다. 뇌우를 피하기 위해 매우 낮은 cloudLevel과 weatherRandomness 값을 실행해야 한다고 느끼는 경우 유용할 수 있지만, 높은 레벨(0.4+ clouds과 5+ randomness을 결합)은 여전히 심각한 상태를 초래할 수 있습니다.|
+|isFixedConditionQualification|Experimental/not supported: 1로 설정하면 서버는 비, 구름, 온도, 빗줄기의 레벨을 그대로 사용하고 설정된 모든 것이 변하지 않도록 됩니다. 주간 전환은 여전히 시작적으로 발생하지만, 온도나 도로 습윤에는 영향을 미치지 않습니다. 또한 rubber/grip은 항상 동일합니다. 이것은 사설 리그 예선 서버에만 사용되도록 의도되었습니다.|
+세션 개체는 다음 배열로 표현됩니다:
 |Property|Remarks|
 |--|--|
-|hourOfDay|Session starting hour of the day (values 0 - 23)|
-|dayOfWeekend|Race day (1 = Friday, 2 = Saturday, 3 = Sunday) – relevant to the grip and weather simulation.|
-|timeMultiplier|Rate at which the session time advances in realtime.Values 0, 1, … 24|
-|sessionType|Race session type: P, Q, R for (P)ractice, (Q)ualy, (R)ace|
-|sessionDurationMinutes|Session duration in minutes|
-
-Remarks:
-1) At least one non-race session must be set up
-2) Setting up unreasonable day and hours (also consider time multipliers!) can lead to wrong
-track and weather behaviour, e.g. avoid jumping from Saturday to Friday
+|hourOfDay|하루의 세션 시작 시간(값 0 - 23)|
+|dayOfWeekend|경기일(1 = 금요일, 2 = 토요일, 3 = 일요일) – 그립 및 날씨 시뮬레이션과 관련이 있습니다.|
+|timeMultiplier|세션 시간이 실시간으로 진행되는 속도 배율. 값 0, 1, … 24|
+|sessionType|경기 타입: P, Q, R for (P)ractice, (Q)ualy, (R)ace|
+|sessionDurationMinutes|세션 기간(분)|
+비고:
+1) 하나 이상의 비 레이스 세션을 설정해야 합니다
+2) 불합리한 주간 및 시간 설정(시간 배율도 고려합니다!)은 잘못된 트랙 및 날씨 행동을 초래할 수 있습니다. 예: 토요일에서 금요일로 점프하지 않는 것
 
 ## I.1.4 eventRules.json
-Defines the pitstop rules. Public MP servers will ignore this json file and use default values
+피트스톱 규칙을 규정합니다. Public Multiplayer 서버는 이 json 파일을 무시하고 기본값을 사용합니다.
 
 ```python
 {
@@ -167,44 +163,33 @@ Defines the pitstop rules. Public MP servers will ignore this json file and use 
 }
 ```
 
-|Property|Remarks|
+|속성|비고|
 |---|---|
-|qualifyStandingType|1 = fastest lap, 2 = average lap (running Endurance mode for multiple Q sessions). Use 1, averaging Qualy is not yet officially supported.|
-|pitWindowLengthSec|Defines a pit window at the middle of the race. Obviously covers the Sprint series format. -1 will disable the pit window. Use this combined with a mandatoryPitstopCount = 1.|
-|driverStintTimeSec|Defines the maximum time a driver can stay out without getting a penalty. Can be used to balance fuel efficient cars in endurance races. The stint time resets in the pitlane, no real stop is required. -1 will disable the stint times. driverStintTimeSec and maxTotalDrivingTime are interdependent features, make sure both are set or off.|
-|mandatoryPitstopCount|Defines the basic mandatory pit stops. If the value is greater zero, any car that did not execute the mandatory pitstops will be disqualified at the end of the race. The necessary actions can be further configured using the “isMandatoryPitstopXYRequired” properties. A value of zero disables the feature.|
-|maxTotalDrivingTime|Restricts the maximum driving time for a single driver. Is only useful for driver swap situations and allows to enforce a minimum driving time for each driver (IRL this is used to make sure mixed teams like Pro/Am have a fair distributions of the slower drivers). -1 disables the feature. driverStintTimeSec and maxTotalDrivingTime are interdependent features, make sure both are set or off. Will set the maximum driving time for the team size defined by “maxDriversCount”, always make sure both are set.|
-|maxDriversCount|In driver swap situations, set this to the maximum number of drivers on a car. When an entry has fewer drivers than maxDriversCount maxTotalDrivingTime is automatically compensated so that those "smaller" entries are also able to complete the race Example: 3H race length, 65 minutes driverStintTimeSec and 65 minutes maxTotalDrivingTime will result in 65 minutes of maxTotalDrivingTime for entries of 3 and 105 (!) minutes for entries of 2.|
-|isRefuellingAllowedInRace|Defines if refuelling is allowed during the race pitstops.|
-|isRefuellingTimeFixed|If set to true, any refuelling will take the same amount of time. If turned off, refuelling will consume time linear to the amount refuelled. Very useful setting to balance fuel efficient cars, especially if combined with other features.|
-|isMandatoryPitstopRefuellingRequired|Defines if a mandatory pitstop requires refuelling.|
-|isMandatoryPitstopTyreChangeRequired|Defines if a mandatory pitstop requires changing tyres.|
-|isMandatoryPitstopSwapDriverRequired|Defines if a mandatory pitstop requires a driver swap. Will only be effective for cars in driver swap situations; even in a mixed field this will be skipped for cars with a team size of 1 driver.|
-|tyreSetCount|Experimental/not supported: Can be used to reduce the amount of tyre sets any car entry has for the entire weekend. Please note that it is necessary to force cars to remain in the server, or drastically reduced tyre sets will be ineffective, as rejoining will reset the tyre sets.|
+|qualifyStandingType|1 = fastest lap, 2 = average lap (여러 예선 세션의 내구 레이스에서 실행). 1을 사용하세요. 평균 퀄리파잉은 공식적으로 지원되지 않습니다. |
+|pitWindowLengthSec|레이스하는 도중 피트 윈도우를 정의합니다. 이것은 Sprint 시리즈 형식을 다룹니다. -1은 피트 윈도우를 비활성화시킵니다. 이 값은 mandatoryPitstopCount = 1과 함께 사용하세요.|
+|driverStintTimeSec|드라이버가 패널티를 받지 않고 주행할 수 있는 최대 시간을 규정합니다. 내구 레이스에서 연료 효율이 높은 자동차의 균형을 맞추기 위해 사용될 수 있습니다. 피트레인의 고정 시간이 재설정되므로 실제 정지가 필요하지 않습니다. -1은 고정 시간을 비활성화합니다. driverStintTimeSec와 maxTotalDrivingTime은 상호의존적인 기능이며, 모두 설정되거나 해제되었는지 확인하십시오.|
+|mandatoryPitstopCount|기본 필수 피트 스톱을 규정합니다. 값이 0보다 크면 의무적으로 피트스톱을 실행하지 않은 차량은 경주가 끝날 때 실격됩니다. 피트 스톱에 필요한 조치는 "isMandatoryPitstopXYRequired" 속성을 사용하여 추가로 구성할 수 있습니다. 값이 0이면 기능이 비활성화됩니다.|
+|maxTotalDrivingTime|단일 드러바이버의 최대 운전 시간을 제한시킵니다. 이것은 드라이버를 스왑하는 상황에서만 유용하여 각 드라이버에 대해 최소 주행 시간을 강제할 수 있습니다(현실에서 이것은 프로/아마추어와 같은 혼합 팀이 느린 드라이버에게 공정성을 갖도록 하기 위해 사용됩니다) -1은 기능을 비활성화시킵니다. driverStintTimeSec과 maxTotalDrivingTime은 상호의존적인 기능이며, 두 가지 모두 설정 또는 해제되었는지 확인하십시오. "maxDriversCount"에 의해 정의된 팀 크기에 대한 최대 주행 시간을 설정하며, 항상 두 팀 모두 설정되었는지 확인하십시오.|
+|maxDriversCount|드라이버 스왑 상황에서는 이 값을 차량의 최대 운전자 수로 설정하십시오. 항목이 maxDriversCount보다 적은 드라이버를 가진 경우, maxTotalDrivingTime은 자동으로 보정되며 "작은" 엔트리들도 레이스를 마칠 수 있습니다. 예: 3시간 레이스에서, driverStintTimeSec가 65분이고 maxTotalDrivingTime이 65분인 경우 각 엔트리들의 maxTotalDrivingTime은 각 3명의 엔트리들에게 maxTotalDrivingTime(최대주행시간)이 65분을, 2명의 엔트리들에겐 105분이란 결과를 가져옵니다.|
+|isRefuellingAllowedInRace|레이스 피트 스톱 도중에 주유를 할 수 있는지의 여부를 규정합니다.|
+|isRefuellingTimeFixed|true로 설정하면 모든 주유에 동일한 시간이 소요됩니다. false인 경우, 주유는 주유된 양에 선형적으로 시간이 소비됩니다. 특히 다른 특징과 결합할 경우, 연료 효율이 높은 자동차의 균형을 맞추기 위한 매우 유용한 설정입니다.|
+|isMandatoryPitstopRefuellingRequired|의무 피트 스톱에 연료 주입이 필요한지 여부를 규정합니다.|
+|isMandatoryPitstopTyreChangeRequired|의무 피트 스톱에 타이어 교체가 필요한지 여부를 규정합니다.|
+|isMandatoryPitstopSwapDriverRequired|의무 피트 스톱에 드라이버 스왑이 필요한지 여부를 규정합니다. 드라이버 스왑 상황에서만 유효하며, mixed field에서 1인 1조로 편성된 차량에서는 생략합니다.|
+|tyreSetCount|Experimental/not supported: 레이스 주간 내내 모든 차량 엔트리에서 타이어 세트의 양을 줄이는데 사용할 수 있습니다. 차량이 서버에 남게 하는 것을 강제할 필요가 있으며, 그렇지 않을경우 다이어 세트를 다시 맞추면 타이어 세트가 재설정되므로 타이어 세트를 대폭 줄여야 효과가 없다는 점에 유의하십시오.|
 
-The basic pitstop features offer a huge array of combinations and different aspects you can set up
-your non-public races. Not every combination does make sense though, so it’s your responsibility to
-setup the rules so drivers have a good experience.
-It should be entirely possible to create a race in the style of a single Sprint series race as well as a 3-
-24h endurance race with or without driver swaps. Of course this shouldn’t limit you to think about
-your series and especially race event durations, and possibly add more fairness to balance fuel
-efficient cars – or allow a certain depth of tactics.
-Additional notes regarding stints:
-- Stint timer (top left corner in the timing HUD) is reset when the car crosses the pit entry and starts
-counting down again when crossing the pit exit.
-- When serving a penalty, the stint timer will freeze and continue counting down after pit exit
-without resetting.
-- When a player's total remaining driving time is less than his current stint time, the total driving
-time will override the stint timer (!).
-When this happens, the stint timer's background turns red, indicating the final stint of the active
-driver.
-For events with mandatory pitstop rules, the features of driverStintTimeSec and
-maxTotalDrivingTime require each other to be set, if one of them is not set, an excessive safe value
-is set by the server automatically. In order to make sure your event runs as intended, ensure that driverStintTimeSec, maxTotalDrivingTime, and maxDriversCount values are all set respecting the
-race length and any additional overtime.
+기본 피트스톱 기능은 비공식 레이스에서 많은 조합과 설정 가능한 측면을 제공합니다. 하지만 모든 조합이 말이 되는 것은 아니므로, 모든 조합은 당신의 책임이 달려있습니다. 드라이버들이 좋은 레이스를 할 수 있도록 규칙을 설정하세요.
+단일 스프린트 시리즈 레이스 스타일은 물론 3 - 24시간 내구 레이스를 드라이버 스왑 있이/없이 가능해야 합니다. 물론 이것은 당신이 생각하는 시리즈와 특히 레이스 시간에 대해 제한하면 안되며, 가능한 연료 효율이 높은 자동차의 균형을 맞추기 위해 더 많은 공정성을 더하거나 특정 깊이있는 전략을 넣어주세요.
+Stint에 관하여 추가 노트:
+- Stint 타이머 (왼쪽 상단 모서리의 timing HUD)는 차량이 피트 엔트리를 지나 출발할 때 재설정 됩니다.
+- 패널티가 주어질때, Stint 타이머가 멈추며 피트 아웃후 리셋하지 않고 카운트 됩니다.
+- 선수의 남은 총 주행 시간이 현재 정지된 시간보다 적을 때, 총 주행 시간은 Stint 타이머에 덮여쓰여집니다 (!).
+이 경우 Stint 타이머의 배경은 빨간색으로 바뀌어 드라이버의 최종 stint를 나타냅니다.
+의무 피트 스톱이 있는 이벤트의 경우 driverStintTimeSec 및
+maxTotalDrivingTime은 서로 설정하도록 요구하는데, 둘 중 하나가 설정되지 않은 경우 과도하게 안전한 값이 서버에 자동적으로 정해집니다.이벤트가 의도한 대로 실행되도록 하려면 driverStintTimeSec, maxTotalDrivingTime 및 maxDriversCount 값이 경기 길이와 추가 초과타임을 고려하여 모두 설정되었는지 확인하십시오.
 
 ## I.1.5 assistRules.json
-Can be used to turn off certain assists for any car connected to this server. Beware: disabling assists
+이 서버에 연결된 모든 차량에 대한 특정 어시스트를 끄는 데 사용할 수 있다. Beware: disabling assists
 will effectively remove the effect, but there is no special handling how the assists look like in the
 menu. Without instructions, users will be surprised and confused – up to a point where they become
 a risk for other drivers. Whenever you think about disabling something, please be sure this is really
