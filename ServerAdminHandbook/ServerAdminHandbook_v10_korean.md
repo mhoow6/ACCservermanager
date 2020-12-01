@@ -1,4 +1,4 @@
-# I 기본 구성
+# I. 기본 구성
 
 ---
 
@@ -189,17 +189,8 @@ Stint에 관하여 추가 노트:
 maxTotalDrivingTime은 서로 설정하도록 요구하는데, 둘 중 하나가 설정되지 않은 경우 과도하게 안전한 값이 서버에 자동적으로 정해집니다.이벤트가 의도한 대로 실행되도록 하려면 driverStintTimeSec, maxTotalDrivingTime 및 maxDriversCount 값이 경기 길이와 추가 초과타임을 고려하여 모두 설정되었는지 확인하십시오.
 
 ## I.1.5 assistRules.json
-이 서버에 연결된 모든 차량에 대한 특정 어시스트를 끄는 데 사용할 수 있다. Beware: disabling assists
-will effectively remove the effect, but there is no special handling how the assists look like in the
-menu. Without instructions, users will be surprised and confused – up to a point where they become
-a risk for other drivers. Whenever you think about disabling something, please be sure this is really
-necessary and a risk in terms of fairness. It is out of question that the (quite strong) driving aids
-“Stability Control” and “Autosteer” may be candidates for league racing, but just turning off the
-ideal line will not improve anything for anyone (except that the one driver using it may become less
-safe and ruins the race of others). Even innocent elements like auto-engine start and pit limiter may
-just force users to re-map their wheels, and for example lose the ability to use their indicators in
-lapping traffic – again nobody is winning in this scenario.
-For (very) obvious reasons, public MP servers will ignore this json file and allow everything.
+이 서버에 연결된 모든 차량에 대한 특정 어시스트를 끄는 데 사용할 수 있다. 주의: 어시스트를 비활성화 하는 것은 효과적으로 제거할 수 있지만, 메뉴에 어시스트가 어떻게 보이는지에 대한 특별한 핸들링이 없어집니다. 지침이 없으면, 플레이어는 놀라거나 혼란스럽게 되고, 다른 드라이버들에게 위험이 될 수 있을지도 모릅니다. 무언가를 비활성화시키는 것에 생각할 때마다, 이것이 정말로 필요하고 공정성의 측면에서 위험이 있는지를 명심하세요. (정확한) 운전 보조 장치인 "Stablity Control(안정성 컨트롤)"과 "Autosteer(자동스티어링)"은 리그 레이싱의 후보일 수가 있다는 것은 논외이지만, idel line(레코드 라인)을 해제한다고 해서 그 어느 누구에게도 개선되는 것은 없을 것입니다(단, 레코드 라인을 사용하는 드라이버가 덜 안전해지고 다른 사람의 레이스를 망칠 수 있다는 점만을 제외합니다). AutoEngineStart(자동 엔진 시동) 및 Pit Limiter(피트 리미터)와 같은 영향이 적은 요소들조차 유저가 버튼 맵핑을 다시하도록 강요할 수 있습니다, 예를 들어 방향지시등을 사용할 수 있는 버튼을 해제해야 될 수 있으며, 이러한 시나리오에서는 아무도 이득을 볼 수 없습니다.
+이러한 분명한 이유로, Public Multiplayer 서버는 이 json 파일을 무시하고 모든 어시스트를 허용할 것입니다.
 
 ```python
 {
@@ -217,21 +208,21 @@ For (very) obvious reasons, public MP servers will ignore this json file and all
 
 |Property|Remarks|
 |---|---|
-|stabilityControlLevelMax|Set’s the maximum % of SC that can be used. In case a client has a higher SC set than allowed by the server, he will only run what is allowed (25%in this example). Obviously setting this property to 0 removes all SC, including mouse and keyboard users. The Stability Control is an artificial driving aid that allows the car to act out of the physics boundaries, and highly recommended to overcome input methods like Keyboards, Gamepads and Mouse steering. However, there is a built-in effect that makes the SC performance inferior, so in theory using (and relying) on SC is already more than enough penalty, and the way to improve performance is to practice driving without. Default: 100|
-|disableAutosteer|Disables the steering aid that is only available for gamepad controllers. Unlike SC, this works inside the physics and does not allow unrealistic driving behaviour – except that this is a very strong aid with superhuman feeling for grip and high reaction speed. There is a built-in penalty that should balance the driving performance in most cases, and give an incentive to learn not to use the driving aid. Default: 0|
-|disableAutoLights|Forces the equivalent assist option to “off”|
-|disableAutoWiper|Forces the equivalent assist option to “off”|
-|disableAutoEngineStart|Forces the equivalent assist option to “off”|
-|disableAutoPitLimiter|Forces the equivalent assist option to “off”|
-|disableAutoGear|Forces the equivalent assist option to “off”|
-|disableAutoClutch|Forces the equivalent assist option to “off”|
-|disableIdealLine|Forces the equivalent assist option to “off”|
+|stabilityControlLevelMax|사용할 수 있는 stablityControl(안정성 컨트롤)의 최대 % 설정. 클라이언트가 서버에서 허용하는 것보다 더 높은 stablityControl 세트를 가지고 있는 경우, 서버에서 "stabilityControlLevelMax"가 지정된 값만큼 됩니다(예시에서는 25%만 실행됨). 이 속성을 0으로 설정하면 마우스와 키보드 사용자를 포함해서 모든 stablityControl이 제거가 됩니다. stablityControl은 자동차가 물리학적 경계를 벗어나 동작할 수 있도록 하는 인공 운전 보조 장치로, 키보드, 게임패드, 마우스 조향 등의 입력방식을 하는 유저들이 도움을 받을 수 있도록하는 것이 적극 권장됩니다. 그러나 (자신이 하는)안정성 컨트롤 퍼포먼스를 저하시킬 수 있는 간접 효과가 있기 때문에 이론상으로는 stablityControl에 의존하는 것은 이미 충분한 패널티보다 더하고, 퍼포먼스를 향상시키는 방법은 stablityControl 없이 운전을 연습하는 것입니다. 기본값: 100|
+|disableAutosteer|게임 패드 컨트롤러에만 사용할 수 있는 스티어링 보조 장치를 비활성화하십시오. stablityControl와 달리, 물리학 안쪽에서 작동하며 비현실적인 운전을 허용하지 않습니다. 단, 이것은 그립감과 높은 반응 속도에 대한 초인적인 느낌을 가진 매우 강력한 보조 수단입니다. 대부분의 경우 주행 성능의 균형을 맞추고, 주행 보조 장치를 사용하지 않는 방법을 배울 수 있는 인센티브를 제공하는 기본형 페널티가 있다. 기본값: 0|
+|disableAutoLights|지원 옵션을 "꺼짐"으로 강제 적용|
+|disableAutoWiper|지원 옵션을 "꺼짐"으로 강제 적용|
+|disableAutoEngineStart|지원 옵션을 "꺼짐"으로 강제 적용|
+|disableAutoPitLimiter|지원 옵션을 "꺼짐"으로 강제 적용|
+|disableAutoGear|지원 옵션을 "꺼짐"으로 강제 적용|
+|disableAutoClutch|지원 옵션을 "꺼짐"으로 강제 적용|
+|disableIdealLine|지원 옵션을 "꺼짐"으로 강제 적용|
 ---
-# II Appendix
+# II. 부록
 ---
-## II.1 Track name list with slots
-Note: Public MP is limited to unique pit box OR 30 at max.
-|Value|Unique pit boxes|Private server slots|
+## II.1 슬롯이 있는 트랙 이름 목록
+Note: Public Multiplayer는 고유 피트 박스 또는 최대 30개로 제한됩니다.
+|값|고유 피트 박스|Private server 슬롯|
 |---|---|---|
 |monza|29|60|
 |zolder|34|50|
@@ -272,8 +263,8 @@ Note: Public MP is limited to unique pit box OR 30 at max.
 |zandvoort_2020|25|50|
 |imola_2020|30|50|
 ---
-## II.1 Car model list
-|Value|Car model|
+## II.1 차량 모델 리스트
+|값|차량 모델|
 |---|---|
 |0|Porsche 991 GT3 R|
 |1|Mercedes-AMG GT3|
@@ -313,12 +304,10 @@ Note: Public MP is limited to unique pit box OR 30 at max.
 |60|Mercedes-AMG GT4|
 |61|Porsche 718 Cayman GT4|
 ---
-# III. Session results
+# III. 세션 결과
 ---
-## III.1 Result files
-Using the “dumpLeaderboards”: 1 option, any session that is finished will write the final standing
-into a .json file in the “results” folder. Those files are generated with a filename in the pattern of
-“190806_193009_R.json”, including date, time and session type (P, Q, R).
+## III.1 결과 파일
+"dumpLeaderboards"를 1로 사용하여 완료된 세션은 "results" 폴더에 .json 파일에 최종 순위를 기록하게 됩니다. 이러한 파일은 날짜, 시간, 세션 유형(P, Q, R)을 포함하여 "190806_193009_R.json" 패턴의 파일 이름으로 생성됩니다.
 
 ```python
 {
@@ -419,20 +408,40 @@ into a .json file in the “results” folder. Those files are generated with a 
    ]
 }
 ```
+간단히 말해서, 루트 오브젝트에는 세션과 트랙 그 다음 리더보드 표현, 랩 전체 목록 및 세션에 대한 패널티 전체 목록이 포함되어 있습니다. 속성은 스스로 설명해야 하며, 의심과 질문이 있을 경우 망설이지말고 공식 지원 포럼에 참여해주세요.
+
 ---
-# IV Server admin commands
+# IV. 서버 어드민 명령
 
-While connected to a server (both as driver and spectator), users can elevate to “server admins” if
-they are aware of the password. That allows them to use a few special commands. Version 1.0 start
-with a limited set, which is expected to be extended in future versions.
-To elevate to admin, hit “enter” to use the chat and type
-**/admin adminPw123**
-A notification will tell you if successful. Additionally, you can setup an “Entry lists” entry for the
-admin(s) steamids.
+서버에 연결된 동안(드라이버와 관전 모두 사용 가능) 비밀번호를 알고 있는 경우, 사용자는 "서버 관리자"로 승격할 수 있다. 몇 가지 특별한 명령어를 사용할 수 있게 해준다. 버전 1.0은 한정된 세트로 시작했지만 향후 버전에서 연장될 것으로 예상됩니다.
+관리자로 승격하려면 "엔터"를 눌러 채팅을 사용하고 입력하십시오.
 
-Once elevated, you can use several commands:
-|Command|Parameters|Remarks|
+**_/admin adminPw123_**
+
+성공 여부 알림이 나올 것입니다. 또한 관리자에 대한 "엔트리 목록" 항목을 설정할 수 있습니다.
+
+승격된 후에는 여러 명령을 사용할 수 있습니다:
+|명령어|매개변수|비고|
 |---|---|---|
 |/next||Skips the current session|
 |/restart||Restarts the current session. Do not use this during the preparation phase|
-|/kick|car race<br>number|Kicks a user from the server, preventing him to join again until the race weekend restarts|
+|/kick|car race<br>number|Kicks a user from the server preventing him to join again until the race weekend restarts|
+|/ban|car race<br>number|Bans a user from the server, preventing him to join again until the server restarts|
+|/dq|car race<br>number|Instantly disqualifies the car, teleporting it to the pits with locked controls|
+|/clear|car race<br>number|Removes pending penalties (e.g. Drivethrough or Stop&Go) and DSQs.|
+|/clear_all||Removes all penalties and DSQs from all cars.|
+|/tp5|car race<br>number|Adds a 5s penalty to the given car. Can accumulate and will be added in the final result and json outputs.<br>Also comes with a /tp5c variant for special message “for causing a collision”|
+|/tp15|car race<br>number|Adds a 15s penalty to the given car. Can accumulate and will be added in the final result and json outputs.<br>Also comes with a /tp15c variant for special message “for causing a collision”|
+|/dt|car race<br>number|Assigns a drivethrough penalty to the given car. As other DTs, it has to be served within 3 laps or the car will become disqualified. In case of a race finish within those 3 laps, the DT will be transformed to a 80s time penalty.<br>Also comes with a /dtc variant for special message “for causing a collision”.|
+|/sg10|car race<br>number|Assigns a Stop&Go 10s penalty to the given car.|
+|/sg20|car race<br>number|Assigns a Stop&Go 20s penalty to the given car.|
+|/sg30|car race<br>number|Assigns a Stop&Go 30s penalty to the given car.|
+|/manual entrylist||Manually creates an entry list json file containing the drivers connected in this moment (see also Settings -> dumpEntryList)|
+|/debug formation||Prints information about the current cars and their states. Useful information to report bugs during the formation lap|
+|/debug bandwidth||Let’s the server console print the current bandwidth relevant data for both TCP and UDP traffic. Type again to turn it off.|
+|/debug qos||Let’s the server console print the current network connection quality data. Type again to turn it off.|
+|/ballast|car race<br>number<br>kg|Sets the car’s ballast (in kg) to what you defined. This overrides any other ballast this car has been assigned. Range is 0 to 100.<br>Example: /ballast 113 15<br>will give car #113 15kg of ballast|
+|/restrictor|car race<br>number<br>% restrictor|Sets the car’s restrictor (in %) to what you defined. This overrides any other restrictor this car has been assigned. Range is 0 to 20.<br>Example: /restrictor 113 7<br>will give car #113 7% restrictor, resulting in roughly 7% less hp at max rpm.|
+<br>
+Notes:
+- 레이스 제어 명령 /tp5, /tp15, /dt에는 각각 다른 variant(/tp5c, /tp15c, /dc)이 있으며, 이 경우 메시지가 "충돌 유발로 인해 발생"으로 심화되게 변경됩니다.
