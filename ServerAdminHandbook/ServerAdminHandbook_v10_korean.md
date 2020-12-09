@@ -131,6 +131,7 @@ The configuration is split into different files, which represent different level
 |metaData|결과 출력으로 전송될 사용자 정의 문자열|
 |simracerWeatherConditions|Experimental/not supported: 1로 설정하면 최대 비/습도가 최대 값의 약 2/3로 제한되어 중우와 강우 사이로 변환됩니다. 뇌우를 피하기 위해 매우 낮은 cloudLevel과 weatherRandomness 값을 실행해야 한다고 느끼는 경우 유용할 수 있지만, 높은 레벨(0.4+ clouds과 5+ randomness을 결합)은 여전히 심각한 상태를 초래할 수 있습니다.|
 |isFixedConditionQualification|Experimental/not supported: 1로 설정하면 서버는 비, 구름, 온도, 빗줄기의 레벨을 그대로 사용하고 설정된 모든 것이 변하지 않도록 됩니다. 주간 전환은 여전히 시작적으로 발생하지만, 온도나 도로 습윤에는 영향을 미치지 않습니다. 또한 rubber/grip은 항상 동일합니다. 이것은 사설 리그 예선 서버에만 사용되도록 의도되었습니다.|
+
 세션 개체는 다음 배열로 표현됩니다:
 |Property|Remarks|
 |--|--|
@@ -206,7 +207,7 @@ maxTotalDrivingTime은 서로 설정하도록 요구하는데, 둘 중 하나가
 }
 ```
 
-|Property|Remarks|
+|속성|비고|
 |---|---|
 |stabilityControlLevelMax|사용할 수 있는 stablityControl(안정성 컨트롤)의 최대 % 설정. 클라이언트가 서버에서 허용하는 것보다 더 높은 stablityControl 세트를 가지고 있는 경우, 서버에서 "stabilityControlLevelMax"가 지정된 값만큼 됩니다(예시에서는 25%만 실행됨). 이 속성을 0으로 설정하면 마우스와 키보드 사용자를 포함해서 모든 stablityControl이 제거가 됩니다. stablityControl은 자동차가 물리학적 경계를 벗어나 동작할 수 있도록 하는 인공 운전 보조 장치로, 키보드, 게임패드, 마우스 조향 등의 입력방식을 하는 유저들이 도움을 받을 수 있도록하는 것이 적극 권장됩니다. 그러나 (자신이 하는)안정성 컨트롤 퍼포먼스를 저하시킬 수 있는 간접 효과가 있기 때문에 이론상으로는 stablityControl에 의존하는 것은 이미 충분한 패널티보다 더하고, 퍼포먼스를 향상시키는 방법은 stablityControl 없이 운전을 연습하는 것입니다. 기본값: 100|
 |disableAutosteer|게임 패드 컨트롤러에만 사용할 수 있는 스티어링 보조 장치를 비활성화하십시오. stablityControl와 달리, 물리학 안쪽에서 작동하며 비현실적인 운전을 허용하지 않습니다. 단, 이것은 그립감과 높은 반응 속도에 대한 초인적인 느낌을 가진 매우 강력한 보조 수단입니다. 대부분의 경우 주행 성능의 균형을 맞추고, 주행 보조 장치를 사용하지 않는 방법을 배울 수 있는 인센티브를 제공하는 기본형 페널티가 있다. 기본값: 0|
