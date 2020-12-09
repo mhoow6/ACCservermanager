@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>아세토코르사 컴패티치오네 서버매니저</string>
+   <string>ACC Simple ServerManager</string>
   </property>
   <property name="windowIcon">
    <iconset>
@@ -172,6 +172,9 @@
      <property name="alignment">
       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
      </property>
+     <property name="maximum">
+      <number>3</number>
+     </property>
     </widget>
     <widget class="QLabel" name="label_trackMedalsRequirement">
      <property name="geometry">
@@ -213,6 +216,9 @@
      </property>
      <property name="alignment">
       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+     </property>
+     <property name="minimum">
+      <number>-1</number>
      </property>
     </widget>
     <widget class="QLabel" name="label_isRaceLocked">
@@ -329,7 +335,7 @@
       <x>410</x>
       <y>10</y>
       <width>381</width>
-      <height>581</height>
+      <height>356</height>
      </rect>
     </property>
     <property name="title">
@@ -358,7 +364,7 @@
       </rect>
      </property>
     </widget>
-    <widget class="QLabel" name="label_track_2">
+    <widget class="QLabel" name="label_car">
      <property name="geometry">
       <rect>
        <x>10</x>
@@ -371,7 +377,7 @@
       <string>차량</string>
      </property>
     </widget>
-    <widget class="QComboBox" name="comboBox_track_2">
+    <widget class="QComboBox" name="comboBox_car">
      <property name="geometry">
       <rect>
        <x>50</x>
@@ -398,7 +404,7 @@
        <rect>
         <x>10</x>
         <y>20</y>
-        <width>100</width>
+        <width>110</width>
         <height>20</height>
        </rect>
       </property>
@@ -409,9 +415,9 @@
      <widget class="QLabel" name="label_sessionOverTimeSeconds">
       <property name="geometry">
        <rect>
-        <x>210</x>
+        <x>190</x>
         <y>20</y>
-        <width>100</width>
+        <width>110</width>
         <height>20</height>
        </rect>
       </property>
@@ -438,7 +444,7 @@
      <widget class="QSpinBox" name="spinBox_preRaceWaitingTimeSeconds">
       <property name="geometry">
        <rect>
-        <x>110</x>
+        <x>130</x>
         <y>20</y>
         <width>42</width>
         <height>20</height>
@@ -458,7 +464,7 @@
        <x>10</x>
        <y>130</y>
        <width>361</width>
-       <height>141</height>
+       <height>211</height>
       </rect>
      </property>
      <property name="title">
@@ -609,26 +615,13 @@
       </property>
      </widget>
     </widget>
-    <widget class="QGroupBox" name="groupBox_session">
-     <property name="geometry">
-      <rect>
-       <x>10</x>
-       <y>280</y>
-       <width>361</width>
-       <height>281</height>
-      </rect>
-     </property>
-     <property name="title">
-      <string>세션</string>
-     </property>
-    </widget>
    </widget>
    <widget class="QPushButton" name="pushButton_start">
     <property name="geometry">
      <rect>
-      <x>10</x>
-      <y>510</y>
-      <width>391</width>
+      <x>540</x>
+      <y>540</y>
+      <width>251</width>
       <height>51</height>
      </rect>
     </property>
@@ -636,43 +629,774 @@
      <string>서버 시작</string>
     </property>
    </widget>
-   <widget class="QGroupBox" name="groupBox_rule">
+   <widget class="QGroupBox" name="groupBox_assist">
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>250</y>
+      <y>245</y>
       <width>391</width>
-      <height>251</height>
+      <height>121</height>
      </rect>
     </property>
     <property name="title">
-     <string>규칙 설정</string>
+     <string>어시스트 설정</string>
     </property>
-    <widget class="QGroupBox" name="groupBox_pitstop">
+    <widget class="QLabel" name="label_disableIdealLine">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>15</y>
+       <width>70</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>레코드 라인</string>
+     </property>
+    </widget>
+    <widget class="QCheckBox" name="checkBox_disableIdealLine">
+     <property name="geometry">
+      <rect>
+       <x>150</x>
+       <y>15</y>
+       <width>20</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_disableAutosteer">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>35</y>
+       <width>110</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>스티어링 보조 장치</string>
+     </property>
+    </widget>
+    <widget class="QCheckBox" name="checkBox_disableAutosteer">
+     <property name="geometry">
+      <rect>
+       <x>150</x>
+       <y>35</y>
+       <width>20</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_disableAutoLights">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>54</y>
+       <width>80</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>자동 라이트</string>
+     </property>
+    </widget>
+    <widget class="QCheckBox" name="checkBox_disableAutoLights">
+     <property name="geometry">
+      <rect>
+       <x>150</x>
+       <y>54</y>
+       <width>20</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_disableAutoWiper">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>75</y>
+       <width>80</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>자동 와이퍼</string>
+     </property>
+    </widget>
+    <widget class="QCheckBox" name="checkBox_disableAutoWiper">
+     <property name="geometry">
+      <rect>
+       <x>150</x>
+       <y>75</y>
+       <width>20</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QCheckBox" name="checkBox_disableAutoEngineStart">
+     <property name="geometry">
+      <rect>
+       <x>370</x>
+       <y>15</y>
+       <width>20</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_disableAutoEngineStart">
+     <property name="geometry">
+      <rect>
+       <x>230</x>
+       <y>15</y>
+       <width>90</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>자동 엔진스타트</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_disableAutoPitLimiter">
+     <property name="geometry">
+      <rect>
+       <x>230</x>
+       <y>35</y>
+       <width>90</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>자동 피트 리미터</string>
+     </property>
+    </widget>
+    <widget class="QCheckBox" name="checkBox_disableAutoPitLimiter">
+     <property name="geometry">
+      <rect>
+       <x>370</x>
+       <y>35</y>
+       <width>20</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QCheckBox" name="checkBox_disableAutoGear">
+     <property name="geometry">
+      <rect>
+       <x>370</x>
+       <y>54</y>
+       <width>20</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_disableAutoGear">
+     <property name="geometry">
+      <rect>
+       <x>230</x>
+       <y>54</y>
+       <width>90</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>자동 변속</string>
+     </property>
+    </widget>
+    <widget class="QCheckBox" name="checkBox_disableAutoClutch">
+     <property name="geometry">
+      <rect>
+       <x>370</x>
+       <y>75</y>
+       <width>20</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_disableAutoClutch">
+     <property name="geometry">
+      <rect>
+       <x>230</x>
+       <y>75</y>
+       <width>90</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>자동 클러치</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_stabilityControlLevelMax">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>97</y>
+       <width>110</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>안정성 컨트롤 레벨</string>
+     </property>
+    </widget>
+    <widget class="QSlider" name="horizontalSlider_stabilityControlLevelMax">
+     <property name="geometry">
+      <rect>
+       <x>151</x>
+       <y>97</y>
+       <width>231</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="maximum">
+      <number>100</number>
+     </property>
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QGroupBox" name="groupBox_session">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>370</y>
+      <width>781</width>
+      <height>161</height>
+     </rect>
+    </property>
+    <property name="title">
+     <string>세션</string>
+    </property>
+    <widget class="QGroupBox" name="groupBox_practice">
      <property name="geometry">
       <rect>
        <x>10</x>
        <y>20</y>
-       <width>171</width>
-       <height>221</height>
+       <width>241</width>
+       <height>131</height>
       </rect>
      </property>
      <property name="title">
-      <string>피트스톱</string>
+      <string>연습</string>
      </property>
+     <widget class="QLabel" name="label_practice_hourOfDay">
+      <property name="geometry">
+       <rect>
+        <x>50</x>
+        <y>20</y>
+        <width>56</width>
+        <height>12</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>시작 시간</string>
+      </property>
+     </widget>
+     <widget class="QSpinBox" name="spinBox_practice_hourOfDay">
+      <property name="geometry">
+       <rect>
+        <x>120</x>
+        <y>15</y>
+        <width>70</width>
+        <height>22</height>
+       </rect>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_practice_timeMultiplier">
+      <property name="geometry">
+       <rect>
+        <x>50</x>
+        <y>45</y>
+        <width>56</width>
+        <height>12</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>시간 배율</string>
+      </property>
+     </widget>
+     <widget class="QSpinBox" name="spinBox_practice_timeMultiplier">
+      <property name="geometry">
+       <rect>
+        <x>120</x>
+        <y>40</y>
+        <width>70</width>
+        <height>22</height>
+       </rect>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_practice_sessionDurationMinutes">
+      <property name="geometry">
+       <rect>
+        <x>50</x>
+        <y>70</y>
+        <width>56</width>
+        <height>12</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>시작 시간</string>
+      </property>
+     </widget>
+     <widget class="QSpinBox" name="spinBox_practice_sessionDurationMinutes">
+      <property name="geometry">
+       <rect>
+        <x>120</x>
+        <y>65</y>
+        <width>70</width>
+        <height>22</height>
+       </rect>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_practice_friday">
+      <property name="geometry">
+       <rect>
+        <x>30</x>
+        <y>100</y>
+        <width>20</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>금</string>
+      </property>
+     </widget>
+     <widget class="QRadioButton" name="radioButton_practice_friday">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>100</y>
+        <width>20</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_practice_saturday">
+      <property name="geometry">
+       <rect>
+        <x>120</x>
+        <y>100</y>
+        <width>20</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>토</string>
+      </property>
+     </widget>
+     <widget class="QRadioButton" name="radioButton_practice_saturday">
+      <property name="geometry">
+       <rect>
+        <x>100</x>
+        <y>100</y>
+        <width>20</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_practice_sunday">
+      <property name="geometry">
+       <rect>
+        <x>210</x>
+        <y>100</y>
+        <width>20</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>일</string>
+      </property>
+     </widget>
+     <widget class="QRadioButton" name="radioButton_practice_sunday">
+      <property name="geometry">
+       <rect>
+        <x>190</x>
+        <y>100</y>
+        <width>20</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
     </widget>
-    <widget class="QGroupBox" name="groupBox_pitstop_2">
+    <widget class="QGroupBox" name="groupBox_qualify">
      <property name="geometry">
       <rect>
-       <x>190</x>
+       <x>270</x>
        <y>20</y>
-       <width>191</width>
-       <height>221</height>
+       <width>241</width>
+       <height>131</height>
       </rect>
      </property>
      <property name="title">
-      <string>어시스트</string>
+      <string>예선</string>
      </property>
+     <widget class="QLabel" name="label_qualify_hourOfDay">
+      <property name="geometry">
+       <rect>
+        <x>50</x>
+        <y>20</y>
+        <width>56</width>
+        <height>12</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>시작 시간</string>
+      </property>
+     </widget>
+     <widget class="QSpinBox" name="spinBox_qualify_hourOfDay">
+      <property name="geometry">
+       <rect>
+        <x>120</x>
+        <y>15</y>
+        <width>70</width>
+        <height>22</height>
+       </rect>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_qualify_timeMultiplier">
+      <property name="geometry">
+       <rect>
+        <x>50</x>
+        <y>45</y>
+        <width>56</width>
+        <height>12</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>시간 배율</string>
+      </property>
+     </widget>
+     <widget class="QSpinBox" name="spinBox_qualify_timeMultiplier">
+      <property name="geometry">
+       <rect>
+        <x>120</x>
+        <y>40</y>
+        <width>70</width>
+        <height>22</height>
+       </rect>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_qualify_sessionDurationMinutes">
+      <property name="geometry">
+       <rect>
+        <x>50</x>
+        <y>70</y>
+        <width>56</width>
+        <height>12</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>시작 시간</string>
+      </property>
+     </widget>
+     <widget class="QSpinBox" name="spinBox_qualify_sessionDurationMinutes">
+      <property name="geometry">
+       <rect>
+        <x>120</x>
+        <y>65</y>
+        <width>70</width>
+        <height>22</height>
+       </rect>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_qualify_friday">
+      <property name="geometry">
+       <rect>
+        <x>30</x>
+        <y>100</y>
+        <width>20</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>금</string>
+      </property>
+     </widget>
+     <widget class="QRadioButton" name="radioButton_qualify_friday">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>100</y>
+        <width>20</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_qualify_saturday">
+      <property name="geometry">
+       <rect>
+        <x>120</x>
+        <y>100</y>
+        <width>20</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>토</string>
+      </property>
+     </widget>
+     <widget class="QRadioButton" name="radioButton_qualify_saturday">
+      <property name="geometry">
+       <rect>
+        <x>100</x>
+        <y>100</y>
+        <width>20</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_qualify_sunday">
+      <property name="geometry">
+       <rect>
+        <x>210</x>
+        <y>100</y>
+        <width>20</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>일</string>
+      </property>
+     </widget>
+     <widget class="QRadioButton" name="radioButton_qualify_sunday">
+      <property name="geometry">
+       <rect>
+        <x>190</x>
+        <y>100</y>
+        <width>20</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+    </widget>
+    <widget class="QGroupBox" name="groupBox_race">
+     <property name="geometry">
+      <rect>
+       <x>530</x>
+       <y>20</y>
+       <width>241</width>
+       <height>131</height>
+      </rect>
+     </property>
+     <property name="title">
+      <string>레이스</string>
+     </property>
+     <widget class="QLabel" name="label_race_hourOfDay">
+      <property name="geometry">
+       <rect>
+        <x>50</x>
+        <y>20</y>
+        <width>56</width>
+        <height>12</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>시작 시간</string>
+      </property>
+     </widget>
+     <widget class="QSpinBox" name="spinBox_race_hourOfDay">
+      <property name="geometry">
+       <rect>
+        <x>120</x>
+        <y>15</y>
+        <width>70</width>
+        <height>22</height>
+       </rect>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_race_timeMultiplier">
+      <property name="geometry">
+       <rect>
+        <x>50</x>
+        <y>45</y>
+        <width>56</width>
+        <height>12</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>시간 배율</string>
+      </property>
+     </widget>
+     <widget class="QSpinBox" name="spinBox_race_timeMultiplier">
+      <property name="geometry">
+       <rect>
+        <x>120</x>
+        <y>40</y>
+        <width>70</width>
+        <height>22</height>
+       </rect>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_race_sessionDurationMinutes">
+      <property name="geometry">
+       <rect>
+        <x>50</x>
+        <y>70</y>
+        <width>56</width>
+        <height>12</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>시작 시간</string>
+      </property>
+     </widget>
+     <widget class="QSpinBox" name="spinBox_race_sessionDurationMinutes">
+      <property name="geometry">
+       <rect>
+        <x>120</x>
+        <y>65</y>
+        <width>70</width>
+        <height>22</height>
+       </rect>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_race_friday">
+      <property name="geometry">
+       <rect>
+        <x>30</x>
+        <y>100</y>
+        <width>20</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>금</string>
+      </property>
+     </widget>
+     <widget class="QRadioButton" name="radioButton_race_friday">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>100</y>
+        <width>20</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_race_saturday">
+      <property name="geometry">
+       <rect>
+        <x>120</x>
+        <y>100</y>
+        <width>20</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>토</string>
+      </property>
+     </widget>
+     <widget class="QRadioButton" name="radioButton_race_saturday">
+      <property name="geometry">
+       <rect>
+        <x>100</x>
+        <y>100</y>
+        <width>20</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_race_sunday">
+      <property name="geometry">
+       <rect>
+        <x>210</x>
+        <y>100</y>
+        <width>20</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>일</string>
+      </property>
+     </widget>
+     <widget class="QRadioButton" name="radioButton_race_sunday">
+      <property name="geometry">
+       <rect>
+        <x>190</x>
+        <y>100</y>
+        <width>20</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
     </widget>
    </widget>
   </widget>
