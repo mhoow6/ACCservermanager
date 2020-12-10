@@ -440,6 +440,9 @@
       <property name="alignment">
        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
       </property>
+      <property name="maximum">
+       <number>180</number>
+      </property>
      </widget>
      <widget class="QSpinBox" name="spinBox_preRaceWaitingTimeSeconds">
       <property name="geometry">
@@ -455,6 +458,12 @@
       </property>
       <property name="alignment">
        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+      </property>
+      <property name="minimum">
+       <number>30</number>
+      </property>
+      <property name="maximum">
+       <number>120</number>
       </property>
      </widget>
     </widget>
@@ -492,6 +501,18 @@
         <height>23</height>
        </rect>
       </property>
+      <property name="font">
+       <font>
+        <weight>50</weight>
+        <bold>false</bold>
+       </font>
+      </property>
+      <property name="segmentStyle">
+       <enum>QLCDNumber::Filled</enum>
+      </property>
+      <property name="value" stdset="0">
+       <double>0.000000000000000</double>
+      </property>
      </widget>
      <widget class="QSlider" name="horizontalSlider_ambientTemp">
       <property name="geometry">
@@ -502,90 +523,30 @@
         <height>22</height>
        </rect>
       </property>
-      <property name="orientation">
-       <enum>Qt::Horizontal</enum>
+      <property name="minimum">
+       <number>-10</number>
       </property>
-     </widget>
-     <widget class="QLCDNumber" name="lcdNumber_cloudLevel">
-      <property name="geometry">
-       <rect>
-        <x>290</x>
-        <y>50</y>
-        <width>64</width>
-        <height>23</height>
-       </rect>
-      </property>
-     </widget>
-     <widget class="QSlider" name="horizontalSlider_cloudLevel">
-      <property name="geometry">
-       <rect>
-        <x>100</x>
-        <y>50</y>
-        <width>181</width>
-        <height>22</height>
-       </rect>
+      <property name="maximum">
+       <number>30</number>
       </property>
       <property name="orientation">
        <enum>Qt::Horizontal</enum>
-      </property>
-     </widget>
-     <widget class="QLabel" name="label_cloudLevel">
-      <property name="geometry">
-       <rect>
-        <x>10</x>
-        <y>50</y>
-        <width>100</width>
-        <height>20</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>구름이 낀 정도 </string>
-      </property>
-     </widget>
-     <widget class="QLabel" name="label_rain">
-      <property name="geometry">
-       <rect>
-        <x>10</x>
-        <y>80</y>
-        <width>100</width>
-        <height>20</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>강수량 </string>
-      </property>
-     </widget>
-     <widget class="QSlider" name="horizontalSlider_rain">
-      <property name="geometry">
-       <rect>
-        <x>100</x>
-        <y>80</y>
-        <width>181</width>
-        <height>22</height>
-       </rect>
-      </property>
-      <property name="orientation">
-       <enum>Qt::Horizontal</enum>
-      </property>
-     </widget>
-     <widget class="QLCDNumber" name="lcdNumber_rain">
-      <property name="geometry">
-       <rect>
-        <x>290</x>
-        <y>80</y>
-        <width>64</width>
-        <height>23</height>
-       </rect>
       </property>
      </widget>
      <widget class="QSlider" name="horizontalSlider_weatherRandomness">
       <property name="geometry">
        <rect>
         <x>100</x>
-        <y>110</y>
+        <y>50</y>
         <width>181</width>
         <height>22</height>
        </rect>
+      </property>
+      <property name="maximum">
+       <number>7</number>
+      </property>
+      <property name="pageStep">
+       <number>2</number>
       </property>
       <property name="orientation">
        <enum>Qt::Horizontal</enum>
@@ -595,7 +556,7 @@
       <property name="geometry">
        <rect>
         <x>10</x>
-        <y>110</y>
+        <y>50</y>
         <width>100</width>
         <height>20</height>
        </rect>
@@ -608,10 +569,86 @@
       <property name="geometry">
        <rect>
         <x>290</x>
-        <y>110</y>
+        <y>50</y>
         <width>64</width>
         <height>23</height>
        </rect>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_rain">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>110</y>
+        <width>100</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>강수량 </string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_cloudLevel">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>80</y>
+        <width>100</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>구름이 낀 정도 </string>
+      </property>
+     </widget>
+     <widget class="QDoubleSpinBox" name="doubleSpinBox_cloudLevel">
+      <property name="geometry">
+       <rect>
+        <x>100</x>
+        <y>80</y>
+        <width>60</width>
+        <height>22</height>
+       </rect>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+      </property>
+      <property name="readOnly">
+       <bool>false</bool>
+      </property>
+      <property name="decimals">
+       <number>1</number>
+      </property>
+      <property name="maximum">
+       <double>1.000000000000000</double>
+      </property>
+      <property name="singleStep">
+       <double>0.100000000000000</double>
+      </property>
+     </widget>
+     <widget class="QDoubleSpinBox" name="doubleSpinBox_rain">
+      <property name="geometry">
+       <rect>
+        <x>100</x>
+        <y>110</y>
+        <width>60</width>
+        <height>22</height>
+       </rect>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+      </property>
+      <property name="readOnly">
+       <bool>false</bool>
+      </property>
+      <property name="decimals">
+       <number>1</number>
+      </property>
+      <property name="maximum">
+       <double>1.000000000000000</double>
+      </property>
+      <property name="singleStep">
+       <double>0.100000000000000</double>
       </property>
      </widget>
     </widget>
@@ -903,6 +940,12 @@
      <property name="title">
       <string>연습</string>
      </property>
+     <property name="checkable">
+      <bool>true</bool>
+     </property>
+     <property name="checked">
+      <bool>false</bool>
+     </property>
      <widget class="QLabel" name="label_practice_hourOfDay">
       <property name="geometry">
        <rect>
@@ -965,7 +1008,7 @@
        </rect>
       </property>
       <property name="text">
-       <string>시작 시간</string>
+       <string>경기 시간</string>
       </property>
      </widget>
      <widget class="QSpinBox" name="spinBox_practice_sessionDurationMinutes">
@@ -1072,6 +1115,12 @@
      <property name="title">
       <string>예선</string>
      </property>
+     <property name="checkable">
+      <bool>true</bool>
+     </property>
+     <property name="checked">
+      <bool>false</bool>
+     </property>
      <widget class="QLabel" name="label_qualify_hourOfDay">
       <property name="geometry">
        <rect>
@@ -1134,7 +1183,7 @@
        </rect>
       </property>
       <property name="text">
-       <string>시작 시간</string>
+       <string>경기 시간</string>
       </property>
      </widget>
      <widget class="QSpinBox" name="spinBox_qualify_sessionDurationMinutes">
@@ -1241,6 +1290,12 @@
      <property name="title">
       <string>레이스</string>
      </property>
+     <property name="checkable">
+      <bool>true</bool>
+     </property>
+     <property name="checked">
+      <bool>false</bool>
+     </property>
      <widget class="QLabel" name="label_race_hourOfDay">
       <property name="geometry">
        <rect>
@@ -1303,7 +1358,7 @@
        </rect>
       </property>
       <property name="text">
-       <string>시작 시간</string>
+       <string>경기 시간</string>
       </property>
      </widget>
      <widget class="QSpinBox" name="spinBox_race_sessionDurationMinutes">
@@ -1402,5 +1457,38 @@
   </widget>
  </widget>
  <resources/>
- <connections/>
+ <connections>
+  <connection>
+   <sender>horizontalSlider_ambientTemp</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>lcdNumber_ambientTemp</receiver>
+   <slot>display(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>603</x>
+     <y>173</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>752</x>
+     <y>168</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>horizontalSlider_weatherRandomness</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>lcdNumber_weatherRandomness</receiver>
+   <slot>display(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>609</x>
+     <y>198</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>737</x>
+     <y>204</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
 </ui>
