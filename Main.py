@@ -23,6 +23,20 @@ class Main(QMainWindow, Ui_MainWindow):
 
     # Initalize the Graphic Interface
     def initUI(self):
+        self.tracklist = [
+            'monza', 'zolder', 'brands_hatch', 'sliverstone', 'paul_ricard', 'misano', 'spa', 'nurburgring',
+            'barcelona', 'hungaroring', 'zandvoort', 'monza_2019', 'zolder_2019', 'brands_hatch_2019',
+            'silverstone_2019', 'paul_ricard_2019', 'misano_2019', 'spa_2019', 'nurburgring_2019', 'barcelona_2019',
+            'hungaroring_2019', 'zandvoort_2019', 'kyalami_2019', 'mount_panorama_2019', 'suzuka_2019',
+            'laguna_seca_2019',
+            'monza_2020', 'zolder_2020', 'brands_hatch_2020', 'silverstone_2020', 'paul_ricard_2020', 'misano_2020',
+            'spa_2020',
+            'nurburgring_2020', 'barcelona_2020', 'hungaroring_2020', 'zandvoort_2020', 'imola_2020'
+        ]
+        self.carlist = ["FreeForAll", "GT3", "GT4", "Cup", "ST"]
+
+        self.comboBox_track.addItems(self.tracklist)
+        self.comboBox_car.addItems(self.carlist)
 
         try:
             with open("cfg/settings.json", encoding='UTF-16') as settings:
@@ -34,7 +48,7 @@ class Main(QMainWindow, Ui_MainWindow):
                 json.dump(settings, io, indent="\t")
                 print(io.getvalue())
 
-                # setText from json file
+                # set default from json file
                 self.lineEdit_serverName.setText(settings['serverName'])
                 self.lineEdit_password.setText(settings['password'])
                 self.lineEdit_adminPassword.setText(settings['adminPassword'])
@@ -44,6 +58,8 @@ class Main(QMainWindow, Ui_MainWindow):
                 self.checkBox_dumpLeaderboards.setChecked(settings['dumpLeaderboards'])
                 self.checkBox_isRaceLocked.setChecked(settings['isRaceLocked'])
                 self.checkBox_allowAutoDQ.setChecked(settings['allowAutoDQ'])
+                self.comboBox_car.setCurrentText(settings['carGroup'])
+
 
         except FileNotFoundError:
             print("cfg/settings.json is not found")
@@ -58,7 +74,7 @@ class Main(QMainWindow, Ui_MainWindow):
                 json.dump(configuration, io, indent="\t")
                 print(io.getvalue())
 
-                # setText from json file
+                # set default from json file
                 self.spinBox_maxConnections.setValue(configuration['maxConnections'])
 
         except FileNotFoundError:
@@ -74,7 +90,7 @@ class Main(QMainWindow, Ui_MainWindow):
                 json.dump(assist, io, indent="\t")
                 print(io.getvalue())
 
-                # setText from json file
+                # set default from json file
                 self.checkBox_disableIdealLine.setChecked(assist['disableIdealLine'])
                 self.checkBox_disableAutosteer.setChecked(assist['disableAutosteer'])
                 self.checkBox_disableAutoLights.setChecked(assist['disableAutoLights'])
@@ -87,6 +103,104 @@ class Main(QMainWindow, Ui_MainWindow):
 
         except FileNotFoundError:
             print("cfg/assistRules.json is not found")
+
+        try:
+            with open("cfg/event.json", encoding='UTF-16') as event:
+                # load json file
+                event = json.load(event)
+
+                # looking json file
+                io = StringIO()
+                json.dump(event, io, indent="\t")
+                print(io.getvalue())
+
+                # set default from json file
+                self.comboBox_track.setCurrentText(event['track'])
+                self.spinBox_preRaceWaitingTimeSeconds.setValue(event['preRaceWaitingTimeSeconds'])
+                self.spinBox_sessionOverTimeSeconds.setValue(event['sessionOverTimeSeconds'])
+                self.horizontalSlider_ambientTemp.setValue(event['ambientTemp'])
+                self.lcdNumber_ambientTemp.display(event['ambientTemp'])
+                self.doubleSpinBox_cloudLevel.setValue(event['cloudLevel'])
+                self.doubleSpinBox_rain.setValue(event['rain'])
+
+                # set Session's value
+                def initSessison(index):
+                    if event['sessions'][index]['sessionType'] == "P":
+                        self.spinBox_practice_hourOfDay.setValue(event['sessions'][index]['hourOfDay'])
+                        self.spinBox_practice_timeMultiplier.setValue(event['sessions'][index]['timeMultiplier'])
+                        self.spinBox_practice_sessionDurationMinutes.setValue(
+                            event['sessions'][index]['sessionDurationMinutes'])
+
+                    if event['sessions'][index]['sessionType'] == "Q":
+                        self.spinBox_qualify_hourOfDay.setValue(event['sessions'][index]['hourOfDay'])
+                        self.spinBox_qualify_timeMultiplier.setValue(event['sessions'][index]['timeMultiplier'])
+                        self.spinBox_qualify_sessionDurationMinutes.setValue(
+                            event['sessions'][index]['sessionDurationMinutes'])
+
+                    if event['sessions'][index]['sessionType'] == "R":
+                        self.spinBox_race_hourOfDay.setValue(event['sessions'][index]['hourOfDay'])
+                        self.spinBox_race_timeMultiplier.setValue(event['sessions'][index]['timeMultiplier'])
+                        self.spinBox_race_sessionDurationMinutes.setValue(
+                            event['sessions'][index]['sessionDurationMinutes'])
+
+                # set radioButton's value
+                def dayOfWeekend(index, day):
+                    if event['sessions'][index]['sessionType'] == "P":
+                        return {
+                            1: self.radioButton_practice_friday.setChecked(True),
+                            2: self.radioButton_practice_saturday.setChecked(True),
+                            3: self.radioButton_practice_sunday.setChecked(True)
+                        }[day]
+
+                    if event['sessions'][index]['sessionType'] == "Q":
+                        return {
+                            1: self.radioButton_qualify_friday.setChecked(True),
+                            2: self.radioButton_qualify_saturday.setChecked(True),
+                            3: self.radioButton_qualify_sunday.setChecked(True)
+                        }[day]
+
+                    if event['sessions'][index]['sessionType'] == "R":
+                        return {
+                            1: self.radioButton_race_friday.setChecked(True),
+                            2: self.radioButton_race_saturday.setChecked(True),
+                            3: self.radioButton_race_sunday.setChecked(True)
+                        }[day]
+
+                # set value by session type
+                if event['sessions'][0]['sessionType'] == "P":
+                    self.groupBox_practice.setChecked(True)
+                    initSessison(0)
+                    dayOfWeekend(0, event['sessions'][0]['dayOfWeekend'])
+
+                    if event['sessions'][1]['sessionType'] == "Q":
+                        self.groupBox_qualify.setChecked(True)
+                        initSessison(1)
+                        dayOfWeekend(1, event['sessions'][1]['dayOfWeekend'])
+
+                    elif event['sessions'][1]['sessionType'] == "R":
+                        self.groupBox_race.setChecked(True)
+                        initSessison(1)
+                        dayOfWeekend(1, event['sessions'][1]['dayOfWeekend'])
+
+                        if event['sessions'][2]['sessionType'] == "R":
+                            self.groupBox_race.setChecked(True)
+                            initSessison(2)
+                            dayOfWeekend(2, event['sessions'][2]['dayOfWeekend'])
+
+                elif event['sessions'][0]['sessionType'] == "Q":
+                    self.groupBox_qualify.setChecked(True)
+                    initSessison(0)
+                    dayOfWeekend(0, event['sessions'][0]['dayOfWeekend'])
+
+                    if event['sessions'][1]['sessionType'] == "R":
+                        self.groupBox_race.setChecked(True)
+                        initSessison(1)
+                        dayOfWeekend(1, event['sessions'][1]['dayOfWeekend'])
+
+        except FileNotFoundError:
+            print("cfg/event.json is not found")
+
+        # practice or qualify must be selected
 
 
 
