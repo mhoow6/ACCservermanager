@@ -21,7 +21,7 @@ class Main(QMainWindow, Ui_MainWindow):
 
         self.show()
 
-    # Initalize the Graphic Interface
+    # Initalize the Graphic User Interface
     def initUI(self):
         self.tracklist = [
             'monza', 'zolder', 'brands_hatch', 'sliverstone', 'paul_ricard', 'misano', 'spa', 'nurburgring',
@@ -48,7 +48,7 @@ class Main(QMainWindow, Ui_MainWindow):
                 json.dump(settings, io, indent="\t")
                 print(io.getvalue())
 
-                # set default from json file
+                # set value from json file
                 self.lineEdit_serverName.setText(settings['serverName'])
                 self.lineEdit_password.setText(settings['password'])
                 self.lineEdit_adminPassword.setText(settings['adminPassword'])
@@ -74,7 +74,7 @@ class Main(QMainWindow, Ui_MainWindow):
                 json.dump(configuration, io, indent="\t")
                 print(io.getvalue())
 
-                # set default from json file
+                # set value from json file
                 self.spinBox_maxConnections.setValue(configuration['maxConnections'])
 
         except FileNotFoundError:
@@ -90,7 +90,7 @@ class Main(QMainWindow, Ui_MainWindow):
                 json.dump(assist, io, indent="\t")
                 print(io.getvalue())
 
-                # set default from json file
+                # set value from json file
                 self.checkBox_disableIdealLine.setChecked(assist['disableIdealLine'])
                 self.checkBox_disableAutosteer.setChecked(assist['disableAutosteer'])
                 self.checkBox_disableAutoLights.setChecked(assist['disableAutoLights'])
@@ -114,7 +114,7 @@ class Main(QMainWindow, Ui_MainWindow):
                 json.dump(event, io, indent="\t")
                 print(io.getvalue())
 
-                # set default from json file
+                # set value from json file
                 self.comboBox_track.setCurrentText(event['track'])
                 self.spinBox_preRaceWaitingTimeSeconds.setValue(event['preRaceWaitingTimeSeconds'])
                 self.spinBox_sessionOverTimeSeconds.setValue(event['sessionOverTimeSeconds'])
@@ -123,84 +123,64 @@ class Main(QMainWindow, Ui_MainWindow):
                 self.doubleSpinBox_cloudLevel.setValue(event['cloudLevel'])
                 self.doubleSpinBox_rain.setValue(event['rain'])
 
-                # set Session's value
+                # set value Session's value
                 def initSessison(index):
                     if event['sessions'][index]['sessionType'] == "P":
+                        self.groupBox_practice.setChecked(True)
                         self.spinBox_practice_hourOfDay.setValue(event['sessions'][index]['hourOfDay'])
                         self.spinBox_practice_timeMultiplier.setValue(event['sessions'][index]['timeMultiplier'])
                         self.spinBox_practice_sessionDurationMinutes.setValue(
                             event['sessions'][index]['sessionDurationMinutes'])
+                        if event['sessions'][index]['dayOfWeekend'] == 1:
+                            self.radioButton_practice_friday.setChecked(True)
+                        elif event['sessions'][index]['dayOfWeekend'] == 2:
+                            self.radioButton_practice_saturday.setChecked(True)
+                        elif event['sessions'][index]['dayOfWeekend'] == 3:
+                            self.radioButton_practice_sunday.setChecked(True)
 
                     if event['sessions'][index]['sessionType'] == "Q":
+                        self.groupBox_qualify.setChecked(True)
                         self.spinBox_qualify_hourOfDay.setValue(event['sessions'][index]['hourOfDay'])
                         self.spinBox_qualify_timeMultiplier.setValue(event['sessions'][index]['timeMultiplier'])
                         self.spinBox_qualify_sessionDurationMinutes.setValue(
                             event['sessions'][index]['sessionDurationMinutes'])
+                        if event['sessions'][index]['dayOfWeekend'] == 1:
+                            self.radioButton_qualify_friday.setChecked(True)
+                        elif event['sessions'][index]['dayOfWeekend'] == 2:
+                            self.radioButton_qualify_saturday.setChecked(True)
+                        elif event['sessions'][index]['dayOfWeekend'] == 3:
+                            self.radioButton_qualify_sunday.setChecked(True)
 
                     if event['sessions'][index]['sessionType'] == "R":
+                        self.groupBox_race.setChecked(True)
                         self.spinBox_race_hourOfDay.setValue(event['sessions'][index]['hourOfDay'])
                         self.spinBox_race_timeMultiplier.setValue(event['sessions'][index]['timeMultiplier'])
                         self.spinBox_race_sessionDurationMinutes.setValue(
                             event['sessions'][index]['sessionDurationMinutes'])
-
-                # set radioButton's value
-                def dayOfWeekend(index, day):
-                    if event['sessions'][index]['sessionType'] == "P":
-                        return {
-                            1: self.radioButton_practice_friday.setChecked(True),
-                            2: self.radioButton_practice_saturday.setChecked(True),
-                            3: self.radioButton_practice_sunday.setChecked(True)
-                        }[day]
-
-                    if event['sessions'][index]['sessionType'] == "Q":
-                        return {
-                            1: self.radioButton_qualify_friday.setChecked(True),
-                            2: self.radioButton_qualify_saturday.setChecked(True),
-                            3: self.radioButton_qualify_sunday.setChecked(True)
-                        }[day]
-
-                    if event['sessions'][index]['sessionType'] == "R":
-                        return {
-                            1: self.radioButton_race_friday.setChecked(True),
-                            2: self.radioButton_race_saturday.setChecked(True),
-                            3: self.radioButton_race_sunday.setChecked(True)
-                        }[day]
+                        if event['sessions'][index]['dayOfWeekend'] == 1:
+                            self.radioButton_race_friday.setChecked(True)
+                        elif event['sessions'][index]['dayOfWeekend'] == 2:
+                            self.radioButton_race_saturday.setChecked(True)
+                        elif event['sessions'][index]['dayOfWeekend'] == 3:
+                            self.radioButton_race_sunday.setChecked(True)
 
                 # set value by session type
                 if event['sessions'][0]['sessionType'] == "P":
-                    self.groupBox_practice.setChecked(True)
                     initSessison(0)
-                    dayOfWeekend(0, event['sessions'][0]['dayOfWeekend'])
-
                     if event['sessions'][1]['sessionType'] == "Q":
-                        self.groupBox_qualify.setChecked(True)
                         initSessison(1)
-                        dayOfWeekend(1, event['sessions'][1]['dayOfWeekend'])
-
                     elif event['sessions'][1]['sessionType'] == "R":
-                        self.groupBox_race.setChecked(True)
                         initSessison(1)
-                        dayOfWeekend(1, event['sessions'][1]['dayOfWeekend'])
-
-                        if event['sessions'][2]['sessionType'] == "R":
-                            self.groupBox_race.setChecked(True)
-                            initSessison(2)
-                            dayOfWeekend(2, event['sessions'][2]['dayOfWeekend'])
-
+                        if len(event['sessions']) > 2:
+                            if event['sessions'][2]['sessionType'] == "R":
+                                initSessison(2)
                 elif event['sessions'][0]['sessionType'] == "Q":
-                    self.groupBox_qualify.setChecked(True)
                     initSessison(0)
-                    dayOfWeekend(0, event['sessions'][0]['dayOfWeekend'])
-
                     if event['sessions'][1]['sessionType'] == "R":
-                        self.groupBox_race.setChecked(True)
                         initSessison(1)
-                        dayOfWeekend(1, event['sessions'][1]['dayOfWeekend'])
 
         except FileNotFoundError:
             print("cfg/event.json is not found")
-
-        # practice or qualify must be selected
 
 
 
@@ -214,7 +194,6 @@ class Main(QMainWindow, Ui_MainWindow):
         if not os.path.exists('./accServer.exe'):
             msg.showerror("accServer.exe is not found", message=message)
             raise Exception("accServer.exe is not found")
-
 
 
 if __name__ == '__main__':
