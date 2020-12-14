@@ -1490,5 +1490,24 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>pushButton_start</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>serverStart()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>636</x>
+     <y>561</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>479</x>
+     <y>555</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
+ <slots>
+  <slot>serverStart()</slot>
+ </slots>
 </ui>

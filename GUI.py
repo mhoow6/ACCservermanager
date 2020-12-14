@@ -415,6 +415,7 @@ class Ui_MainWindow(object):
         self.retranslateUi(MainWindow)
         self.horizontalSlider_ambientTemp.valueChanged['int'].connect(self.lcdNumber_ambientTemp.display)
         self.horizontalSlider_weatherRandomness.valueChanged['int'].connect(self.lcdNumber_weatherRandomness.display)
+        self.pushButton_start.clicked.connect(MainWindow.serverStart)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):
