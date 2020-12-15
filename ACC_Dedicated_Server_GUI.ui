@@ -328,6 +328,32 @@
       <string>최대 연결 수</string>
      </property>
     </widget>
+    <widget class="QLabel" name="label_shortFormationLap">
+     <property name="geometry">
+      <rect>
+       <x>235</x>
+       <y>205</y>
+       <width>90</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>숏 포메이션랩</string>
+     </property>
+    </widget>
+    <widget class="QCheckBox" name="checkBox_shortFormationLap">
+     <property name="geometry">
+      <rect>
+       <x>367</x>
+       <y>205</y>
+       <width>20</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
    </widget>
    <widget class="QGroupBox" name="groupBox_event">
     <property name="geometry">
@@ -971,6 +997,9 @@
       <property name="alignment">
        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
       </property>
+      <property name="maximum">
+       <number>23</number>
+      </property>
      </widget>
      <widget class="QLabel" name="label_practice_timeMultiplier">
       <property name="geometry">
@@ -997,6 +1026,12 @@
       <property name="alignment">
        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
       </property>
+      <property name="minimum">
+       <number>1</number>
+      </property>
+      <property name="maximum">
+       <number>24</number>
+      </property>
      </widget>
      <widget class="QLabel" name="label_practice_sessionDurationMinutes">
       <property name="geometry">
@@ -1022,6 +1057,9 @@
       </property>
       <property name="alignment">
        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+      </property>
+      <property name="maximum">
+       <number>1440</number>
       </property>
      </widget>
      <widget class="QLabel" name="label_practice_friday">
@@ -1146,6 +1184,9 @@
       <property name="alignment">
        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
       </property>
+      <property name="maximum">
+       <number>23</number>
+      </property>
      </widget>
      <widget class="QLabel" name="label_qualify_timeMultiplier">
       <property name="geometry">
@@ -1172,6 +1213,12 @@
       <property name="alignment">
        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
       </property>
+      <property name="minimum">
+       <number>1</number>
+      </property>
+      <property name="maximum">
+       <number>24</number>
+      </property>
      </widget>
      <widget class="QLabel" name="label_qualify_sessionDurationMinutes">
       <property name="geometry">
@@ -1197,6 +1244,9 @@
       </property>
       <property name="alignment">
        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+      </property>
+      <property name="maximum">
+       <number>1440</number>
       </property>
      </widget>
      <widget class="QLabel" name="label_qualify_friday">
@@ -1321,6 +1371,9 @@
       <property name="alignment">
        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
       </property>
+      <property name="maximum">
+       <number>23</number>
+      </property>
      </widget>
      <widget class="QLabel" name="label_race_timeMultiplier">
       <property name="geometry">
@@ -1347,6 +1400,12 @@
       <property name="alignment">
        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
       </property>
+      <property name="minimum">
+       <number>1</number>
+      </property>
+      <property name="maximum">
+       <number>24</number>
+      </property>
      </widget>
      <widget class="QLabel" name="label_race_sessionDurationMinutes">
       <property name="geometry">
@@ -1372,6 +1431,9 @@
       </property>
       <property name="alignment">
        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+      </property>
+      <property name="maximum">
+       <number>1440</number>
       </property>
      </widget>
      <widget class="QLabel" name="label_race_friday">
