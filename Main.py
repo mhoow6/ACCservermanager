@@ -33,102 +33,32 @@ class Main(QMainWindow, Ui_MainWindow):
 
         self.carlist = ["FreeForAll", "GT3", "GT4", "Cup", "ST"]
 
-        # Dictionary to store in configuration.json
-        self.json_configuration = {
-            "udpPort": 9201,
-            "tcpPort": 9202,
-            "maxConnections": 0,
-            "lanDiscovery": 1,
-            "registerToLobby": 1,
-            "configVersion": 1
-        }
-
-        # Dictionary to store in settings.json
-        self.json_settings = {
-            "serverName": "",
-            "adminPassword": "",
-            "password": "",
-            "spectatorPassword": "",
-            "centralEntryListPath": "",
-            "carGroup": "FreeForAll",
-            "trackMedalsRequirement": 0,
-            "safetyRatingRequirement": -1,
-            "racecraftRatingRequirement": -1,
-            "maxCarSlots": 0,
-            "isRaceLocked": 0,
-            "shortFormationLap": 0,
-            "dumpLeaderboards": 0,
-            "dumpEntryList": 0,
-            "randomizeTrackWhenEmpty": 0,
-            "allowAutoDQ": 0,
-            "formationLapType": 3,
-            "configVersion": 1
-        }
-
-        # Dictionary to store in assistRules.json
-        self.json_assistRules = {
-            "disableIdealLine": 0,
-            "disableAutosteer": 0,
-            "stabilityControlLevelMax": 0,
-            "disableAutoPitLimiter": 0,
-            "disableAutoGear": 0,
-            "disableAutoClutch": 0,
-            "disableAutoEngineStart": 0,
-            "disableAutoWiper": 0,
-            "disableAutoLights": 0
-        }
-
-        # Dictionary to store in event.json
-        self.json_event = {
-            "track": "",
-            "preRaceWaitingTimeSeconds": 0,
-            "postRaceSeconds": 0,
-            "sessionOverTimeSeconds": 0,
-            "ambientTemp": 0,
-            "cloudLevel": 0.0,
-            "rain": 0.0,
-            "weatherRandomness": 0,
-            "simracerWeatherConditions": 0,
-            "isFixedConditionQualification": 0,
-            "sessions": [
-                {
-
-                },
-                {
-
-                },
-                {
-
-                }
-            ],
-            "configVersion": 1
-        }
-
         self.comboBox_track.addItems(self.tracklist)
         self.comboBox_car.addItems(self.carlist)
 
         try:
             with open("cfg/settings.json", encoding='UTF-16') as settings:
                 # load json file
-                settings = json.load(settings)
+                self.settings = json.load(settings)
 
                 # looking json file
                 io = StringIO()
-                json.dump(settings, io, indent="\t")
+                json.dump(self.settings, io, indent="\t")
                 print(io.getvalue())
                 print(type(settings))
 
                 # set value from json file
-                self.lineEdit_serverName.setText(settings['serverName'])
-                self.lineEdit_password.setText(settings['password'])
-                self.lineEdit_adminPassword.setText(settings['adminPassword'])
-                self.spinBox_maxCarSlots.setValue(settings['maxCarSlots'])
-                self.spinBox_trackMedalsRequirement.setValue(settings['trackMedalsRequirement'])
-                self.spinBox_safetyRatingRequirement.setValue(settings['safetyRatingRequirement'])
-                self.checkBox_dumpLeaderboards.setChecked(settings['dumpLeaderboards'])
-                self.checkBox_isRaceLocked.setChecked(settings['isRaceLocked'])
-                self.checkBox_allowAutoDQ.setChecked(settings['allowAutoDQ'])
-                self.comboBox_car.setCurrentText(settings['carGroup'])
+                self.lineEdit_serverName.setText(self.settings['serverName'])
+                self.lineEdit_password.setText(self.settings['password'])
+                self.lineEdit_adminPassword.setText(self.settings['adminPassword'])
+                self.spinBox_maxCarSlots.setValue(self.settings['maxCarSlots'])
+                self.spinBox_trackMedalsRequirement.setValue(self.settings['trackMedalsRequirement'])
+                self.spinBox_safetyRatingRequirement.setValue(self.settings['safetyRatingRequirement'])
+                self.checkBox_dumpLeaderboards.setChecked(self.settings['dumpLeaderboards'])
+                self.checkBox_isRaceLocked.setChecked(self.settings['isRaceLocked'])
+                self.checkBox_allowAutoDQ.setChecked(self.settings['allowAutoDQ'])
+                self.comboBox_car.setCurrentText(self.settings['carGroup'])
+                self.checkBox_shortFormationLap.setChecked(self.settings['shortFormationLap'])
 
         except FileNotFoundError:
             print("cfg/settings.json is not found")
@@ -136,15 +66,15 @@ class Main(QMainWindow, Ui_MainWindow):
         try:
             with(open("cfg/configuration.json", encoding="UTF-16")) as configuration:
                 # load json file
-                configuration = json.load(configuration)
+                self.configuration = json.load(configuration)
 
                 # looking json file
                 io = StringIO()
-                json.dump(configuration, io, indent="\t")
+                json.dump(self.configuration, io, indent="\t")
                 print(io.getvalue())
 
                 # set value from json file
-                self.spinBox_maxConnections.setValue(configuration['maxConnections'])
+                self.spinBox_maxConnections.setValue(self.configuration['maxConnections'])
 
         except FileNotFoundError:
             print("cfg/configuration.json is not found")
@@ -152,23 +82,23 @@ class Main(QMainWindow, Ui_MainWindow):
         try:
             with open("cfg/assistRules.json", encoding='UTF-16') as assist:
                 # load json file
-                assist = json.load(assist)
+                self.assist = json.load(assist)
 
                 # looking json file
                 io = StringIO()
-                json.dump(assist, io, indent="\t")
+                json.dump(self.assist, io, indent="\t")
                 print(io.getvalue())
 
                 # set value from json file
-                self.checkBox_disableIdealLine.setChecked(assist['disableIdealLine'])
-                self.checkBox_disableAutosteer.setChecked(assist['disableAutosteer'])
-                self.checkBox_disableAutoLights.setChecked(assist['disableAutoLights'])
-                self.checkBox_disableAutoWiper.setChecked(assist['disableAutoWiper'])
-                self.checkBox_disableAutoEngineStart.setChecked(assist['disableAutoEngineStart'])
-                self.checkBox_disableAutoPitLimiter.setChecked(assist['disableAutoPitLimiter'])
-                self.checkBox_disableAutoGear.setChecked(assist['disableAutoGear'])
-                self.checkBox_disableAutoClutch.setChecked(assist['disableAutoClutch'])
-                self.horizontalSlider_stabilityControlLevelMax.setValue(assist['stabilityControlLevelMax'])
+                self.checkBox_disableIdealLine.setChecked(self.assist['disableIdealLine'])
+                self.checkBox_disableAutosteer.setChecked(self.assist['disableAutosteer'])
+                self.checkBox_disableAutoLights.setChecked(self.assist['disableAutoLights'])
+                self.checkBox_disableAutoWiper.setChecked(self.assist['disableAutoWiper'])
+                self.checkBox_disableAutoEngineStart.setChecked(self.assist['disableAutoEngineStart'])
+                self.checkBox_disableAutoPitLimiter.setChecked(self.assist['disableAutoPitLimiter'])
+                self.checkBox_disableAutoGear.setChecked(self.assist['disableAutoGear'])
+                self.checkBox_disableAutoClutch.setChecked(self.assist['disableAutoClutch'])
+                self.horizontalSlider_stabilityControlLevelMax.setValue(self.assist['stabilityControlLevelMax'])
 
         except FileNotFoundError:
             print("cfg/assistRules.json is not found")
@@ -176,78 +106,77 @@ class Main(QMainWindow, Ui_MainWindow):
         try:
             with open("cfg/event.json", encoding='UTF-16') as event:
                 # load json file
-                event = json.load(event)
+                self.event = json.load(event)
 
                 # looking json file
                 io = StringIO()
-                json.dump(event, io, indent="\t")
+                json.dump(self.event, io, indent="\t")
                 print(io.getvalue())
 
                 # set value from json file
-                self.comboBox_track.setCurrentText(event['track'])
-                self.spinBox_preRaceWaitingTimeSeconds.setValue(event['preRaceWaitingTimeSeconds'])
-                self.spinBox_sessionOverTimeSeconds.setValue(event['sessionOverTimeSeconds'])
-                self.horizontalSlider_ambientTemp.setValue(event['ambientTemp'])
-                self.lcdNumber_ambientTemp.display(event['ambientTemp'])
-                self.horizontalSlider_weatherRandomness.setValue(event['weatherRandomness'])
-                self.lcdNumber_weatherRandomness.display(event['weatherRandomness'])
-                self.doubleSpinBox_cloudLevel.setValue(event['cloudLevel'])
-                self.doubleSpinBox_rain.setValue(event['rain'])
+                self.comboBox_track.setCurrentText(self.event['track'])
+                self.spinBox_preRaceWaitingTimeSeconds.setValue(self.event['preRaceWaitingTimeSeconds'])
+                self.spinBox_sessionOverTimeSeconds.setValue(self.event['sessionOverTimeSeconds'])
+                self.horizontalSlider_ambientTemp.setValue(self.event['ambientTemp'])
+                self.lcdNumber_ambientTemp.display(self.event['ambientTemp'])
+                self.horizontalSlider_weatherRandomness.setValue(self.event['weatherRandomness'])
+                self.lcdNumber_weatherRandomness.display(self.event['weatherRandomness'])
+                self.doubleSpinBox_cloudLevel.setValue(self.event['cloudLevel'])
+                self.doubleSpinBox_rain.setValue(self.event['rain'])
 
                 # set value Session's value
                 def initSessison(index):
-                    if event['sessions'][index]['sessionType'] == "P":
+                    if self.event['sessions'][index]['sessionType'] == "P":
                         self.groupBox_practice.setChecked(True)
-                        self.spinBox_practice_hourOfDay.setValue(event['sessions'][index]['hourOfDay'])
-                        self.spinBox_practice_timeMultiplier.setValue(event['sessions'][index]['timeMultiplier'])
+                        self.spinBox_practice_hourOfDay.setValue(self.event['sessions'][index]['hourOfDay'])
+                        self.spinBox_practice_timeMultiplier.setValue(self.event['sessions'][index]['timeMultiplier'])
                         self.spinBox_practice_sessionDurationMinutes.setValue(
-                            event['sessions'][index]['sessionDurationMinutes'])
-                        if event['sessions'][index]['dayOfWeekend'] == 1:
+                            self.event['sessions'][index]['sessionDurationMinutes'])
+                        if self.event['sessions'][index]['dayOfWeekend'] == 1:
                             self.radioButton_practice_friday.setChecked(True)
-                        elif event['sessions'][index]['dayOfWeekend'] == 2:
+                        elif self.event['sessions'][index]['dayOfWeekend'] == 2:
                             self.radioButton_practice_saturday.setChecked(True)
-                        elif event['sessions'][index]['dayOfWeekend'] == 3:
+                        elif self.event['sessions'][index]['dayOfWeekend'] == 3:
                             self.radioButton_practice_sunday.setChecked(True)
 
-                    if event['sessions'][index]['sessionType'] == "Q":
+                    if self.event['sessions'][index]['sessionType'] == "Q":
                         self.groupBox_qualify.setChecked(True)
-                        self.spinBox_qualify_hourOfDay.setValue(event['sessions'][index]['hourOfDay'])
-                        self.spinBox_qualify_timeMultiplier.setValue(event['sessions'][index]['timeMultiplier'])
+                        self.spinBox_qualify_hourOfDay.setValue(self.event['sessions'][index]['hourOfDay'])
+                        self.spinBox_qualify_timeMultiplier.setValue(self.event['sessions'][index]['timeMultiplier'])
                         self.spinBox_qualify_sessionDurationMinutes.setValue(
-                            event['sessions'][index]['sessionDurationMinutes'])
-                        if event['sessions'][index]['dayOfWeekend'] == 1:
+                            self.event['sessions'][index]['sessionDurationMinutes'])
+                        if self.event['sessions'][index]['dayOfWeekend'] == 1:
                             self.radioButton_qualify_friday.setChecked(True)
-                        elif event['sessions'][index]['dayOfWeekend'] == 2:
+                        elif self.event['sessions'][index]['dayOfWeekend'] == 2:
                             self.radioButton_qualify_saturday.setChecked(True)
-                        elif event['sessions'][index]['dayOfWeekend'] == 3:
+                        elif self.event['sessions'][index]['dayOfWeekend'] == 3:
                             self.radioButton_qualify_sunday.setChecked(True)
 
-                    if event['sessions'][index]['sessionType'] == "R":
+                    if self.event['sessions'][index]['sessionType'] == "R":
                         self.groupBox_race.setChecked(True)
-                        self.spinBox_race_hourOfDay.setValue(event['sessions'][index]['hourOfDay'])
-                        self.spinBox_race_timeMultiplier.setValue(event['sessions'][index]['timeMultiplier'])
+                        self.spinBox_race_hourOfDay.setValue(self.event['sessions'][index]['hourOfDay'])
+                        self.spinBox_race_timeMultiplier.setValue(self.event['sessions'][index]['timeMultiplier'])
                         self.spinBox_race_sessionDurationMinutes.setValue(
-                            event['sessions'][index]['sessionDurationMinutes'])
-                        if event['sessions'][index]['dayOfWeekend'] == 1:
+                            self.event['sessions'][index]['sessionDurationMinutes'])
+                        if self.event['sessions'][index]['dayOfWeekend'] == 1:
                             self.radioButton_race_friday.setChecked(True)
-                        elif event['sessions'][index]['dayOfWeekend'] == 2:
+                        elif self.event['sessions'][index]['dayOfWeekend'] == 2:
                             self.radioButton_race_saturday.setChecked(True)
-                        elif event['sessions'][index]['dayOfWeekend'] == 3:
+                        elif self.event['sessions'][index]['dayOfWeekend'] == 3:
                             self.radioButton_race_sunday.setChecked(True)
 
                 # set value by session type
-                if event['sessions'][0]['sessionType'] == "P":
+                if self.event['sessions'][0]['sessionType'] == "P":
                     initSessison(0)
-                    if event['sessions'][1]['sessionType'] == "Q":
+                    if self.event['sessions'][1]['sessionType'] == "Q":
                         initSessison(1)
-                    elif event['sessions'][1]['sessionType'] == "R":
+                        if len(self.event['sessions']) > 2:
+                            initSessison(2)
+                    elif self.event['sessions'][1]['sessionType'] == "R":
                         initSessison(1)
-                        if len(event['sessions']) > 2:
-                            if event['sessions'][2]['sessionType'] == "R":
-                                initSessison(2)
-                elif event['sessions'][0]['sessionType'] == "Q":
+                elif self.event['sessions'][0]['sessionType'] == "Q":
                     initSessison(0)
-                    if event['sessions'][1]['sessionType'] == "R":
+                    if self.event['sessions'][1]['sessionType'] == "R":
                         initSessison(1)
 
         except FileNotFoundError:
@@ -269,89 +198,107 @@ class Main(QMainWindow, Ui_MainWindow):
     def serverStart(self):
         # 1. get value from GUI
         # settings.json
-        self.json_settings["serverName"] = self.lineEdit_serverName.text()
-        self.json_settings["password"] = self.lineEdit_password.text()
-        self.json_settings["adminPassword"] = self.lineEdit_adminPassword.text()
-        self.json_settings["spectatorPassword"] = self.lineEdit_spectatorPassword.text()
-        self.json_settings["maxCarSlots"] = self.spinBox_maxCarSlots.value()
-        self.json_settings["trackMedalsRequirement"] = self.spinBox_trackMedalsRequirement.value()
-        self.json_settings["safetyRatingRequirement"] = self.spinBox_safetyRatingRequirement.value()
-        self.json_settings["dumpLeaderboards"] = self.checkBox_dumpLeaderboards.isChecked()
-        self.json_settings["isRaceLocked"] = self.checkBox_isRaceLocked.isChecked()
-        self.json_settings["allowAutoDQ"] = self.checkBox_allowAutoDQ.isChecked()
-        self.json_settings["carGroup"] = self.comboBox_car.currentText()
+        self.settings["serverName"] = self.lineEdit_serverName.text()
+        self.settings["password"] = self.lineEdit_password.text()
+        self.settings["adminPassword"] = self.lineEdit_adminPassword.text()
+        self.settings["spectatorPassword"] = self.lineEdit_spectatorPassword.text()
+        self.settings["maxCarSlots"] = self.spinBox_maxCarSlots.value()
+        self.settings["trackMedalsRequirement"] = self.spinBox_trackMedalsRequirement.value()
+        self.settings["safetyRatingRequirement"] = self.spinBox_safetyRatingRequirement.value()
+        self.settings["dumpLeaderboards"] = self.checkBox_dumpLeaderboards.isChecked()
+        self.settings["isRaceLocked"] = self.checkBox_isRaceLocked.isChecked()
+        self.settings["allowAutoDQ"] = self.checkBox_allowAutoDQ.isChecked()
+        self.settings["carGroup"] = self.comboBox_car.currentText()
+        self.settings['shortFormationLap'] = self.checkBox_shortFormationLap.isChecked()
 
         # configuration.json
-        self.json_configuration["maxConnections"] = self.spinBox_maxConnections.value()
+        self.configuration["maxConnections"] = self.spinBox_maxConnections.value()
 
         # assistRules.json
-        self.json_assistRules["disableIdealLine"] = self.checkBox_disableIdealLine.isChecked()
-        self.json_assistRules["disableAutosteer"] = self.checkBox_disableAutosteer.isChecked()
-        self.json_assistRules["disableAutoLights"] = self.checkBox_disableAutoLights.isChecked()
-        self.json_assistRules["disableAutoWiper"] = self.checkBox_disableAutoWiper.isChecked()
-        self.json_assistRules["disableAutoEngineStart"] = self.checkBox_disableAutoEngineStart.isChecked()
-        self.json_assistRules["disableAutoPitLimiter"] = self.checkBox_disableAutoPitLimiter.isChecked()
-        self.json_assistRules["disableAutoGear"] = self.checkBox_disableAutoGear.isChecked()
-        self.json_assistRules["disableAutoClutch"] = self.checkBox_disableAutoClutch.isChecked()
-        self.json_assistRules["stabilityControlLevelMax"] = self.horizontalSlider_stabilityControlLevelMax.value()
+        self.assist["disableIdealLine"] = self.checkBox_disableIdealLine.isChecked()
+        self.assist["disableAutosteer"] = self.checkBox_disableAutosteer.isChecked()
+        self.assist["disableAutoLights"] = self.checkBox_disableAutoLights.isChecked()
+        self.assist["disableAutoWiper"] = self.checkBox_disableAutoWiper.isChecked()
+        self.assist["disableAutoEngineStart"] = self.checkBox_disableAutoEngineStart.isChecked()
+        self.assist["disableAutoPitLimiter"] = self.checkBox_disableAutoPitLimiter.isChecked()
+        self.assist["disableAutoGear"] = self.checkBox_disableAutoGear.isChecked()
+        self.assist["disableAutoClutch"] = self.checkBox_disableAutoClutch.isChecked()
+        self.assist["stabilityControlLevelMax"] = self.horizontalSlider_stabilityControlLevelMax.value()
 
         # event.json
-        self.json_event["track"] = self.comboBox_track.currentText()
-        self.json_event["preRaceWaitingTimeSeconds"] = self.spinBox_preRaceWaitingTimeSeconds.value()
-        self.json_event["sessionOverTimeSeconds"] = self.spinBox_sessionOverTimeSeconds.value()
-        self.json_event["ambientTemp"] = self.horizontalSlider_ambientTemp.value()
-        self.json_event["weatherRandomness"] = self.horizontalSlider_weatherRandomness.value()
-        self.json_event["cloudLevel"] = self.doubleSpinBox_cloudLevel.value()
-        self.json_event["rain"] = self.doubleSpinBox_rain.value()
+        self.event["track"] = self.comboBox_track.currentText()
+        self.event["preRaceWaitingTimeSeconds"] = self.spinBox_preRaceWaitingTimeSeconds.value()
+        self.event["sessionOverTimeSeconds"] = self.spinBox_sessionOverTimeSeconds.value()
+        self.event["ambientTemp"] = self.horizontalSlider_ambientTemp.value()
+        self.event["weatherRandomness"] = self.horizontalSlider_weatherRandomness.value()
+        self.event["cloudLevel"] = self.doubleSpinBox_cloudLevel.value()
+        self.event["rain"] = self.doubleSpinBox_rain.value()
+
 
         # event.json - Session
-        # function: avoid the duplication code
+        # if loaded event['sessions'] is short and P,Q,R checked
+        # add the list to avoid Preventing access to missing list
+        if len(self.event['sessions']) < 3:
+            if self.groupBox_practice.isChecked():
+                if self.groupBox_qualify.isChecked():
+                    if self.groupBox_race.isChecked():
+                        self.event['sessions'] = self.event['sessions'] + [{
+                            "sessionType": "",
+                            "hourOfDay": 0,
+                            "dayOfWeekend": 0,
+                            "timeMultiplier": 0,
+                            "sessionDurationMinutes": 0
+                        }]
+
+
+
+        # avoid the duplication code
         def Practice(index):
-            self.json_event["sessions"][index]["sessionType"] = "P"
-            self.json_event["sessions"][index]["hourOfDay"] = self.spinBox_practice_hourOfDay.value()
+            self.event["sessions"][index]["sessionType"] = "P"
+            self.event["sessions"][index]["hourOfDay"] = self.spinBox_practice_hourOfDay.value()
 
             # dayOfWeekend
             if self.radioButton_practice_friday.isChecked():
-                self.json_event["sessions"][index]["dayOfWeekend"] = 1
+                self.event["sessions"][index]["dayOfWeekend"] = 1
             elif self.radioButton_practice_saturday.isChecked():
-                self.json_event["sessions"][index]["dayOfWeekend"] = 2
+                self.event["sessions"][index]["dayOfWeekend"] = 2
             else:
-                self.json_event["sessions"][index]["dayOfWeekend"] = 3
+                self.event["sessions"][index]["dayOfWeekend"] = 3
 
-            self.json_event["sessions"][index]["timeMultiplier"] = self.spinBox_practice_timeMultiplier.value()
-            self.json_event["sessions"][index][
+            self.event["sessions"][index]["timeMultiplier"] = self.spinBox_practice_timeMultiplier.value()
+            self.event["sessions"][index][
                 "sessionDurationMinutes"] = self.spinBox_practice_sessionDurationMinutes.value()
 
         def Qualify(index):
-            self.json_event["sessions"][index]["sessionType"] = "Q"
-            self.json_event["sessions"][index]["hourOfDay"] = self.spinBox_qualify_hourOfDay.value()
+            self.event["sessions"][index]["sessionType"] = "Q"
+            self.event["sessions"][index]["hourOfDay"] = self.spinBox_qualify_hourOfDay.value()
 
             # dayOfWeekend
             if self.radioButton_qualify_friday.isChecked():
-                self.json_event["sessions"][index]["dayOfWeekend"] = 1
+                self.event["sessions"][index]["dayOfWeekend"] = 1
             elif self.radioButton_qualify_saturday.isChecked():
-                self.json_event["sessions"][index]["dayOfWeekend"] = 2
+                self.event["sessions"][index]["dayOfWeekend"] = 2
             else:
-                self.json_event["sessions"][index]["dayOfWeekend"] = 3
+                self.event["sessions"][index]["dayOfWeekend"] = 3
 
-            self.json_event["sessions"][index]["timeMultiplier"] = self.spinBox_qualify_timeMultiplier.value()
-            self.json_event["sessions"][index][
+            self.event["sessions"][index]["timeMultiplier"] = self.spinBox_qualify_timeMultiplier.value()
+            self.event["sessions"][index][
                 "sessionDurationMinutes"] = self.spinBox_qualify_sessionDurationMinutes.value()
 
         def Race(index):
-            self.json_event["sessions"][index]["sessionType"] = "R"
-            self.json_event["sessions"][index]["hourOfDay"] = self.spinBox_race_hourOfDay.value()
+            self.event["sessions"][index]["sessionType"] = "R"
+            self.event["sessions"][index]["hourOfDay"] = self.spinBox_race_hourOfDay.value()
 
             # dayOfWeekend
             if self.radioButton_race_friday.isChecked():
-                self.json_event["sessions"][index]["dayOfWeekend"] = 1
+                self.event["sessions"][index]["dayOfWeekend"] = 1
             elif self.radioButton_race_saturday.isChecked():
-                self.json_event["sessions"][index]["dayOfWeekend"] = 2
+                self.event["sessions"][index]["dayOfWeekend"] = 2
             else:
-                self.json_event["sessions"][index]["dayOfWeekend"] = 3
+                self.event["sessions"][index]["dayOfWeekend"] = 3
 
-            self.json_event["sessions"][index]["timeMultiplier"] = self.spinBox_race_timeMultiplier.value()
-            self.json_event["sessions"][index][
+            self.event["sessions"][index]["timeMultiplier"] = self.spinBox_race_timeMultiplier.value()
+            self.event["sessions"][index][
                 "sessionDurationMinutes"] = self.spinBox_race_sessionDurationMinutes.value()
 
         # if P, Q checked
@@ -391,18 +338,20 @@ class Main(QMainWindow, Ui_MainWindow):
 
         # 2. Save json file
         with open('cfg/configuration.json', 'w', encoding='utf-16') as make_file:
-            json.dump(self.json_configuration, make_file, indent="\t")
+            json.dump(self.configuration, make_file, indent="\t")
 
         with open('cfg/settings.json', 'w', encoding='utf-16') as make_file:
-            json.dump(self.json_settings, make_file, indent="\t")
+            json.dump(self.settings, make_file, indent="\t")
 
         with open('cfg/assistRules.json', 'w', encoding='utf-16') as make_file:
-            json.dump(self.json_assistRules, make_file, indent="\t")
+            json.dump(self.assist, make_file, indent="\t")
 
         with open('cfg/event.json', 'w', encoding='utf-16') as make_file:
-            json.dump(self.json_event, make_file, indent="\t")
+            json.dump(self.event, make_file, indent="\t")
 
         # 3. Start server with accServer.exe
+        os.system("accServer.exe")
+
 
 if __name__ == '__main__':
     app = QApplication([])
