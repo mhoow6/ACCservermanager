@@ -140,6 +140,7 @@ The configuration is split into different files, which represent different level
 |timeMultiplier|세션 시간이 실시간으로 진행되는 속도 배율. 값 0, 1, … 24|
 |sessionType|경기 타입: P, Q, R for (P)ractice, (Q)ualy, (R)ace|
 |sessionDurationMinutes|세션 기간(분)|
+
 비고:
 1) 하나 이상의 비 레이스 세션을 설정해야 합니다
 2) 불합리한 주간 및 시간 설정(시간 배율도 고려합니다!)은 잘못된 트랙 및 날씨 행동을 초래할 수 있습니다. 예: 토요일에서 금요일로 점프하지 않는 것
