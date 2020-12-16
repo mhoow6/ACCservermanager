@@ -361,7 +361,7 @@
       <x>410</x>
       <y>10</y>
       <width>381</width>
-      <height>356</height>
+      <height>521</height>
      </rect>
     </property>
     <property name="title">
@@ -497,9 +497,9 @@
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>130</y>
+       <y>125</y>
        <width>361</width>
-       <height>211</height>
+       <height>101</height>
       </rect>
      </property>
      <property name="title">
@@ -509,7 +509,7 @@
       <property name="geometry">
        <rect>
         <x>10</x>
-        <y>20</y>
+        <y>12</y>
         <width>100</width>
         <height>20</height>
        </rect>
@@ -522,7 +522,7 @@
       <property name="geometry">
        <rect>
         <x>290</x>
-        <y>20</y>
+        <y>12</y>
         <width>64</width>
         <height>23</height>
        </rect>
@@ -534,7 +534,7 @@
        </font>
       </property>
       <property name="segmentStyle">
-       <enum>QLCDNumber::Filled</enum>
+       <enum>QLCDNumber::Flat</enum>
       </property>
       <property name="value" stdset="0">
        <double>0.000000000000000</double>
@@ -544,16 +544,16 @@
       <property name="geometry">
        <rect>
         <x>100</x>
-        <y>20</y>
+        <y>12</y>
         <width>181</width>
         <height>22</height>
        </rect>
       </property>
       <property name="minimum">
-       <number>-10</number>
+       <number>10</number>
       </property>
       <property name="maximum">
-       <number>30</number>
+       <number>35</number>
       </property>
       <property name="orientation">
        <enum>Qt::Horizontal</enum>
@@ -563,7 +563,7 @@
       <property name="geometry">
        <rect>
         <x>100</x>
-        <y>50</y>
+        <y>40</y>
         <width>181</width>
         <height>22</height>
        </rect>
@@ -582,7 +582,7 @@
       <property name="geometry">
        <rect>
         <x>10</x>
-        <y>50</y>
+        <y>40</y>
         <width>100</width>
         <height>20</height>
        </rect>
@@ -595,17 +595,20 @@
       <property name="geometry">
        <rect>
         <x>290</x>
-        <y>50</y>
+        <y>40</y>
         <width>64</width>
         <height>23</height>
        </rect>
+      </property>
+      <property name="segmentStyle">
+       <enum>QLCDNumber::Flat</enum>
       </property>
      </widget>
      <widget class="QLabel" name="label_rain">
       <property name="geometry">
        <rect>
-        <x>10</x>
-        <y>110</y>
+        <x>190</x>
+        <y>70</y>
         <width>100</width>
         <height>20</height>
        </rect>
@@ -618,8 +621,8 @@
       <property name="geometry">
        <rect>
         <x>10</x>
-        <y>80</y>
-        <width>100</width>
+        <y>70</y>
+        <width>91</width>
         <height>20</height>
        </rect>
       </property>
@@ -631,7 +634,7 @@
       <property name="geometry">
        <rect>
         <x>100</x>
-        <y>80</y>
+        <y>70</y>
         <width>60</width>
         <height>22</height>
        </rect>
@@ -655,8 +658,8 @@
      <widget class="QDoubleSpinBox" name="doubleSpinBox_rain">
       <property name="geometry">
        <rect>
-        <x>100</x>
-        <y>110</y>
+        <x>291</x>
+        <y>70</y>
         <width>60</width>
         <height>22</height>
        </rect>
@@ -678,13 +681,622 @@
       </property>
      </widget>
     </widget>
+    <widget class="QGroupBox" name="groupBox_pitstop">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>230</y>
+       <width>361</width>
+       <height>151</height>
+      </rect>
+     </property>
+     <property name="toolTip">
+      <string/>
+     </property>
+     <property name="title">
+      <string>피트스톱 규칙</string>
+     </property>
+     <widget class="QLabel" name="label_pitWindowLengthSec">
+      <property name="geometry">
+       <rect>
+        <x>190</x>
+        <y>20</y>
+        <width>121</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="toolTip">
+       <string/>
+      </property>
+      <property name="text">
+       <string>최소 피트 시간</string>
+      </property>
+     </widget>
+     <widget class="QSpinBox" name="spinBox_pitWindowLengthSec">
+      <property name="geometry">
+       <rect>
+        <x>313</x>
+        <y>20</y>
+        <width>42</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="layoutDirection">
+       <enum>Qt::LeftToRight</enum>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+      </property>
+      <property name="minimum">
+       <number>-1</number>
+      </property>
+      <property name="maximum">
+       <number>1440</number>
+      </property>
+     </widget>
+     <widget class="QSpinBox" name="spinBox_driverStintTimeSec">
+      <property name="geometry">
+       <rect>
+        <x>313</x>
+        <y>45</y>
+        <width>42</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="layoutDirection">
+       <enum>Qt::LeftToRight</enum>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+      </property>
+      <property name="minimum">
+       <number>-1</number>
+      </property>
+      <property name="maximum">
+       <number>1440</number>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_driverStintTimeSec">
+      <property name="geometry">
+       <rect>
+        <x>190</x>
+        <y>45</y>
+        <width>121</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="toolTip">
+       <string/>
+      </property>
+      <property name="text">
+       <string>최소 스틴트 시간</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_mandatoryPitstopCount">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>20</y>
+        <width>151</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>기본 피트스톱 규정</string>
+      </property>
+     </widget>
+     <widget class="QCheckBox" name="checkBox_mandatoryPitstopCount">
+      <property name="geometry">
+       <rect>
+        <x>160</x>
+        <y>20</y>
+        <width>20</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_maxTotalDrivingTime">
+      <property name="geometry">
+       <rect>
+        <x>190</x>
+        <y>70</y>
+        <width>121</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="toolTip">
+       <string/>
+      </property>
+      <property name="text">
+       <string>최대 스틴트 시간</string>
+      </property>
+     </widget>
+     <widget class="QSpinBox" name="spinBox_maxTotalDrivingTime">
+      <property name="geometry">
+       <rect>
+        <x>313</x>
+        <y>70</y>
+        <width>42</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="layoutDirection">
+       <enum>Qt::LeftToRight</enum>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+      </property>
+      <property name="minimum">
+       <number>-1</number>
+      </property>
+      <property name="maximum">
+       <number>1440</number>
+      </property>
+     </widget>
+     <widget class="QSpinBox" name="spinBox_maxDriversCount">
+      <property name="geometry">
+       <rect>
+        <x>313</x>
+        <y>95</y>
+        <width>42</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="layoutDirection">
+       <enum>Qt::LeftToRight</enum>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+      </property>
+      <property name="minimum">
+       <number>1</number>
+      </property>
+      <property name="maximum">
+       <number>3</number>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_maxDriversCount">
+      <property name="geometry">
+       <rect>
+        <x>190</x>
+        <y>95</y>
+        <width>121</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="toolTip">
+       <string/>
+      </property>
+      <property name="text">
+       <string>스틴트 운전자 수</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_isRefuellingAllowedInRace">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>40</y>
+        <width>151</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>레이스 도중 주유 가능</string>
+      </property>
+     </widget>
+     <widget class="QCheckBox" name="checkBox_isRefuellingAllowedInRace">
+      <property name="geometry">
+       <rect>
+        <x>160</x>
+        <y>40</y>
+        <width>20</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+     <widget class="QCheckBox" name="checkBox_isRefuellingTimeFixed">
+      <property name="geometry">
+       <rect>
+        <x>160</x>
+        <y>60</y>
+        <width>20</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_isRefuellingTimeFixed">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>60</y>
+        <width>151</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>주유 시간 고정</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_isMandatoryPitstopRefuellingRequired">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>80</y>
+        <width>151</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>의무 연료 주입</string>
+      </property>
+     </widget>
+     <widget class="QCheckBox" name="checkBox_isMandatoryPitstopRefuellingRequired">
+      <property name="geometry">
+       <rect>
+        <x>160</x>
+        <y>80</y>
+        <width>20</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_isMandatoryPitstopTyreChangeRequired">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>100</y>
+        <width>151</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>의무 타이어 교체</string>
+      </property>
+     </widget>
+     <widget class="QCheckBox" name="checkBox_isMandatoryPitstopTyreChangeRequired">
+      <property name="geometry">
+       <rect>
+        <x>160</x>
+        <y>100</y>
+        <width>20</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+     <widget class="QCheckBox" name="checkBox_isMandatoryPitstopSwapDriverRequired">
+      <property name="geometry">
+       <rect>
+        <x>160</x>
+        <y>120</y>
+        <width>20</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_isMandatoryPitstopSwapDriverRequired">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>120</y>
+        <width>151</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>의무 드라이버 스왑</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_tyreSetCount">
+      <property name="geometry">
+       <rect>
+        <x>190</x>
+        <y>120</y>
+        <width>121</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="toolTip">
+       <string/>
+      </property>
+      <property name="text">
+       <string>타이어 세트</string>
+      </property>
+     </widget>
+     <widget class="QSpinBox" name="spinBox_tyreSetCount">
+      <property name="geometry">
+       <rect>
+        <x>313</x>
+        <y>120</y>
+        <width>42</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="layoutDirection">
+       <enum>Qt::LeftToRight</enum>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+      </property>
+      <property name="minimum">
+       <number>1</number>
+      </property>
+     </widget>
+    </widget>
+    <widget class="QGroupBox" name="groupBox_assist">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>390</y>
+       <width>361</width>
+       <height>121</height>
+      </rect>
+     </property>
+     <property name="title">
+      <string>어시스트 설정</string>
+     </property>
+     <widget class="QLabel" name="label_disableIdealLine">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>15</y>
+        <width>70</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>레코드 라인</string>
+      </property>
+     </widget>
+     <widget class="QCheckBox" name="checkBox_disableIdealLine">
+      <property name="geometry">
+       <rect>
+        <x>150</x>
+        <y>15</y>
+        <width>20</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_disableAutosteer">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>35</y>
+        <width>110</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>스티어링 보조 장치</string>
+      </property>
+     </widget>
+     <widget class="QCheckBox" name="checkBox_disableAutosteer">
+      <property name="geometry">
+       <rect>
+        <x>150</x>
+        <y>35</y>
+        <width>20</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_disableAutoLights">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>54</y>
+        <width>80</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>자동 라이트</string>
+      </property>
+     </widget>
+     <widget class="QCheckBox" name="checkBox_disableAutoLights">
+      <property name="geometry">
+       <rect>
+        <x>150</x>
+        <y>54</y>
+        <width>20</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_disableAutoWiper">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>75</y>
+        <width>80</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>자동 와이퍼</string>
+      </property>
+     </widget>
+     <widget class="QCheckBox" name="checkBox_disableAutoWiper">
+      <property name="geometry">
+       <rect>
+        <x>150</x>
+        <y>75</y>
+        <width>20</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+     <widget class="QCheckBox" name="checkBox_disableAutoEngineStart">
+      <property name="geometry">
+       <rect>
+        <x>340</x>
+        <y>15</y>
+        <width>20</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_disableAutoEngineStart">
+      <property name="geometry">
+       <rect>
+        <x>200</x>
+        <y>15</y>
+        <width>90</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>자동 엔진스타트</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_disableAutoPitLimiter">
+      <property name="geometry">
+       <rect>
+        <x>200</x>
+        <y>35</y>
+        <width>90</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>자동 피트 리미터</string>
+      </property>
+     </widget>
+     <widget class="QCheckBox" name="checkBox_disableAutoPitLimiter">
+      <property name="geometry">
+       <rect>
+        <x>340</x>
+        <y>35</y>
+        <width>20</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+     <widget class="QCheckBox" name="checkBox_disableAutoGear">
+      <property name="geometry">
+       <rect>
+        <x>340</x>
+        <y>54</y>
+        <width>20</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_disableAutoGear">
+      <property name="geometry">
+       <rect>
+        <x>200</x>
+        <y>54</y>
+        <width>90</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>자동 변속</string>
+      </property>
+     </widget>
+     <widget class="QCheckBox" name="checkBox_disableAutoClutch">
+      <property name="geometry">
+       <rect>
+        <x>340</x>
+        <y>75</y>
+        <width>20</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_disableAutoClutch">
+      <property name="geometry">
+       <rect>
+        <x>200</x>
+        <y>75</y>
+        <width>90</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>자동 클러치</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_stabilityControlLevelMax">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>97</y>
+        <width>110</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>안정성 컨트롤 레벨</string>
+      </property>
+     </widget>
+     <widget class="QSlider" name="horizontalSlider_stabilityControlLevelMax">
+      <property name="geometry">
+       <rect>
+        <x>150</x>
+        <y>97</y>
+        <width>201</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="maximum">
+       <number>100</number>
+      </property>
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+     </widget>
+    </widget>
    </widget>
    <widget class="QPushButton" name="pushButton_start">
     <property name="geometry">
      <rect>
       <x>540</x>
       <y>540</y>
-      <width>251</width>
+      <width>121</width>
       <height>51</height>
      </rect>
     </property>
@@ -692,275 +1304,128 @@
      <string>서버 시작</string>
     </property>
    </widget>
-   <widget class="QGroupBox" name="groupBox_assist">
+   <widget class="QPushButton" name="pushButton_exit">
+    <property name="enabled">
+     <bool>false</bool>
+    </property>
     <property name="geometry">
      <rect>
-      <x>10</x>
-      <y>245</y>
-      <width>391</width>
-      <height>121</height>
+      <x>670</x>
+      <y>540</y>
+      <width>121</width>
+      <height>51</height>
      </rect>
     </property>
-    <property name="title">
-     <string>어시스트 설정</string>
+    <property name="text">
+     <string>서버 종료</string>
     </property>
-    <widget class="QLabel" name="label_disableIdealLine">
-     <property name="geometry">
-      <rect>
-       <x>10</x>
-       <y>15</y>
-       <width>70</width>
-       <height>20</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>레코드 라인</string>
-     </property>
-    </widget>
-    <widget class="QCheckBox" name="checkBox_disableIdealLine">
-     <property name="geometry">
-      <rect>
-       <x>150</x>
-       <y>15</y>
-       <width>20</width>
-       <height>20</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string/>
-     </property>
-    </widget>
-    <widget class="QLabel" name="label_disableAutosteer">
-     <property name="geometry">
-      <rect>
-       <x>10</x>
-       <y>35</y>
-       <width>110</width>
-       <height>20</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>스티어링 보조 장치</string>
-     </property>
-    </widget>
-    <widget class="QCheckBox" name="checkBox_disableAutosteer">
-     <property name="geometry">
-      <rect>
-       <x>150</x>
-       <y>35</y>
-       <width>20</width>
-       <height>20</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string/>
-     </property>
-    </widget>
-    <widget class="QLabel" name="label_disableAutoLights">
-     <property name="geometry">
-      <rect>
-       <x>10</x>
-       <y>54</y>
-       <width>80</width>
-       <height>20</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>자동 라이트</string>
-     </property>
-    </widget>
-    <widget class="QCheckBox" name="checkBox_disableAutoLights">
-     <property name="geometry">
-      <rect>
-       <x>150</x>
-       <y>54</y>
-       <width>20</width>
-       <height>20</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string/>
-     </property>
-    </widget>
-    <widget class="QLabel" name="label_disableAutoWiper">
-     <property name="geometry">
-      <rect>
-       <x>10</x>
-       <y>75</y>
-       <width>80</width>
-       <height>20</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>자동 와이퍼</string>
-     </property>
-    </widget>
-    <widget class="QCheckBox" name="checkBox_disableAutoWiper">
-     <property name="geometry">
-      <rect>
-       <x>150</x>
-       <y>75</y>
-       <width>20</width>
-       <height>20</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string/>
-     </property>
-    </widget>
-    <widget class="QCheckBox" name="checkBox_disableAutoEngineStart">
-     <property name="geometry">
-      <rect>
-       <x>370</x>
-       <y>15</y>
-       <width>20</width>
-       <height>20</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string/>
-     </property>
-    </widget>
-    <widget class="QLabel" name="label_disableAutoEngineStart">
-     <property name="geometry">
-      <rect>
-       <x>230</x>
-       <y>15</y>
-       <width>90</width>
-       <height>20</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>자동 엔진스타트</string>
-     </property>
-    </widget>
-    <widget class="QLabel" name="label_disableAutoPitLimiter">
-     <property name="geometry">
-      <rect>
-       <x>230</x>
-       <y>35</y>
-       <width>90</width>
-       <height>20</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>자동 피트 리미터</string>
-     </property>
-    </widget>
-    <widget class="QCheckBox" name="checkBox_disableAutoPitLimiter">
-     <property name="geometry">
-      <rect>
-       <x>370</x>
-       <y>35</y>
-       <width>20</width>
-       <height>20</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string/>
-     </property>
-    </widget>
-    <widget class="QCheckBox" name="checkBox_disableAutoGear">
-     <property name="geometry">
-      <rect>
-       <x>370</x>
-       <y>54</y>
-       <width>20</width>
-       <height>20</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string/>
-     </property>
-    </widget>
-    <widget class="QLabel" name="label_disableAutoGear">
-     <property name="geometry">
-      <rect>
-       <x>230</x>
-       <y>54</y>
-       <width>90</width>
-       <height>20</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>자동 변속</string>
-     </property>
-    </widget>
-    <widget class="QCheckBox" name="checkBox_disableAutoClutch">
-     <property name="geometry">
-      <rect>
-       <x>370</x>
-       <y>75</y>
-       <width>20</width>
-       <height>20</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string/>
-     </property>
-    </widget>
-    <widget class="QLabel" name="label_disableAutoClutch">
-     <property name="geometry">
-      <rect>
-       <x>230</x>
-       <y>75</y>
-       <width>90</width>
-       <height>20</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>자동 클러치</string>
-     </property>
-    </widget>
-    <widget class="QLabel" name="label_stabilityControlLevelMax">
-     <property name="geometry">
-      <rect>
-       <x>10</x>
-       <y>97</y>
-       <width>110</width>
-       <height>20</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>안정성 컨트롤 레벨</string>
-     </property>
-    </widget>
-    <widget class="QSlider" name="horizontalSlider_stabilityControlLevelMax">
-     <property name="geometry">
-      <rect>
-       <x>151</x>
-       <y>97</y>
-       <width>231</width>
-       <height>20</height>
-      </rect>
-     </property>
-     <property name="maximum">
-      <number>100</number>
-     </property>
-     <property name="orientation">
-      <enum>Qt::Horizontal</enum>
-     </property>
-    </widget>
+    <property name="autoExclusive">
+     <bool>false</bool>
+    </property>
+    <property name="default">
+     <bool>false</bool>
+    </property>
+    <property name="flat">
+     <bool>false</bool>
+    </property>
+   </widget>
+   <widget class="QLCDNumber" name="lcdNumber_tcpPort">
+    <property name="geometry">
+     <rect>
+      <x>470</x>
+      <y>567</y>
+      <width>64</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="segmentStyle">
+     <enum>QLCDNumber::Flat</enum>
+    </property>
+   </widget>
+   <widget class="QLCDNumber" name="lcdNumber_udpPort">
+    <property name="geometry">
+     <rect>
+      <x>470</x>
+      <y>541</y>
+      <width>64</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="smallDecimalPoint">
+     <bool>false</bool>
+    </property>
+    <property name="segmentStyle">
+     <enum>QLCDNumber::Flat</enum>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_udpPort">
+    <property name="geometry">
+     <rect>
+      <x>440</x>
+      <y>541</y>
+      <width>31</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Fixedsys</family>
+      <pointsize>9</pointsize>
+      <weight>50</weight>
+      <italic>false</italic>
+      <bold>false</bold>
+      <underline>false</underline>
+     </font>
+    </property>
+    <property name="text">
+     <string>UDP</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_tcpPort">
+    <property name="geometry">
+     <rect>
+      <x>440</x>
+      <y>567</y>
+      <width>31</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Fixedsys</family>
+      <pointsize>9</pointsize>
+      <weight>50</weight>
+      <italic>false</italic>
+      <bold>false</bold>
+      <underline>false</underline>
+     </font>
+    </property>
+    <property name="text">
+     <string>TCP</string>
+    </property>
+    <property name="textFormat">
+     <enum>Qt::AutoText</enum>
+    </property>
    </widget>
    <widget class="QGroupBox" name="groupBox_session">
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>370</y>
-      <width>781</width>
-      <height>161</height>
+      <y>250</y>
+      <width>401</width>
+      <height>281</height>
      </rect>
     </property>
     <property name="title">
-     <string>세션</string>
+     <string>세션 설정</string>
     </property>
     <widget class="QGroupBox" name="groupBox_practice">
      <property name="geometry">
       <rect>
        <x>10</x>
        <y>20</y>
-       <width>241</width>
-       <height>131</height>
+       <width>381</width>
+       <height>71</height>
       </rect>
      </property>
      <property name="title">
@@ -975,7 +1440,7 @@
      <widget class="QLabel" name="label_practice_hourOfDay">
       <property name="geometry">
        <rect>
-        <x>50</x>
+        <x>10</x>
         <y>20</y>
         <width>56</width>
         <height>12</height>
@@ -988,9 +1453,9 @@
      <widget class="QSpinBox" name="spinBox_practice_hourOfDay">
       <property name="geometry">
        <rect>
-        <x>120</x>
+        <x>70</x>
         <y>15</y>
-        <width>70</width>
+        <width>41</width>
         <height>22</height>
        </rect>
       </property>
@@ -1004,8 +1469,8 @@
      <widget class="QLabel" name="label_practice_timeMultiplier">
       <property name="geometry">
        <rect>
-        <x>50</x>
-        <y>45</y>
+        <x>150</x>
+        <y>20</y>
         <width>56</width>
         <height>12</height>
        </rect>
@@ -1017,9 +1482,9 @@
      <widget class="QSpinBox" name="spinBox_practice_timeMultiplier">
       <property name="geometry">
        <rect>
-        <x>120</x>
-        <y>40</y>
-        <width>70</width>
+        <x>210</x>
+        <y>15</y>
+        <width>41</width>
         <height>22</height>
        </rect>
       </property>
@@ -1036,8 +1501,8 @@
      <widget class="QLabel" name="label_practice_sessionDurationMinutes">
       <property name="geometry">
        <rect>
-        <x>50</x>
-        <y>70</y>
+        <x>270</x>
+        <y>20</y>
         <width>56</width>
         <height>12</height>
        </rect>
@@ -1049,14 +1514,17 @@
      <widget class="QSpinBox" name="spinBox_practice_sessionDurationMinutes">
       <property name="geometry">
        <rect>
-        <x>120</x>
-        <y>65</y>
-        <width>70</width>
+        <x>330</x>
+        <y>15</y>
+        <width>41</width>
         <height>22</height>
        </rect>
       </property>
       <property name="alignment">
        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+      </property>
+      <property name="minimum">
+       <number>1</number>
       </property>
       <property name="maximum">
        <number>1440</number>
@@ -1065,8 +1533,8 @@
      <widget class="QLabel" name="label_practice_friday">
       <property name="geometry">
        <rect>
-        <x>30</x>
-        <y>100</y>
+        <x>100</x>
+        <y>47</y>
         <width>20</width>
         <height>20</height>
        </rect>
@@ -1078,8 +1546,8 @@
      <widget class="QRadioButton" name="radioButton_practice_friday">
       <property name="geometry">
        <rect>
-        <x>10</x>
-        <y>100</y>
+        <x>80</x>
+        <y>47</y>
         <width>20</width>
         <height>20</height>
        </rect>
@@ -1091,8 +1559,8 @@
      <widget class="QLabel" name="label_practice_saturday">
       <property name="geometry">
        <rect>
-        <x>120</x>
-        <y>100</y>
+        <x>190</x>
+        <y>47</y>
         <width>20</width>
         <height>20</height>
        </rect>
@@ -1104,8 +1572,8 @@
      <widget class="QRadioButton" name="radioButton_practice_saturday">
       <property name="geometry">
        <rect>
-        <x>100</x>
-        <y>100</y>
+        <x>170</x>
+        <y>47</y>
         <width>20</width>
         <height>20</height>
        </rect>
@@ -1117,8 +1585,8 @@
      <widget class="QLabel" name="label_practice_sunday">
       <property name="geometry">
        <rect>
-        <x>210</x>
-        <y>100</y>
+        <x>280</x>
+        <y>47</y>
         <width>20</width>
         <height>20</height>
        </rect>
@@ -1130,8 +1598,8 @@
      <widget class="QRadioButton" name="radioButton_practice_sunday">
       <property name="geometry">
        <rect>
-        <x>190</x>
-        <y>100</y>
+        <x>260</x>
+        <y>47</y>
         <width>20</width>
         <height>20</height>
        </rect>
@@ -1144,10 +1612,10 @@
     <widget class="QGroupBox" name="groupBox_qualify">
      <property name="geometry">
       <rect>
-       <x>270</x>
-       <y>20</y>
-       <width>241</width>
-       <height>131</height>
+       <x>10</x>
+       <y>110</y>
+       <width>381</width>
+       <height>71</height>
       </rect>
      </property>
      <property name="title">
@@ -1162,7 +1630,7 @@
      <widget class="QLabel" name="label_qualify_hourOfDay">
       <property name="geometry">
        <rect>
-        <x>50</x>
+        <x>10</x>
         <y>20</y>
         <width>56</width>
         <height>12</height>
@@ -1175,9 +1643,9 @@
      <widget class="QSpinBox" name="spinBox_qualify_hourOfDay">
       <property name="geometry">
        <rect>
-        <x>120</x>
+        <x>70</x>
         <y>15</y>
-        <width>70</width>
+        <width>41</width>
         <height>22</height>
        </rect>
       </property>
@@ -1191,8 +1659,8 @@
      <widget class="QLabel" name="label_qualify_timeMultiplier">
       <property name="geometry">
        <rect>
-        <x>50</x>
-        <y>45</y>
+        <x>150</x>
+        <y>20</y>
         <width>56</width>
         <height>12</height>
        </rect>
@@ -1204,9 +1672,9 @@
      <widget class="QSpinBox" name="spinBox_qualify_timeMultiplier">
       <property name="geometry">
        <rect>
-        <x>120</x>
-        <y>40</y>
-        <width>70</width>
+        <x>210</x>
+        <y>15</y>
+        <width>41</width>
         <height>22</height>
        </rect>
       </property>
@@ -1223,8 +1691,8 @@
      <widget class="QLabel" name="label_qualify_sessionDurationMinutes">
       <property name="geometry">
        <rect>
-        <x>50</x>
-        <y>70</y>
+        <x>270</x>
+        <y>20</y>
         <width>56</width>
         <height>12</height>
        </rect>
@@ -1236,14 +1704,17 @@
      <widget class="QSpinBox" name="spinBox_qualify_sessionDurationMinutes">
       <property name="geometry">
        <rect>
-        <x>120</x>
-        <y>65</y>
-        <width>70</width>
+        <x>330</x>
+        <y>15</y>
+        <width>41</width>
         <height>22</height>
        </rect>
       </property>
       <property name="alignment">
        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+      </property>
+      <property name="minimum">
+       <number>1</number>
       </property>
       <property name="maximum">
        <number>1440</number>
@@ -1252,8 +1723,8 @@
      <widget class="QLabel" name="label_qualify_friday">
       <property name="geometry">
        <rect>
-        <x>30</x>
-        <y>100</y>
+        <x>100</x>
+        <y>47</y>
         <width>20</width>
         <height>20</height>
        </rect>
@@ -1265,8 +1736,8 @@
      <widget class="QRadioButton" name="radioButton_qualify_friday">
       <property name="geometry">
        <rect>
-        <x>10</x>
-        <y>100</y>
+        <x>80</x>
+        <y>47</y>
         <width>20</width>
         <height>20</height>
        </rect>
@@ -1278,8 +1749,8 @@
      <widget class="QLabel" name="label_qualify_saturday">
       <property name="geometry">
        <rect>
-        <x>120</x>
-        <y>100</y>
+        <x>190</x>
+        <y>47</y>
         <width>20</width>
         <height>20</height>
        </rect>
@@ -1291,8 +1762,8 @@
      <widget class="QRadioButton" name="radioButton_qualify_saturday">
       <property name="geometry">
        <rect>
-        <x>100</x>
-        <y>100</y>
+        <x>170</x>
+        <y>47</y>
         <width>20</width>
         <height>20</height>
        </rect>
@@ -1304,8 +1775,8 @@
      <widget class="QLabel" name="label_qualify_sunday">
       <property name="geometry">
        <rect>
-        <x>210</x>
-        <y>100</y>
+        <x>280</x>
+        <y>47</y>
         <width>20</width>
         <height>20</height>
        </rect>
@@ -1317,8 +1788,8 @@
      <widget class="QRadioButton" name="radioButton_qualify_sunday">
       <property name="geometry">
        <rect>
-        <x>190</x>
-        <y>100</y>
+        <x>260</x>
+        <y>47</y>
         <width>20</width>
         <height>20</height>
        </rect>
@@ -1331,10 +1802,10 @@
     <widget class="QGroupBox" name="groupBox_race">
      <property name="geometry">
       <rect>
-       <x>530</x>
-       <y>20</y>
-       <width>241</width>
-       <height>131</height>
+       <x>10</x>
+       <y>200</y>
+       <width>381</width>
+       <height>71</height>
       </rect>
      </property>
      <property name="title">
@@ -1349,7 +1820,7 @@
      <widget class="QLabel" name="label_race_hourOfDay">
       <property name="geometry">
        <rect>
-        <x>50</x>
+        <x>10</x>
         <y>20</y>
         <width>56</width>
         <height>12</height>
@@ -1362,9 +1833,9 @@
      <widget class="QSpinBox" name="spinBox_race_hourOfDay">
       <property name="geometry">
        <rect>
-        <x>120</x>
+        <x>70</x>
         <y>15</y>
-        <width>70</width>
+        <width>41</width>
         <height>22</height>
        </rect>
       </property>
@@ -1378,8 +1849,8 @@
      <widget class="QLabel" name="label_race_timeMultiplier">
       <property name="geometry">
        <rect>
-        <x>50</x>
-        <y>45</y>
+        <x>150</x>
+        <y>20</y>
         <width>56</width>
         <height>12</height>
        </rect>
@@ -1391,9 +1862,9 @@
      <widget class="QSpinBox" name="spinBox_race_timeMultiplier">
       <property name="geometry">
        <rect>
-        <x>120</x>
-        <y>40</y>
-        <width>70</width>
+        <x>210</x>
+        <y>15</y>
+        <width>41</width>
         <height>22</height>
        </rect>
       </property>
@@ -1410,8 +1881,8 @@
      <widget class="QLabel" name="label_race_sessionDurationMinutes">
       <property name="geometry">
        <rect>
-        <x>50</x>
-        <y>70</y>
+        <x>270</x>
+        <y>20</y>
         <width>56</width>
         <height>12</height>
        </rect>
@@ -1423,14 +1894,17 @@
      <widget class="QSpinBox" name="spinBox_race_sessionDurationMinutes">
       <property name="geometry">
        <rect>
-        <x>120</x>
-        <y>65</y>
-        <width>70</width>
+        <x>329</x>
+        <y>15</y>
+        <width>41</width>
         <height>22</height>
        </rect>
       </property>
       <property name="alignment">
        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+      </property>
+      <property name="minimum">
+       <number>1</number>
       </property>
       <property name="maximum">
        <number>1440</number>
@@ -1439,8 +1913,8 @@
      <widget class="QLabel" name="label_race_friday">
       <property name="geometry">
        <rect>
-        <x>30</x>
-        <y>100</y>
+        <x>100</x>
+        <y>47</y>
         <width>20</width>
         <height>20</height>
        </rect>
@@ -1452,8 +1926,8 @@
      <widget class="QRadioButton" name="radioButton_race_friday">
       <property name="geometry">
        <rect>
-        <x>10</x>
-        <y>100</y>
+        <x>80</x>
+        <y>47</y>
         <width>20</width>
         <height>20</height>
        </rect>
@@ -1465,8 +1939,8 @@
      <widget class="QLabel" name="label_race_saturday">
       <property name="geometry">
        <rect>
-        <x>120</x>
-        <y>100</y>
+        <x>190</x>
+        <y>47</y>
         <width>20</width>
         <height>20</height>
        </rect>
@@ -1478,8 +1952,8 @@
      <widget class="QRadioButton" name="radioButton_race_saturday">
       <property name="geometry">
        <rect>
-        <x>100</x>
-        <y>100</y>
+        <x>170</x>
+        <y>47</y>
         <width>20</width>
         <height>20</height>
        </rect>
@@ -1491,8 +1965,8 @@
      <widget class="QLabel" name="label_race_sunday">
       <property name="geometry">
        <rect>
-        <x>210</x>
-        <y>100</y>
+        <x>280</x>
+        <y>47</y>
         <width>20</width>
         <height>20</height>
        </rect>
@@ -1504,8 +1978,8 @@
      <widget class="QRadioButton" name="radioButton_race_sunday">
       <property name="geometry">
        <rect>
-        <x>190</x>
-        <y>100</y>
+        <x>260</x>
+        <y>47</y>
         <width>20</width>
         <height>20</height>
        </rect>
@@ -1568,8 +2042,25 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>pushButton_exit</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>serverStop()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>721</x>
+     <y>578</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>795</x>
+     <y>530</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>serverStart()</slot>
+  <slot>serverStop()</slot>
  </slots>
 </ui>
