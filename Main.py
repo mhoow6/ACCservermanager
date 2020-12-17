@@ -23,11 +23,196 @@ class Main(QMainWindow, Ui_MainWindow):
     def initUI(self):
 
         def initTooltip(self):
-            pass
+            self.lineEdit_password.setToolTip(
+                '이 서버를 입력하는 데 필요한 비밀번호입니다.\n'
+                '비밀번호가 설정되면 서버는 "Private Multiplayer"로\n'
+                '선언됩니다.'
+            )
+            self.lineEdit_spectatorPassword.setToolTip(
+                '서버를 관전자로써 들어가기 위한 비밀번호입니다.\n'
+                '비밀번호와 같이 둘 다 설정된 경우 비밀번호랑\n'
+                '달라야 합니다.'
+            )
+            self.spinBox_maxConnections.setToolTip(
+                '"maxClients"를 대체합니다. 서버가 한 번에 허용할\n'
+                '최대 연결 수를 의미합니다. 만약 하드웨어 서버를\n'
+                '소유하고 있다면, 원하는 숫자를 설정하기만\n'
+                '하면 됩니다. 만약 16 또는 24개의 슬롯 서버를\n'
+                '대여한 경우, 호스트 공급자가 이 구성 파일에 대한\n'
+                '액세스 권한을 부여하지 않을 수도 있습니다.'
+            )
+            self.spinBox_maxCarSlots.setToolTip(
+                '"maxClientsOverride" 및 "spectatorSlots"를\n'
+                '대체합니다. 서버가 점유할 수 있는 차량 슬롯의\n'
+                '양을규정합니다. this value is overridden if the\n'
+                'pit count of the track is lower, Public\n'
+                'Multiplayer의 경우 30개로 이 값이 덮어쓰여집니다.'
+            )
+            self.checkBox_dumpLeaderboards.setToolTip(
+                '체크를 하게되면, 모든 세션의 결과 순위표를\n'
+                '"results" 폴더에 기록합니다.'
+            )
+            self.checkBox_dumpEntryList.setToolTip(
+                '1로 설정하면, 모든 세션의 결과 순위표를 "results"\n'
+                '폴더에 기록합니다 (수동으로 작성되야 합니다).'
+            )
+            self.checkBox_allowAutoDQ.setToolTip(
+                '체크를 해제하면 서버가 자동으로 드라이버가\n'
+                '실격되게 처리하지 않고 대신 Stop&Go(30초)\n'
+                '패널티를 나눠줍니다. 이렇게 하면 서버관리자/레이스\n'
+                '디렉터는 3바퀴를 보면서 검토하고, 그의 판단에 따라\n'
+                '/dq 혹은 /clear를 사용할 수 있습니다'
+            )
+            self.checkBox_registerToLobby.setToolTip(
+                '체크를 안 하면, 이 서버는 백엔드에 등록되지 않습니다.\n'
+                '백엔드에 등록을 안 할 경우 LAN으로 연결되지 않는\n'
+                '네트워크에서는 서버가 보이지 않습니다. 이 옵션에 대해서\n'
+                '이해가 안 가시면 그냥 체크를 하시면 됩니다.\n'
+                '이것은 LAN 세션에서만 유용한 옵션입니다. 만약 0이 될 경우,\n'
+                '이 서버는 Private Multiplayer로 선언됩니다.'
+            )
+            self.checkBox_lanDiscovery.setToolTip(
+                '서버가 LAN 검색 요청을 수신할지 여부를 정의하세요.\n'
+                'Private Server는 이 옵션을 해체할 수 있습니다.'
+            )
+            self.checkBox_randomizeTrackWhenEmpty.setToolTip(
+                '체크하면, 마지막 드라이버가 떠날 때 서버가 임의의 트랙으로\n'
+                '변경됩니다(FP1으로 재설정됩니다)\n'
+                '"track" 속성은 첫 번째 세션의 기본상태로 정의될 것입니다.'
+            )
+            self.checkBox_shortFormationLap.setToolTip(
+                '숏 포메이션 혹은 롱 포메이션 랩을 토글합니다.\n'
+                '롱 포메이션 랩은 Private Server에서만 사용할\n'
+                '수 있습니다.'
+            )
+            self.comboBox_formationLapType.setToolTip(
+                '서버에서 영구적으로 사용되는 포메이션 랩 유형을 전환합니다:\n'
+                '3 – 위치 제어 및 UI가 있는 기본 포메이션 랩\n'
+                '0 – 구식 리미터랩\n'
+                '1 – free (대체/ 수동 시작), Private Server에서만 사용 가능합니다'
+            )
+            self.spinBox_preRaceWaitingTimeSeconds.setToolTip(
+                '경기 전 준비 시간. 30초 이하일 수 없습니다.'
+            )
+            self.spinBox_sessionOverTimeSeconds.setToolTip(
+                '타이머가 0:00에 도달한 후 세션이 강제로 닫히는 시간(초).\n'
+                '예상 랩타임의 107%가 권장됩니다(주의: Spa 또는 Silver\n'
+                'stone과 같은 트랙은 기본 2분으로 제대로 커버하지 못합니다).'
+            )
+            self.horizontalSlider_weatherRandomness.setToolTip(
+                '동적 날씨 레벨을 설정하세요.\n'
+                '0 = 정적 날씨\n'
+                '1-4 상당히 현실적인 날씨\n'
+                '5-7 과장된 날씨'
+            )
+            self.doubleSpinBox_cloudLevel.setToolTip(
+                '기본 구름 레벨(구름이 있는 정도)을 설정하세요.\n'
+                '이 값은 구름이 있는 정도에 큰 영향을 미치고 비가\n'
+                '올 가능성이 생기게 합니다.'
+            )
+            self.doubleSpinBox_rain.setToolTip(
+                '날씨 변동성이 꺼져 있는 경우 정적 강우량을 정의하세요.\n'
+                '동적인 날씨와 함께, 날씨 변동성 값에 따라 예상 강수량이\n'
+                '정의됩니다.'
+            )
+            self.spinBox_practice_hourOfDay.setToolTip(
+                '하루의 세션 시작 시간(시)'
+            )
+            self.spinBox_practice_timeMultiplier.setToolTip(
+                '세션 시간이 실시간으로 진행되는 속도 배율.'
+            )
+            self.spinBox_practice_sessionDurationMinutes.setToolTip(
+                '세션 기간(분)'
+            )
+            self.groupBox_practice.setToolTip(
+                '불합리한 주간 및 시간 설정은 잘못된 트랙 및 날씨 행동을\n'
+                '초래할 수 있습니다. 예: 토요일에서 금요일로 점프하는 것'
+            )
+            self.spinBox_qualify_hourOfDay.setToolTip(
+                '하루의 세션 시작 시간(시)'
+            )
+            self.spinBox_qualify_timeMultiplier.setToolTip(
+                '세션 시간이 실시간으로 진행되는 속도 배율.'
+            )
+            self.spinBox_qualify_sessionDurationMinutes.setToolTip(
+                '세션 기간(분)'
+            )
+            self.groupBox_qualify.setToolTip(
+                '불합리한 주간 및 시간 설정은 잘못된 트랙 및 날씨 행동을\n'
+                '초래할 수 있습니다. 예: 토요일에서 금요일로 점프하는 것'
+            )
+            self.spinBox_race_hourOfDay.setToolTip(
+                '하루의 세션 시작 시간(시)'
+            )
+            self.spinBox_race_timeMultiplier.setToolTip(
+                '세션 시간이 실시간으로 진행되는 속도 배율.'
+            )
+            self.spinBox_race_sessionDurationMinutes.setToolTip(
+                '세션 기간(분)'
+            )
+            self.groupBox_race.setToolTip(
+                '불합리한 주간 및 시간 설정은 잘못된 트랙 및 날씨 행동을\n'
+                '초래할 수 있습니다. 예: 토요일에서 금요일로 점프하는 것'
+            )
+            self.spinBox_mandatoryPitstopCount.setToolTip(
+                '기본 필수 피트 스톱 횟수를 규정합니다. 값이 0보다 크면\n'
+                '의무적으로 피트스톱을 실행하지 않은 차량은 경주가 끝날 때\n'
+                '실격됩니다. 값이 0이면 기능이 비활성화됩니다.'
+            )
+            self.spinBox_pitWindowLengthSec.setToolTip(
+                '레이스하는 도중 피트 시간을 정의합니다. 이것은 Sprint\n'
+                '시리즈 형식을 다룹니다. -1은 피트 윈도우를 비활성화시킵니다.\n'
+                '이 값은 의무 피트스톱 횟수와 함께 사용하세요.'
+            )
+            self.spinBox_driverStintTimeSec.setToolTip(
+                '드라이버가 패널티를 받지 않고 주행할 수 있는 최대 시간을 규정합니다.\n'
+                '내구 레이스에서 연료 효율이 높은 자동차의 균형을 맞추기 위해 사용될 수\n'
+                '있습니다. 피트레인의 고정 시간이 재설정되므로 실제 정지가 필요하지\n'
+                '않습니다. -1은 고정 시간을 비활성화합니다. 최소 스틴트 시간과 최대\n'
+                '스틴트 시간은 상호의존적인 기능이며, 모두 설정되거나 해제되었는지\n'
+                '확인하십시오.'
+            )
+            self.spinBox_maxTotalDrivingTime.setToolTip(
+                '단일 차량의 최대 운전 시간을 제한시킵니다. 이것은 드라이버를 스왑하는\n'
+                '상황에서만 유용하여 각 드라이버에 대해 최소 주행 시간을 강제할 수\n'
+                '있습니다(현실에서 이것은 프로/아마추어와 같은 혼합 팀이 느린 드라이버에게\n'
+                '공정성을 갖도록 하기 위해 사용됩니다) -1은 기능을 비활성화시킵니다.\n'
+                '최소 스틴트 시간과 최대 스틴트 시간은 상호의존적인 기능이며, 두 가지 모두\n'
+                '설정 또는 해제되었는지 확인하십시오. "스틴트 운전자 수"에 의해 정의된\n'
+                '팀 크기에 대한 최대 주행 시간을 설정하며, 항상 두 팀 모두 설정되었는지\n'
+                '확인하십시오.'
+            )
+            self.spinBox_maxDriversCount.setToolTip(
+                '드라이버 스왑 상황에서는 이 값을 차량의 최대 운전자 수로 설정하십시오.\n'
+                '항목이 스틴트 운전자 수보다 적은 드라이버를 가진 경우, 최대 스틴트 시간은\n'
+                '자동으로 보정되며 "작은" 엔트리들도 레이스를 마칠 수 있습니다.\n'
+                '예: 3시간 레이스에서, 최소 스틴트 시간이 65분이고 최대 스틴트 시간이\n'
+                '65분인 경우 각 3명의 엔트리들에게 최대 스틴트 시간 65분을, 2명의\n'
+                '엔트리들에겐 105분이란 결과를 가져옵니다.'
+            )
+            self.spinBox_tyreSetCount.setToolTip(
+                'Experimental/not supported: 레이스 주간 내내 모든 차량 엔트리에서\n'
+                '타이어 세트의 양을 줄이는데 사용할 수 있습니다. 차량이 서버에 남게 하는 것을\n'
+                '강제할 필요가 있으며, 그렇지 않을경우 다이어 세트를 다시 맞추면 타이어 세트가\n'
+                '재설정되므로 타이어 세트를 대폭 줄여야 효과가 없다는 점에 유의하십시오.'
+            )
+            self.horizontalSlider_stabilityControlLevelMax.setToolTip(
+                '사용할 수 있는 안정성 컨트롤의 최대 % 설정. 클라이언트가\n'
+                '서버에서 허용하는 것보다 더 높은 안정성 컨트롤 세트를 가지고 있는 경우,\n'
+                '서버에서 "최대 안정성 컨트롤"이 지정된 값만큼 됩니다.\n'
+                '이 속성을 0으로 설정하면 마우스와 키보드 사용자를 포함해서 모든 안정성 컨트롤이\n'
+                '제거가 됩니다. 안정성 컨트롤은 자동차가 물리학적 경계를 벗어나 동작할 수 있도록\n'
+                '하는 인공 운전 보조 장치로, 키보드, 게임패드, 마우스 조향 등의 입력방식을 하는\n'
+                '유저들이 도움을 받을 수 있도록하는 것이 적극 권장됩니다. 그러나 (자신이 하는)안정성\n'
+                '컨트롤 퍼포먼스를 저하시킬 수 있는 간접 효과가 있기 때문에 이론상으로는 안정성 컨트롤에\n'
+                '의존하는 것은 이미 충분한 패널티보다 더하고, 퍼포먼스를 향상시키는 방법은 안정성 컨트롤\n'
+                '없이 운전을 연습하는 것입니다. 기본값: 100'
+            )
+
 
         initTooltip(self)
 
-        self.tracklist = [
+        tracklist = [
             'monza', 'zolder', 'brands_hatch', 'sliverstone', 'paul_ricard', 'misano', 'spa', 'nurburgring',
             'barcelona', 'hungaroring', 'zandvoort', 'monza_2019', 'zolder_2019', 'brands_hatch_2019',
             'silverstone_2019', 'paul_ricard_2019', 'misano_2019', 'spa_2019', 'nurburgring_2019', 'barcelona_2019',
@@ -37,10 +222,13 @@ class Main(QMainWindow, Ui_MainWindow):
             'hungaroring_2020', 'zandvoort_2020', 'imola_2020'
         ]
 
-        self.carlist = ["FreeForAll", "GT3", "GT4", "Cup", "ST"]
+        carlist = ["FreeForAll", "GT3", "GT4", "Cup", "ST"]
 
-        self.comboBox_track.addItems(self.tracklist)
-        self.comboBox_car.addItems(self.carlist)
+        self.formationLapTypelist = ['구식', '수동', '기본', '수동 + 고스트 1랩', '기본 + 고스트1랩']
+
+        self.comboBox_track.addItems(tracklist)
+        self.comboBox_car.addItems(carlist)
+        self.comboBox_formationLapType.addItems(self.formationLapTypelist)
 
         try:
             with open("cfg/settings.json", encoding='UTF-16') as settings:
@@ -65,6 +253,20 @@ class Main(QMainWindow, Ui_MainWindow):
                 self.checkBox_allowAutoDQ.setChecked(self.settings['allowAutoDQ'])
                 self.comboBox_car.setCurrentText(self.settings['carGroup'])
                 self.checkBox_shortFormationLap.setChecked(self.settings['shortFormationLap'])
+                self.checkBox_dumpEntryList.setChecked(self.settings['dumpEntryList'])
+                self.checkBox_randomizeTrackWhenEmpty.setChecked(self.settings['randomizeTrackWhenEmpty'])
+
+                # formationLapType Logic
+                if self.settings['formationLapType'] == 3:
+                    self.comboBox_formationLapType.setCurrentText(self.formationLapTypelist[2])
+                elif self.settings['formationLapType'] == 0:
+                    self.comboBox_formationLapType.setCurrentText(self.formationLapTypelist[0])
+                elif self.settings['formationLapType'] == 1:
+                    self.comboBox_formationLapType.setCurrentText(self.formationLapTypelist[1])
+                elif self.settings['formationLapType'] == 4:
+                    self.comboBox_formationLapType.setCurrentText(self.formationLapTypelist[3])
+                else:
+                    self.comboBox_formationLapType.setCurrentText(self.formationLapTypelist[4])
 
         except FileNotFoundError:
             print("cfg/settings.json is not found")
@@ -83,6 +285,8 @@ class Main(QMainWindow, Ui_MainWindow):
                 self.spinBox_maxConnections.setValue(self.configuration['maxConnections'])
                 self.lcdNumber_tcpPort.display(self.configuration['tcpPort'])
                 self.lcdNumber_udpPort.display(self.configuration['udpPort'])
+                self.checkBox_registerToLobby.setChecked(self.configuration['registerToLobby'])
+                self.checkBox_lanDiscovery.setChecked(self.configuration['lanDiscovery'])
 
         except FileNotFoundError:
             print("cfg/configuration.json is not found")
@@ -203,7 +407,7 @@ class Main(QMainWindow, Ui_MainWindow):
                 # set value from json file
                 self.spinBox_pitWindowLengthSec.setValue(self.eventRules["pitWindowLengthSec"])
                 self.spinBox_driverStintTimeSec.setValue(self.eventRules["driverStintTimeSec"])
-                self.checkBox_mandatoryPitstopCount.setChecked(self.eventRules["mandatoryPitstopCount"])
+                self.spinBox_mandatoryPitstopCount.setValue(self.eventRules["mandatoryPitstopCount"])
                 self.spinBox_maxTotalDrivingTime.setValue(self.eventRules["maxTotalDrivingTime"])
                 self.spinBox_maxDriversCount.setValue(self.eventRules["maxDriversCount"])
                 self.spinBox_tyreSetCount.setValue(self.eventRules["tyreSetCount"])
@@ -234,7 +438,7 @@ class Main(QMainWindow, Ui_MainWindow):
     def serverStart(self):
         # print("Server Start!")
         # At least one non-race session must be set up
-        if self.groupBox_practice and self.groupBox_qualify:
+        if not self.groupBox_practice.isChecked() and not self.groupBox_qualify.isChecked():
             root = Tk()
             root.withdraw()
 
@@ -256,9 +460,25 @@ class Main(QMainWindow, Ui_MainWindow):
             self.settings["allowAutoDQ"] = self.checkBox_allowAutoDQ.isChecked()
             self.settings["carGroup"] = self.comboBox_car.currentText()
             self.settings['shortFormationLap'] = self.checkBox_shortFormationLap.isChecked()
+            self.settings['dumpEntryList'] = self.checkBox_dumpEntryList.isChecked()
+            self.settings['randomizeTrackWhenEmpty'] = self.checkBox_randomizeTrackWhenEmpty.isChecked()
+
+            # formationLapType logic
+            if self.comboBox_formationLapType.currentText() == self.formationLapTypelist[2]:
+                self.settings['formationLapType'] = 3
+            elif self.comboBox_formationLapType.currentText() == self.formationLapTypelist[0]:
+                self.settings['formationLapType'] = 0
+            elif self.comboBox_formationLapType.currentText() == self.formationLapTypelist[1]:
+                self.settings['formationLapType'] = 1
+            elif self.comboBox_formationLapType.currentText() == self.formationLapTypelist[3]:
+                self.settings['formationLapType'] = 4
+            else:
+                self.settings['formationLapType'] = 5
 
             # configuration.json
             self.configuration["maxConnections"] = self.spinBox_maxConnections.value()
+            self.settings['registerToLobby'] = self.checkBox_registerToLobby.isChecked()
+            self.settings['lanDiscovery'] = self.checkBox_lanDiscovery.isChecked()
 
             # assistRules.json
             self.assist["disableIdealLine"] = self.checkBox_disableIdealLine.isChecked()
@@ -382,7 +602,7 @@ class Main(QMainWindow, Ui_MainWindow):
             # eventRules.json
             self.eventRules["pitWindowLengthSec"] = self.spinBox_pitWindowLengthSec.value()
             self.eventRules["driverStintTimeSec"] = self.spinBox_driverStintTimeSec.value()
-            self.eventRules["mandatoryPitstopCount"] = self.checkBox_mandatoryPitstopCount.isChecked()
+            self.eventRules["mandatoryPitstopCount"] = self.spinBox_mandatoryPitstopCount.value()
             self.eventRules["maxTotalDrivingTime"] = self.spinBox_maxTotalDrivingTime.value()
             self.eventRules["maxDriversCount"] = self.spinBox_maxDriversCount.value()
             self.eventRules["tyreSetCount"] = self.spinBox_tyreSetCount.value()
@@ -409,10 +629,10 @@ class Main(QMainWindow, Ui_MainWindow):
                 json.dump(self.event, make_file, indent="\t")
 
             with open('cfg/eventRules.json', 'w', encoding='utf-16') as make_file:
-                json.dump(self.event, make_file, indent="\t")
+                json.dump(self.eventRules, make_file, indent="\t")
 
             # 3. Start server with accServer.exe
-            os.popen("accServer.exe")
+            os.popen('accServer.exe')
 
             # 4. enable and disable
             self.pushButton_exit.setEnabled(True)
