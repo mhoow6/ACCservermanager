@@ -23,8 +23,8 @@
      <rect>
       <x>10</x>
       <y>10</y>
-      <width>391</width>
-      <height>231</height>
+      <width>390</width>
+      <height>235</height>
      </rect>
     </property>
     <property name="title">
@@ -34,7 +34,7 @@
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>20</y>
+       <y>15</y>
        <width>90</width>
        <height>20</height>
       </rect>
@@ -53,7 +53,7 @@
      <property name="geometry">
       <rect>
        <x>110</x>
-       <y>20</y>
+       <y>15</y>
        <width>270</width>
        <height>20</height>
       </rect>
@@ -63,7 +63,7 @@
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>45</y>
+       <y>40</y>
        <width>90</width>
        <height>20</height>
       </rect>
@@ -76,7 +76,7 @@
      <property name="geometry">
       <rect>
        <x>110</x>
-       <y>45</y>
+       <y>40</y>
        <width>270</width>
        <height>20</height>
       </rect>
@@ -86,7 +86,7 @@
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>70</y>
+       <y>65</y>
        <width>90</width>
        <height>20</height>
       </rect>
@@ -99,7 +99,7 @@
      <property name="geometry">
       <rect>
        <x>110</x>
-       <y>70</y>
+       <y>65</y>
        <width>270</width>
        <height>20</height>
       </rect>
@@ -109,7 +109,7 @@
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>95</y>
+       <y>90</y>
        <width>90</width>
        <height>20</height>
       </rect>
@@ -122,7 +122,7 @@
      <property name="geometry">
       <rect>
        <x>110</x>
-       <y>95</y>
+       <y>90</y>
        <width>270</width>
        <height>20</height>
       </rect>
@@ -132,7 +132,7 @@
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>155</y>
+       <y>140</y>
        <width>90</width>
        <height>20</height>
       </rect>
@@ -145,7 +145,7 @@
      <property name="geometry">
       <rect>
        <x>110</x>
-       <y>155</y>
+       <y>140</y>
        <width>42</width>
        <height>20</height>
       </rect>
@@ -161,7 +161,7 @@
      <property name="geometry">
       <rect>
        <x>110</x>
-       <y>180</y>
+       <y>165</y>
        <width>42</width>
        <height>20</height>
       </rect>
@@ -180,7 +180,7 @@
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>180</y>
+       <y>165</y>
        <width>100</width>
        <height>20</height>
       </rect>
@@ -193,7 +193,7 @@
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>205</y>
+       <y>190</y>
        <width>100</width>
        <height>20</height>
       </rect>
@@ -206,7 +206,7 @@
      <property name="geometry">
       <rect>
        <x>110</x>
-       <y>205</y>
+       <y>190</y>
        <width>42</width>
        <height>20</height>
       </rect>
@@ -224,8 +224,8 @@
     <widget class="QLabel" name="label_isRaceLocked">
      <property name="geometry">
       <rect>
-       <x>235</x>
-       <y>155</y>
+       <x>8</x>
+       <y>210</y>
        <width>90</width>
        <height>20</height>
       </rect>
@@ -237,8 +237,8 @@
     <widget class="QCheckBox" name="checkBox_isRaceLocked">
      <property name="geometry">
       <rect>
-       <x>367</x>
-       <y>155</y>
+       <x>140</x>
+       <y>210</y>
        <width>20</width>
        <height>20</height>
       </rect>
@@ -251,7 +251,7 @@
      <property name="geometry">
       <rect>
        <x>235</x>
-       <y>130</y>
+       <y>110</y>
        <width>100</width>
        <height>20</height>
       </rect>
@@ -264,7 +264,7 @@
      <property name="geometry">
       <rect>
        <x>367</x>
-       <y>130</y>
+       <y>110</y>
        <width>20</width>
        <height>20</height>
       </rect>
@@ -277,7 +277,7 @@
      <property name="geometry">
       <rect>
        <x>235</x>
-       <y>180</y>
+       <y>150</y>
        <width>90</width>
        <height>20</height>
       </rect>
@@ -290,7 +290,7 @@
      <property name="geometry">
       <rect>
        <x>367</x>
-       <y>180</y>
+       <y>150</y>
        <width>20</width>
        <height>20</height>
       </rect>
@@ -303,7 +303,7 @@
      <property name="geometry">
       <rect>
        <x>110</x>
-       <y>130</y>
+       <y>115</y>
        <width>42</width>
        <height>20</height>
       </rect>
@@ -319,7 +319,7 @@
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>130</y>
+       <y>115</y>
        <width>90</width>
        <height>20</height>
       </rect>
@@ -328,30 +328,108 @@
       <string>최대 연결 수</string>
      </property>
     </widget>
-    <widget class="QLabel" name="label_shortFormationLap">
+    <widget class="QLabel" name="label_registerToLobby">
      <property name="geometry">
       <rect>
        <x>235</x>
-       <y>205</y>
+       <y>170</y>
        <width>90</width>
        <height>20</height>
       </rect>
      </property>
      <property name="text">
-      <string>숏 포메이션랩</string>
+      <string>백엔드에 등록</string>
      </property>
     </widget>
-    <widget class="QCheckBox" name="checkBox_shortFormationLap">
+    <widget class="QCheckBox" name="checkBox_registerToLobby">
      <property name="geometry">
       <rect>
        <x>367</x>
-       <y>205</y>
+       <y>170</y>
        <width>20</width>
        <height>20</height>
       </rect>
      </property>
      <property name="text">
       <string/>
+     </property>
+    </widget>
+    <widget class="QCheckBox" name="checkBox_lanDiscovery">
+     <property name="geometry">
+      <rect>
+       <x>367</x>
+       <y>190</y>
+       <width>20</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_lanDiscovery">
+     <property name="geometry">
+      <rect>
+       <x>235</x>
+       <y>190</y>
+       <width>131</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>LAN 검색 요청 허용</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_randomizeTrackWhenEmpty">
+     <property name="geometry">
+      <rect>
+       <x>234</x>
+       <y>210</y>
+       <width>131</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>랜덤 트랙 허용</string>
+     </property>
+    </widget>
+    <widget class="QCheckBox" name="checkBox_randomizeTrackWhenEmpty">
+     <property name="geometry">
+      <rect>
+       <x>367</x>
+       <y>210</y>
+       <width>20</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QCheckBox" name="checkBox_dumpEntryList">
+     <property name="geometry">
+      <rect>
+       <x>367</x>
+       <y>130</y>
+       <width>20</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_dumpEntryList">
+     <property name="geometry">
+      <rect>
+       <x>235</x>
+       <y>130</y>
+       <width>100</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>엔트리 목록 저장</string>
      </property>
     </widget>
    </widget>
@@ -709,15 +787,15 @@
        <string/>
       </property>
       <property name="text">
-       <string>최소 피트 시간</string>
+       <string>피트 윈도우 길이</string>
       </property>
      </widget>
      <widget class="QSpinBox" name="spinBox_pitWindowLengthSec">
       <property name="geometry">
        <rect>
-        <x>313</x>
+        <x>310</x>
         <y>20</y>
-        <width>42</width>
+        <width>45</width>
         <height>20</height>
        </rect>
       </property>
@@ -731,15 +809,18 @@
        <number>-1</number>
       </property>
       <property name="maximum">
-       <number>1440</number>
+       <number>9999</number>
+      </property>
+      <property name="value">
+       <number>0</number>
       </property>
      </widget>
      <widget class="QSpinBox" name="spinBox_driverStintTimeSec">
       <property name="geometry">
        <rect>
-        <x>313</x>
+        <x>310</x>
         <y>45</y>
-        <width>42</width>
+        <width>45</width>
         <height>20</height>
        </rect>
       </property>
@@ -753,7 +834,10 @@
        <number>-1</number>
       </property>
       <property name="maximum">
-       <number>1440</number>
+       <number>9999</number>
+      </property>
+      <property name="value">
+       <number>0</number>
       </property>
      </widget>
      <widget class="QLabel" name="label_driverStintTimeSec">
@@ -769,7 +853,7 @@
        <string/>
       </property>
       <property name="text">
-       <string>최소 스틴트 시간</string>
+       <string>스틴트 시간</string>
       </property>
      </widget>
      <widget class="QLabel" name="label_mandatoryPitstopCount">
@@ -782,20 +866,7 @@
        </rect>
       </property>
       <property name="text">
-       <string>기본 피트스톱 규정</string>
-      </property>
-     </widget>
-     <widget class="QCheckBox" name="checkBox_mandatoryPitstopCount">
-      <property name="geometry">
-       <rect>
-        <x>160</x>
-        <y>20</y>
-        <width>20</width>
-        <height>20</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string/>
+       <string>의무 피트스톱 횟수</string>
       </property>
      </widget>
      <widget class="QLabel" name="label_maxTotalDrivingTime">
@@ -811,15 +882,15 @@
        <string/>
       </property>
       <property name="text">
-       <string>최대 스틴트 시간</string>
+       <string>최대 주행 시간</string>
       </property>
      </widget>
      <widget class="QSpinBox" name="spinBox_maxTotalDrivingTime">
       <property name="geometry">
        <rect>
-        <x>313</x>
+        <x>310</x>
         <y>70</y>
-        <width>42</width>
+        <width>45</width>
         <height>20</height>
        </rect>
       </property>
@@ -833,15 +904,15 @@
        <number>-1</number>
       </property>
       <property name="maximum">
-       <number>1440</number>
+       <number>9999</number>
       </property>
      </widget>
      <widget class="QSpinBox" name="spinBox_maxDriversCount">
       <property name="geometry">
        <rect>
-        <x>313</x>
+        <x>310</x>
         <y>95</y>
-        <width>42</width>
+        <width>45</width>
         <height>20</height>
        </rect>
       </property>
@@ -878,7 +949,7 @@
       <property name="geometry">
        <rect>
         <x>10</x>
-        <y>40</y>
+        <y>45</y>
         <width>151</width>
         <height>20</height>
        </rect>
@@ -891,7 +962,7 @@
       <property name="geometry">
        <rect>
         <x>160</x>
-        <y>40</y>
+        <y>45</y>
         <width>20</width>
         <height>20</height>
        </rect>
@@ -904,7 +975,7 @@
       <property name="geometry">
        <rect>
         <x>160</x>
-        <y>60</y>
+        <y>65</y>
         <width>20</width>
         <height>20</height>
        </rect>
@@ -917,7 +988,7 @@
       <property name="geometry">
        <rect>
         <x>10</x>
-        <y>60</y>
+        <y>65</y>
         <width>151</width>
         <height>20</height>
        </rect>
@@ -930,7 +1001,7 @@
       <property name="geometry">
        <rect>
         <x>10</x>
-        <y>80</y>
+        <y>85</y>
         <width>151</width>
         <height>20</height>
        </rect>
@@ -943,7 +1014,7 @@
       <property name="geometry">
        <rect>
         <x>160</x>
-        <y>80</y>
+        <y>85</y>
         <width>20</width>
         <height>20</height>
        </rect>
@@ -956,7 +1027,7 @@
       <property name="geometry">
        <rect>
         <x>10</x>
-        <y>100</y>
+        <y>105</y>
         <width>151</width>
         <height>20</height>
        </rect>
@@ -969,7 +1040,7 @@
       <property name="geometry">
        <rect>
         <x>160</x>
-        <y>100</y>
+        <y>105</y>
         <width>20</width>
         <height>20</height>
        </rect>
@@ -982,7 +1053,7 @@
       <property name="geometry">
        <rect>
         <x>160</x>
-        <y>120</y>
+        <y>125</y>
         <width>20</width>
         <height>20</height>
        </rect>
@@ -995,7 +1066,7 @@
       <property name="geometry">
        <rect>
         <x>10</x>
-        <y>120</y>
+        <y>125</y>
         <width>151</width>
         <height>20</height>
        </rect>
@@ -1023,9 +1094,9 @@
      <widget class="QSpinBox" name="spinBox_tyreSetCount">
       <property name="geometry">
        <rect>
-        <x>313</x>
+        <x>310</x>
         <y>120</y>
-        <width>42</width>
+        <width>45</width>
         <height>20</height>
        </rect>
       </property>
@@ -1037,6 +1108,28 @@
       </property>
       <property name="minimum">
        <number>1</number>
+      </property>
+     </widget>
+     <widget class="QSpinBox" name="spinBox_mandatoryPitstopCount">
+      <property name="geometry">
+       <rect>
+        <x>130</x>
+        <y>20</y>
+        <width>42</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="layoutDirection">
+       <enum>Qt::LeftToRight</enum>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+      </property>
+      <property name="minimum">
+       <number>0</number>
+      </property>
+      <property name="maximum">
+       <number>3</number>
       </property>
      </widget>
     </widget>
@@ -1270,7 +1363,7 @@
        </rect>
       </property>
       <property name="text">
-       <string>안정성 컨트롤 레벨</string>
+       <string>최대 안정성 컨트롤</string>
       </property>
      </widget>
      <widget class="QSlider" name="horizontalSlider_stabilityControlLevelMax">
@@ -1278,7 +1371,7 @@
        <rect>
         <x>150</x>
         <y>97</y>
-        <width>201</width>
+        <width>141</width>
         <height>20</height>
        </rect>
       </property>
@@ -1287,6 +1380,19 @@
       </property>
       <property name="orientation">
        <enum>Qt::Horizontal</enum>
+      </property>
+     </widget>
+     <widget class="QLCDNumber" name="lcdNumber_stabilityControlLevelMax">
+      <property name="geometry">
+       <rect>
+        <x>290</x>
+        <y>95</y>
+        <width>64</width>
+        <height>23</height>
+       </rect>
+      </property>
+      <property name="segmentStyle">
+       <enum>QLCDNumber::Flat</enum>
       </property>
      </widget>
     </widget>
@@ -1412,7 +1518,7 @@
      <rect>
       <x>10</x>
       <y>250</y>
-      <width>401</width>
+      <width>391</width>
       <height>281</height>
      </rect>
     </property>
@@ -1423,8 +1529,8 @@
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>20</y>
-       <width>381</width>
+       <y>40</y>
+       <width>371</width>
        <height>71</height>
       </rect>
      </property>
@@ -1469,7 +1575,7 @@
      <widget class="QLabel" name="label_practice_timeMultiplier">
       <property name="geometry">
        <rect>
-        <x>150</x>
+        <x>140</x>
         <y>20</y>
         <width>56</width>
         <height>12</height>
@@ -1482,7 +1588,7 @@
      <widget class="QSpinBox" name="spinBox_practice_timeMultiplier">
       <property name="geometry">
        <rect>
-        <x>210</x>
+        <x>200</x>
         <y>15</y>
         <width>41</width>
         <height>22</height>
@@ -1501,7 +1607,7 @@
      <widget class="QLabel" name="label_practice_sessionDurationMinutes">
       <property name="geometry">
        <rect>
-        <x>270</x>
+        <x>260</x>
         <y>20</y>
         <width>56</width>
         <height>12</height>
@@ -1514,7 +1620,7 @@
      <widget class="QSpinBox" name="spinBox_practice_sessionDurationMinutes">
       <property name="geometry">
        <rect>
-        <x>330</x>
+        <x>320</x>
         <y>15</y>
         <width>41</width>
         <height>22</height>
@@ -1613,8 +1719,8 @@
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>110</y>
-       <width>381</width>
+       <y>120</y>
+       <width>371</width>
        <height>71</height>
       </rect>
      </property>
@@ -1659,7 +1765,7 @@
      <widget class="QLabel" name="label_qualify_timeMultiplier">
       <property name="geometry">
        <rect>
-        <x>150</x>
+        <x>140</x>
         <y>20</y>
         <width>56</width>
         <height>12</height>
@@ -1672,7 +1778,7 @@
      <widget class="QSpinBox" name="spinBox_qualify_timeMultiplier">
       <property name="geometry">
        <rect>
-        <x>210</x>
+        <x>200</x>
         <y>15</y>
         <width>41</width>
         <height>22</height>
@@ -1691,7 +1797,7 @@
      <widget class="QLabel" name="label_qualify_sessionDurationMinutes">
       <property name="geometry">
        <rect>
-        <x>270</x>
+        <x>260</x>
         <y>20</y>
         <width>56</width>
         <height>12</height>
@@ -1704,7 +1810,7 @@
      <widget class="QSpinBox" name="spinBox_qualify_sessionDurationMinutes">
       <property name="geometry">
        <rect>
-        <x>330</x>
+        <x>320</x>
         <y>15</y>
         <width>41</width>
         <height>22</height>
@@ -1804,7 +1910,7 @@
       <rect>
        <x>10</x>
        <y>200</y>
-       <width>381</width>
+       <width>371</width>
        <height>71</height>
       </rect>
      </property>
@@ -1849,7 +1955,7 @@
      <widget class="QLabel" name="label_race_timeMultiplier">
       <property name="geometry">
        <rect>
-        <x>150</x>
+        <x>140</x>
         <y>20</y>
         <width>56</width>
         <height>12</height>
@@ -1862,7 +1968,7 @@
      <widget class="QSpinBox" name="spinBox_race_timeMultiplier">
       <property name="geometry">
        <rect>
-        <x>210</x>
+        <x>200</x>
         <y>15</y>
         <width>41</width>
         <height>22</height>
@@ -1881,7 +1987,7 @@
      <widget class="QLabel" name="label_race_sessionDurationMinutes">
       <property name="geometry">
        <rect>
-        <x>270</x>
+        <x>260</x>
         <y>20</y>
         <width>56</width>
         <height>12</height>
@@ -1894,7 +2000,7 @@
      <widget class="QSpinBox" name="spinBox_race_sessionDurationMinutes">
       <property name="geometry">
        <rect>
-        <x>329</x>
+        <x>320</x>
         <y>15</y>
         <width>41</width>
         <height>22</height>
@@ -1989,6 +2095,55 @@
       </property>
      </widget>
     </widget>
+    <widget class="QComboBox" name="comboBox_formationLapType">
+     <property name="geometry">
+      <rect>
+       <x>110</x>
+       <y>15</y>
+       <width>141</width>
+       <height>20</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_formationLapType">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>15</y>
+       <width>100</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>포메이션 랩 유형</string>
+     </property>
+    </widget>
+    <widget class="QCheckBox" name="checkBox_shortFormationLap">
+     <property name="geometry">
+      <rect>
+       <x>367</x>
+       <y>15</y>
+       <width>20</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_shortFormationLap">
+     <property name="geometry">
+      <rect>
+       <x>270</x>
+       <y>15</y>
+       <width>90</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>숏 포메이션랩</string>
+     </property>
+    </widget>
    </widget>
   </widget>
  </widget>
@@ -2055,6 +2210,22 @@
     <hint type="destinationlabel">
      <x>795</x>
      <y>530</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>horizontalSlider_stabilityControlLevelMax</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>lcdNumber_stabilityControlLevelMax</receiver>
+   <slot>display(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>640</x>
+     <y>508</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>736</x>
+     <y>506</y>
     </hint>
    </hints>
   </connection>
