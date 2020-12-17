@@ -170,7 +170,7 @@ The configuration is split into different files, which represent different level
 |qualifyStandingType|1 = fastest lap, 2 = average lap (여러 예선 세션의 내구 레이스에서 실행). 1을 사용하세요. 평균 퀄리파잉은 공식적으로 지원되지 않습니다. |
 |pitWindowLengthSec|레이스하는 도중 피트 윈도우를 정의합니다. 이것은 Sprint 시리즈 형식을 다룹니다. -1은 피트 윈도우를 비활성화시킵니다. 이 값은 mandatoryPitstopCount = 1과 함께 사용하세요.|
 |driverStintTimeSec|드라이버가 패널티를 받지 않고 주행할 수 있는 최대 시간을 규정합니다. 내구 레이스에서 연료 효율이 높은 자동차의 균형을 맞추기 위해 사용될 수 있습니다. 피트레인의 고정 시간이 재설정되므로 실제 정지가 필요하지 않습니다. -1은 고정 시간을 비활성화합니다. driverStintTimeSec와 maxTotalDrivingTime은 상호의존적인 기능이며, 모두 설정되거나 해제되었는지 확인하십시오.|
-|mandatoryPitstopCount|기본 필수 피트 스톱을 규정합니다. 값이 0보다 크면 의무적으로 피트스톱을 실행하지 않은 차량은 경주가 끝날 때 실격됩니다. 피트 스톱에 필요한 조치는 "isMandatoryPitstopXYRequired" 속성을 사용하여 추가로 구성할 수 있습니다. 값이 0이면 기능이 비활성화됩니다.|
+|mandatoryPitstopCount|기본 필수 피트 스톱 횟수를 규정합니다. 값이 0보다 크면 의무적으로 피트스톱을 실행하지 않은 차량은 경주가 끝날 때 실격됩니다. 피트 스톱에 필요한 조치는 "isMandatoryPitstopXYRequired" 속성을 사용하여 추가로 구성할 수 있습니다. 값이 0이면 기능이 비활성화됩니다.|
 |maxTotalDrivingTime|단일 차량의 최대 운전 시간을 제한시킵니다. 이것은 드라이버를 스왑하는 상황에서만 유용하여 각 드라이버에 대해 최소 주행 시간을 강제할 수 있습니다(현실에서 이것은 프로/아마추어와 같은 혼합 팀이 느린 드라이버에게 공정성을 갖도록 하기 위해 사용됩니다) -1은 기능을 비활성화시킵니다. driverStintTimeSec과 maxTotalDrivingTime은 상호의존적인 기능이며, 두 가지 모두 설정 또는 해제되었는지 확인하십시오. "maxDriversCount"에 의해 정의된 팀 크기에 대한 최대 주행 시간을 설정하며, 항상 두 팀 모두 설정되었는지 확인하십시오.|
 |maxDriversCount|드라이버 스왑 상황에서는 이 값을 차량의 최대 운전자 수로 설정하십시오. 항목이 maxDriversCount보다 적은 드라이버를 가진 경우, maxTotalDrivingTime은 자동으로 보정되며 "작은" 엔트리들도 레이스를 마칠 수 있습니다. 예: 3시간 레이스에서, driverStintTimeSec가 65분이고 maxTotalDrivingTime이 65분인 경우 각 엔트리들의 maxTotalDrivingTime은 각 3명의 엔트리들에게 maxTotalDrivingTime(최대주행시간)이 65분을, 2명의 엔트리들에겐 105분이란 결과를 가져옵니다.|
 |isRefuellingAllowedInRace|레이스 피트 스톱 도중에 주유를 할 수 있는지의 여부를 규정합니다.|
