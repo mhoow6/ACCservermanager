@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>ACC Simple ServerManager</string>
+   <string>ACC Dedicated Server GUI</string>
   </property>
   <property name="windowIcon">
    <iconset>
@@ -507,7 +507,7 @@
       <property name="geometry">
        <rect>
         <x>10</x>
-        <y>20</y>
+        <y>10</y>
         <width>110</width>
         <height>20</height>
        </rect>
@@ -520,7 +520,7 @@
       <property name="geometry">
        <rect>
         <x>190</x>
-        <y>20</y>
+        <y>10</y>
         <width>110</width>
         <height>20</height>
        </rect>
@@ -533,7 +533,7 @@
       <property name="geometry">
        <rect>
         <x>310</x>
-        <y>20</y>
+        <y>10</y>
         <width>42</width>
         <height>20</height>
        </rect>
@@ -552,7 +552,7 @@
       <property name="geometry">
        <rect>
         <x>130</x>
-        <y>20</y>
+        <y>10</y>
         <width>42</width>
         <height>20</height>
        </rect>
@@ -568,6 +568,82 @@
       </property>
       <property name="maximum">
        <number>120</number>
+      </property>
+     </widget>
+     <widget class="QSpinBox" name="spinBox_postQualySeconds">
+      <property name="geometry">
+       <rect>
+        <x>130</x>
+        <y>30</y>
+        <width>42</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="layoutDirection">
+       <enum>Qt::LeftToRight</enum>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+      </property>
+      <property name="minimum">
+       <number>0</number>
+      </property>
+      <property name="maximum">
+       <number>120</number>
+      </property>
+      <property name="value">
+       <number>0</number>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_postQualySeconds">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>30</y>
+        <width>110</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>예선 종료 후 시간</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_postRaceSeconds">
+      <property name="geometry">
+       <rect>
+        <x>190</x>
+        <y>30</y>
+        <width>110</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>레이스 종료 후 시간</string>
+      </property>
+     </widget>
+     <widget class="QSpinBox" name="spinBox_postRaceSeconds">
+      <property name="geometry">
+       <rect>
+        <x>310</x>
+        <y>30</y>
+        <width>42</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="layoutDirection">
+       <enum>Qt::LeftToRight</enum>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+      </property>
+      <property name="minimum">
+       <number>0</number>
+      </property>
+      <property name="maximum">
+       <number>120</number>
+      </property>
+      <property name="value">
+       <number>0</number>
       </property>
      </widget>
     </widget>
