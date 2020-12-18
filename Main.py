@@ -4,14 +4,16 @@ import sys, os, json
 from tkinter import messagebox as msg
 from tkinter import Tk
 from io import StringIO
+from contextlib import suppress
 
 # >pyuic5 -x E:\github\ACCservermanager\ACC_Dedicated_Server_GUI.ui -o E:\github\ACCservermanager\GUI.py
+# pyinstaller -w -F --icon=E:\github\ACCservermanager\icon.ico E:\github\ACCservermanager\Main.py
 
 class Main(QMainWindow, Ui_MainWindow):
     def __init__(self):
         super(Main, self).__init__()
 
-        self.accServerCheck()
+        self.fileCheck()
 
         self.setupUi(self)
 
@@ -21,7 +23,6 @@ class Main(QMainWindow, Ui_MainWindow):
 
     # Initalize the Graphic User Interface
     def initUI(self):
-
         def initTooltip(self):
             self.lineEdit_password.setToolTip(
                 '이 서버를 입력하는 데 필요한 비밀번호입니다.\n'
@@ -99,6 +100,13 @@ class Main(QMainWindow, Ui_MainWindow):
                 '예상 랩타임의 107%가 권장됩니다(주의: Spa 또는 Silver\n'
                 'stone과 같은 트랙은 기본 2분으로 제대로 커버하지 못합니다).'
             )
+            self.spinBox_postQualySeconds.setToolTip(
+                'Q 세션(예선)에서 마지막 드라이버가 종료 후 경주가 시작되는 시간.\n'
+                '0으로 설정해서는 안 되며, 그렇지 않으면 그리드 스폰 기능이 안전하지 않습니다.'
+            )
+            self.spinBox_postRaceSeconds.setToolTip(
+                '모든 사람이 경주가 끝난 후, 다음 경주가 시작되기 전까지의 추가 시간.'
+            )
             self.horizontalSlider_weatherRandomness.setToolTip(
                 '동적 날씨 레벨을 설정하세요.\n'
                 '0 = 정적 날씨\n'
@@ -160,16 +168,18 @@ class Main(QMainWindow, Ui_MainWindow):
                 '실격됩니다. 값이 0이면 기능이 비활성화됩니다.'
             )
             self.spinBox_pitWindowLengthSec.setToolTip(
-                '레이스하는 도중 피트 시간을 정의합니다. 이것은 Sprint\n'
-                '시리즈 형식을 다룹니다. -1은 피트 윈도우를 비활성화시킵니다.\n'
-                '이 값은 의무 피트스톱 횟수와 함께 사용하세요.'
+                '레이스하는 도중 의무 피트할 수 있는 시간(피트 윈도우)을 정의합니다.\n'
+                '이것은 Sprint 시리즈 형식을 다룹니다. -1은 피트 윈도우를\n'
+                '비활성화시킵니다.이 값은 의무 피트스톱 횟수와 함께 사용하세요.\n'
+                '-1 = 피트 윈도우 비활성화\n'
+                '600 = 600초(10분) 동안에만 피트 윈도우 활성화'
             )
             self.spinBox_driverStintTimeSec.setToolTip(
                 '드라이버가 패널티를 받지 않고 주행할 수 있는 최대 시간을 규정합니다.\n'
                 '내구 레이스에서 연료 효율이 높은 자동차의 균형을 맞추기 위해 사용될 수\n'
                 '있습니다. 피트레인의 고정 시간이 재설정되므로 실제 정지가 필요하지\n'
-                '않습니다. -1은 고정 시간을 비활성화합니다. 최소 스틴트 시간과 최대\n'
-                '스틴트 시간은 상호의존적인 기능이며, 모두 설정되거나 해제되었는지\n'
+                '않습니다. -1은 고정 시간을 비활성화합니다. 스틴트 시간과 최대\n'
+                '운전 시간은 상호의존적인 기능이며, 모두 설정되거나 해제되었는지\n'
                 '확인하십시오.'
             )
             self.spinBox_maxTotalDrivingTime.setToolTip(
@@ -209,7 +219,6 @@ class Main(QMainWindow, Ui_MainWindow):
                 '없이 운전을 연습하는 것입니다. 기본값: 100'
             )
 
-
         initTooltip(self)
 
         tracklist = [
@@ -226,10 +235,107 @@ class Main(QMainWindow, Ui_MainWindow):
 
         self.formationLapTypelist = ['구식', '수동', '기본', '수동 + 고스트 1랩', '기본 + 고스트1랩']
 
+        self.event = {
+            "track": "",
+            "preRaceWaitingTimeSeconds": 0,
+            "postQualySeconds": 0,
+            "postRaceSeconds": 0,
+            "sessionOverTimeSeconds": 0,
+            "ambientTemp": 0,
+            "cloudLevel": 0.0,
+            "rain": 0.0,
+            "weatherRandomness": 0,
+            "simracerWeatherConditions": 0,
+            "isFixedConditionQualification": 0,
+            "sessions": [
+                {
+                    "hourOfDay": 0,
+                    "dayOfWeekend": 1,
+                    "timeMultiplier": 1,
+                    "sessionType": "P",
+                    "sessionDurationMinutes": 1
+                },
+                {
+                    "hourOfDay": 0,
+                    "dayOfWeekend": 2,
+                    "timeMultiplier": 1,
+                    "sessionType": "Q",
+                    "sessionDurationMinutes": 1
+                },
+                {
+                    "hourOfDay": 0,
+                    "dayOfWeekend": 3,
+                    "timeMultiplier": 1,
+                    "sessionType": "R",
+                    "sessionDurationMinutes": 1
+                }
+            ],
+            "configVersion": 1
+        }
+
+        self.settings = {
+            "serverName": "",
+            "adminPassword": "",
+            "password": "",
+            "spectatorPassword": "",
+            "centralEntryListPath": "",
+            "carGroup": "FreeForAll",
+            "trackMedalsRequirement": 0,
+            "safetyRatingRequirement": -1,
+            "racecraftRatingRequirement": -1,
+            "maxCarSlots": 10,
+            "isRaceLocked": 0,
+            "isLockedPrepPhase": 0,
+            "shortFormationLap": 1,
+            "dumpLeaderboards": 0,
+            "dumpEntryList": 0,
+            "randomizeTrackWhenEmpty": 0,
+            "allowAutoDQ": 0,
+            "formationLapType": 3,
+            "configVersion": 1
+        }
+
+        self.configuration = {
+            "udpPort": 9201,
+            "tcpPort": 9202,
+            "maxConnections": 30,
+            "lanDiscovery": 0,
+            "registerToLobby": 1,
+            "configVersion": 1
+        }
+
+        self.assistRules = {
+            "disableIdealLine": 0,
+            "disableAutosteer": 0,
+            "stabilityControlLevelMax": 100,
+            "disableAutoPitLimiter": 0,
+            "disableAutoGear": 0,
+            "disableAutoClutch": 0,
+            "disableAutoEngineStart": 0,
+            "disableAutoWiper": 0,
+            "disableAutoLights": 0
+        }
+
+        self.eventRules = {
+            "qualifyStandingType": 1,
+            "pitWindowLengthSec": -1,
+            "driverStintTimeSec": 600,
+            "mandatoryPitstopCount": 0,
+            "maxTotalDrivingTime": 1200,
+            "maxDriversCount": 1,
+            "tyreSetCount": 50,
+            "isRefuellingAllowedInRace": 0,
+            "isRefuellingTimeFixed": 0,
+            "isMandatoryPitstopRefuellingRequired": 0,
+            "isMandatoryPitstopTyreChangeRequired": 0,
+            "isMandatoryPitstopSwapDriverRequired": 0
+        }
+
         self.comboBox_track.addItems(tracklist)
         self.comboBox_car.addItems(carlist)
         self.comboBox_formationLapType.addItems(self.formationLapTypelist)
 
+        # settings.json
         try:
             with open("cfg/settings.json", encoding='UTF-16') as settings:
                 # load json file
@@ -269,8 +375,10 @@ class Main(QMainWindow, Ui_MainWindow):
                     self.comboBox_formationLapType.setCurrentText(self.formationLapTypelist[4])
 
         except FileNotFoundError:
-            print("cfg/settings.json is not found")
+            with open("cfg/settings.json", 'w', encoding='UTF-16') as make_file:
+                json.dump(self.settings, make_file, indent="\t")
 
+        # configuration.json
         try:
             with(open("cfg/configuration.json", encoding="UTF-16")) as configuration:
                 # load json file
@@ -289,8 +397,10 @@ class Main(QMainWindow, Ui_MainWindow):
                 self.checkBox_lanDiscovery.setChecked(self.configuration['lanDiscovery'])
 
         except FileNotFoundError:
-            print("cfg/configuration.json is not found")
+            with open("cfg/configuration.json", 'w', encoding='UTF-16') as make_file:
+                json.dump(self.configuration, make_file, indent="\t")
 
+        # assistRules.json
         try:
             with open("cfg/assistRules.json", encoding='UTF-16') as assist:
                 # load json file
@@ -313,8 +423,10 @@ class Main(QMainWindow, Ui_MainWindow):
                 self.horizontalSlider_stabilityControlLevelMax.setValue(self.assist['stabilityControlLevelMax'])
 
         except FileNotFoundError:
-            print("cfg/assistRules.json is not found")
+            with open("cfg/assistRules.json", 'w', encoding='UTF-16') as make_file:
+                json.dump(self.assistRules, make_file, indent="\t")
 
+        # event.json
         try:
             with open("cfg/event.json", encoding='UTF-16') as event:
                 # load json file
@@ -335,13 +447,16 @@ class Main(QMainWindow, Ui_MainWindow):
                 self.lcdNumber_weatherRandomness.display(self.event['weatherRandomness'])
                 self.doubleSpinBox_cloudLevel.setValue(self.event['cloudLevel'])
                 self.doubleSpinBox_rain.setValue(self.event['rain'])
+                with suppress(KeyError):self.spinBox_postQualySeconds.setValue(self.event['postQualySeconds'])
+                self.spinBox_postRaceSeconds.setValue(self.event['postRaceSeconds'])
 
                 # set value Session's value
                 def initSessison(index):
                     if self.event['sessions'][index]['sessionType'] == "P":
                         self.groupBox_practice.setChecked(True)
                         self.spinBox_practice_hourOfDay.setValue(self.event['sessions'][index]['hourOfDay'])
-                        self.spinBox_practice_timeMultiplier.setValue(self.event['sessions'][index]['timeMultiplier'])
+                        self.spinBox_practice_timeMultiplier.setValue(
+                            self.event['sessions'][index]['timeMultiplier'])
                         self.spinBox_practice_sessionDurationMinutes.setValue(
                             self.event['sessions'][index]['sessionDurationMinutes'])
                         if self.event['sessions'][index]['dayOfWeekend'] == 1:
@@ -354,7 +469,8 @@ class Main(QMainWindow, Ui_MainWindow):
                     if self.event['sessions'][index]['sessionType'] == "Q":
                         self.groupBox_qualify.setChecked(True)
                         self.spinBox_qualify_hourOfDay.setValue(self.event['sessions'][index]['hourOfDay'])
-                        self.spinBox_qualify_timeMultiplier.setValue(self.event['sessions'][index]['timeMultiplier'])
+                        self.spinBox_qualify_timeMultiplier.setValue(
+                            self.event['sessions'][index]['timeMultiplier'])
                         self.spinBox_qualify_sessionDurationMinutes.setValue(
                             self.event['sessions'][index]['sessionDurationMinutes'])
                         if self.event['sessions'][index]['dayOfWeekend'] == 1:
@@ -392,8 +508,10 @@ class Main(QMainWindow, Ui_MainWindow):
                         initSessison(1)
 
         except FileNotFoundError:
-            print("cfg/event.json is not found")
+            with open("cfg/event.json", 'w', encoding='UTF-16') as make_file:
+                json.dump(self.event, make_file, indent="\t")
 
+        # eventRules.json
         try:
             with open("cfg/eventRules.json", encoding='UTF-16') as eventRules:
                 # load json file
@@ -421,10 +539,11 @@ class Main(QMainWindow, Ui_MainWindow):
                     self.eventRules["isMandatoryPitstopSwapDriverRequired"])
 
         except FileNotFoundError:
-            print("cfg/eventRules.json is not found")
+            with open("cfg/eventRules.json", 'w', encoding='UTF-16') as make_file:
+                json.dump(self.eventRules, make_file, indent="\t")
 
-    # Is accServer.exe in directory?
-    def accServerCheck(self):
+    # Necessary file check
+    def fileCheck(self):
         root = Tk()
         root.withdraw()
 
@@ -432,11 +551,13 @@ class Main(QMainWindow, Ui_MainWindow):
 
         if not os.path.exists('./accServer.exe'):
             msg.showerror("accServer.exe is not found", message=message)
-            raise Exception("accServer.exe is not found")
+            sys.exit()
 
-    # Slot corresponding to click signals from PushButton_start
+        if not os.path.isdir("./cfg"):
+            os.mkdir("./cfg")
+
+    # Click signals slot from PushButton_start
     def serverStart(self):
-        # print("Server Start!")
         # At least one non-race session must be set up
         if not self.groupBox_practice.isChecked() and not self.groupBox_qualify.isChecked():
             root = Tk()
@@ -455,13 +576,13 @@ class Main(QMainWindow, Ui_MainWindow):
             self.settings["maxCarSlots"] = self.spinBox_maxCarSlots.value()
             self.settings["trackMedalsRequirement"] = self.spinBox_trackMedalsRequirement.value()
             self.settings["safetyRatingRequirement"] = self.spinBox_safetyRatingRequirement.value()
-            self.settings["dumpLeaderboards"] = self.checkBox_dumpLeaderboards.isChecked()
-            self.settings["isRaceLocked"] = self.checkBox_isRaceLocked.isChecked()
-            self.settings["allowAutoDQ"] = self.checkBox_allowAutoDQ.isChecked()
+            self.settings["dumpLeaderboards"] = int(self.checkBox_dumpLeaderboards.isChecked())
+            self.settings["isRaceLocked"] = int(self.checkBox_isRaceLocked.isChecked())
+            self.settings["allowAutoDQ"] = int(self.checkBox_allowAutoDQ.isChecked())
             self.settings["carGroup"] = self.comboBox_car.currentText()
-            self.settings['shortFormationLap'] = self.checkBox_shortFormationLap.isChecked()
-            self.settings['dumpEntryList'] = self.checkBox_dumpEntryList.isChecked()
-            self.settings['randomizeTrackWhenEmpty'] = self.checkBox_randomizeTrackWhenEmpty.isChecked()
+            self.settings['shortFormationLap'] = int(self.checkBox_shortFormationLap.isChecked())
+            self.settings['dumpEntryList'] = int(self.checkBox_dumpEntryList.isChecked())
+            self.settings['randomizeTrackWhenEmpty'] = int(self.checkBox_randomizeTrackWhenEmpty.isChecked())
 
             # formationLapType logic
             if self.comboBox_formationLapType.currentText() == self.formationLapTypelist[2]:
@@ -477,18 +598,18 @@ class Main(QMainWindow, Ui_MainWindow):
 
             # configuration.json
             self.configuration["maxConnections"] = self.spinBox_maxConnections.value()
-            self.settings['registerToLobby'] = self.checkBox_registerToLobby.isChecked()
-            self.settings['lanDiscovery'] = self.checkBox_lanDiscovery.isChecked()
+            self.configuration['registerToLobby'] = int(self.checkBox_registerToLobby.isChecked())
+            self.configuration['lanDiscovery'] = int(self.checkBox_lanDiscovery.isChecked())
 
             # assistRules.json
-            self.assist["disableIdealLine"] = self.checkBox_disableIdealLine.isChecked()
-            self.assist["disableAutosteer"] = self.checkBox_disableAutosteer.isChecked()
-            self.assist["disableAutoLights"] = self.checkBox_disableAutoLights.isChecked()
-            self.assist["disableAutoWiper"] = self.checkBox_disableAutoWiper.isChecked()
-            self.assist["disableAutoEngineStart"] = self.checkBox_disableAutoEngineStart.isChecked()
-            self.assist["disableAutoPitLimiter"] = self.checkBox_disableAutoPitLimiter.isChecked()
-            self.assist["disableAutoGear"] = self.checkBox_disableAutoGear.isChecked()
-            self.assist["disableAutoClutch"] = self.checkBox_disableAutoClutch.isChecked()
+            self.assist["disableIdealLine"] = int(self.checkBox_disableIdealLine.isChecked())
+            self.assist["disableAutosteer"] = int(self.checkBox_disableAutosteer.isChecked())
+            self.assist["disableAutoLights"] = int(self.checkBox_disableAutoLights.isChecked())
+            self.assist["disableAutoWiper"] = int(self.checkBox_disableAutoWiper.isChecked())
+            self.assist["disableAutoEngineStart"] = int(self.checkBox_disableAutoEngineStart.isChecked())
+            self.assist["disableAutoPitLimiter"] = int(self.checkBox_disableAutoPitLimiter.isChecked())
+            self.assist["disableAutoGear"] = int(self.checkBox_disableAutoGear.isChecked())
+            self.assist["disableAutoClutch"] = int(self.checkBox_disableAutoClutch.isChecked())
             self.assist["stabilityControlLevelMax"] = self.horizontalSlider_stabilityControlLevelMax.value()
 
             # event.json
@@ -499,6 +620,13 @@ class Main(QMainWindow, Ui_MainWindow):
             self.event["weatherRandomness"] = self.horizontalSlider_weatherRandomness.value()
             self.event["cloudLevel"] = self.doubleSpinBox_cloudLevel.value()
             self.event["rain"] = self.doubleSpinBox_rain.value()
+
+            # event.json - postQualySeconds
+            # default .json don't have this key
+            try:
+                self.event["postQualySeconds"] = self.spinBox_postQualySeconds.value()
+            except KeyError:
+                self.event = self.event + {"postQualySeconds": self.spinBox_postQualySeconds.value()}
 
             # event.json - Session
             # if loaded event['sessions'] is short when P,Q,R checked
@@ -514,90 +642,90 @@ class Main(QMainWindow, Ui_MainWindow):
                                 "timeMultiplier": 0,
                                 "sessionDurationMinutes": 0
                             }]
+            else:
+                # avoid the duplication code
+                def Practice(index):
+                    self.event["sessions"][index]["sessionType"] = "P"
+                    self.event["sessions"][index]["hourOfDay"] = self.spinBox_practice_hourOfDay.value()
 
-            # avoid the duplication code
-            def Practice(index):
-                self.event["sessions"][index]["sessionType"] = "P"
-                self.event["sessions"][index]["hourOfDay"] = self.spinBox_practice_hourOfDay.value()
+                    # dayOfWeekend
+                    if self.radioButton_practice_friday.isChecked():
+                        self.event["sessions"][index]["dayOfWeekend"] = 1
+                    elif self.radioButton_practice_saturday.isChecked():
+                        self.event["sessions"][index]["dayOfWeekend"] = 2
+                    else:
+                        self.event["sessions"][index]["dayOfWeekend"] = 3
 
-                # dayOfWeekend
-                if self.radioButton_practice_friday.isChecked():
-                    self.event["sessions"][index]["dayOfWeekend"] = 1
-                elif self.radioButton_practice_saturday.isChecked():
-                    self.event["sessions"][index]["dayOfWeekend"] = 2
-                else:
-                    self.event["sessions"][index]["dayOfWeekend"] = 3
+                    self.event["sessions"][index]["timeMultiplier"] = self.spinBox_practice_timeMultiplier.value()
+                    self.event["sessions"][index][
+                        "sessionDurationMinutes"] = self.spinBox_practice_sessionDurationMinutes.value()
 
-                self.event["sessions"][index]["timeMultiplier"] = self.spinBox_practice_timeMultiplier.value()
-                self.event["sessions"][index][
-                    "sessionDurationMinutes"] = self.spinBox_practice_sessionDurationMinutes.value()
+                def Qualify(index):
+                    self.event["sessions"][index]["sessionType"] = "Q"
+                    self.event["sessions"][index]["hourOfDay"] = self.spinBox_qualify_hourOfDay.value()
 
-            def Qualify(index):
-                self.event["sessions"][index]["sessionType"] = "Q"
-                self.event["sessions"][index]["hourOfDay"] = self.spinBox_qualify_hourOfDay.value()
+                    # dayOfWeekend
+                    if self.radioButton_qualify_friday.isChecked():
+                        self.event["sessions"][index]["dayOfWeekend"] = 1
+                    elif self.radioButton_qualify_saturday.isChecked():
+                        self.event["sessions"][index]["dayOfWeekend"] = 2
+                    else:
+                        self.event["sessions"][index]["dayOfWeekend"] = 3
 
-                # dayOfWeekend
-                if self.radioButton_qualify_friday.isChecked():
-                    self.event["sessions"][index]["dayOfWeekend"] = 1
-                elif self.radioButton_qualify_saturday.isChecked():
-                    self.event["sessions"][index]["dayOfWeekend"] = 2
-                else:
-                    self.event["sessions"][index]["dayOfWeekend"] = 3
+                    self.event["sessions"][index]["timeMultiplier"] = self.spinBox_qualify_timeMultiplier.value()
+                    self.event["sessions"][index][
+                        "sessionDurationMinutes"] = self.spinBox_qualify_sessionDurationMinutes.value()
 
-                self.event["sessions"][index]["timeMultiplier"] = self.spinBox_qualify_timeMultiplier.value()
-                self.event["sessions"][index][
-                    "sessionDurationMinutes"] = self.spinBox_qualify_sessionDurationMinutes.value()
+                def Race(index):
+                    self.event["sessions"][index]["sessionType"] = "R"
+                    self.event["sessions"][index]["hourOfDay"] = self.spinBox_race_hourOfDay.value()
 
-            def Race(index):
-                self.event["sessions"][index]["sessionType"] = "R"
-                self.event["sessions"][index]["hourOfDay"] = self.spinBox_race_hourOfDay.value()
+                    # dayOfWeekend
+                    if self.radioButton_race_friday.isChecked():
+                        self.event["sessions"][index]["dayOfWeekend"] = 1
+                    elif self.radioButton_race_saturday.isChecked():
+                        self.event["sessions"][index]["dayOfWeekend"] = 2
+                    else:
+                        self.event["sessions"][index]["dayOfWeekend"] = 3
 
-                # dayOfWeekend
-                if self.radioButton_race_friday.isChecked():
-                    self.event["sessions"][index]["dayOfWeekend"] = 1
-                elif self.radioButton_race_saturday.isChecked():
-                    self.event["sessions"][index]["dayOfWeekend"] = 2
-                else:
-                    self.event["sessions"][index]["dayOfWeekend"] = 3
+                    self.event["sessions"][index]["timeMultiplier"] = self.spinBox_race_timeMultiplier.value()
+                    self.event["sessions"][index][
+                        "sessionDurationMinutes"] = self.spinBox_race_sessionDurationMinutes.value()
 
-                self.event["sessions"][index]["timeMultiplier"] = self.spinBox_race_timeMultiplier.value()
-                self.event["sessions"][index][
-                    "sessionDurationMinutes"] = self.spinBox_race_sessionDurationMinutes.value()
-
-            # if P, Q checked
-            if self.groupBox_practice.isChecked():
-                if self.groupBox_qualify.isChecked():
-                    # -- Practice --
-                    Practice(0)
-                    # -- Qualify --
-                    Qualify(1)
-
-            # if P, R checked
-            if self.groupBox_practice.isChecked():
-                if self.groupBox_qualify.isChecked():
-                    # -- Practice --
-                    Practice(0)
-                    # -- Race --
-                    Race(1)
-
-            # if Q, R checked
-            if self.groupBox_qualify.isChecked():
-                if self.groupBox_race.isChecked():
-                    # -- Qualify --
-                    Qualify(0)
-                    # -- Race --
-                    Race(1)
-
-            # if P, Q, R checked
-            if self.groupBox_practice.isChecked():
-                if self.groupBox_qualify.isChecked():
-                    if self.groupBox_race.isChecked():
+                # if P, Q checked
+                if self.groupBox_practice.isChecked():
+                    if self.groupBox_qualify.isChecked():
                         # -- Practice --
                         Practice(0)
                         # -- Qualify --
                         Qualify(1)
+
+                # if P, R checked
+                if self.groupBox_practice.isChecked():
+                    if self.groupBox_qualify.isChecked():
+                        # -- Practice --
+                        Practice(0)
                         # -- Race --
-                        Race(2)
+                        Race(1)
+
+                # if Q, R checked
+                if self.groupBox_qualify.isChecked():
+                    if self.groupBox_race.isChecked():
+                        # -- Qualify --
+                        Qualify(0)
+                        # -- Race --
+                        Race(1)
+
+                # if P, Q, R checked
+                if self.groupBox_practice.isChecked():
+                    if self.groupBox_qualify.isChecked():
+                        if self.groupBox_race.isChecked():
+                            # -- Practice --
+                            Practice(0)
+                            # -- Qualify --
+                            Qualify(1)
+                            # -- Race --
+                            Race(2)
 
             # eventRules.json
             self.eventRules["pitWindowLengthSec"] = self.spinBox_pitWindowLengthSec.value()
@@ -638,18 +766,16 @@ class Main(QMainWindow, Ui_MainWindow):
             self.pushButton_exit.setEnabled(True)
             self.pushButton_start.setEnabled(False)
 
-    # Slot corresponding to click signals from PushButton_exit
+    # Click signal slot from PushButton_exit
     def serverStop(self):
         # 1. kill accServer.exe
-        # print(os.system('tasklist'))
         os.system('taskkill /f /im accServer.exe')
-        # print(os.system('tasklist'))
 
         # 2. enable and disable
         self.pushButton_exit.setEnabled(False)
         self.pushButton_start.setEnabled(True)
 
-    # when you clicked "X" button
+    # When you clicked "X" button
     def closeEvent(self, QCloseEvent) -> None:
         # kill the accServer.exe also
         os.system('taskkill /f /im accServer.exe')
