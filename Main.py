@@ -1,6 +1,6 @@
 from PyQt5.QtWidgets import QApplication, QMainWindow
 from GUI import Ui_MainWindow
-import sys, os, json
+import sys, subprocess, os, json
 from tkinter import messagebox as msg
 from tkinter import Tk
 from io import StringIO
@@ -235,102 +235,6 @@ class Main(QMainWindow, Ui_MainWindow):
 
         self.formationLapTypelist = ['구식', '수동', '기본', '수동 + 고스트 1랩', '기본 + 고스트1랩']
 
-        self.event = {
-            "track": "",
-            "preRaceWaitingTimeSeconds": 0,
-            "postQualySeconds": 0,
-            "postRaceSeconds": 0,
-            "sessionOverTimeSeconds": 0,
-            "ambientTemp": 0,
-            "cloudLevel": 0.0,
-            "rain": 0.0,
-            "weatherRandomness": 0,
-            "simracerWeatherConditions": 0,
-            "isFixedConditionQualification": 0,
-            "sessions": [
-                {
-                    "hourOfDay": 0,
-                    "dayOfWeekend": 1,
-                    "timeMultiplier": 1,
-                    "sessionType": "P",
-                    "sessionDurationMinutes": 1
-                },
-                {
-                    "hourOfDay": 0,
-                    "dayOfWeekend": 2,
-                    "timeMultiplier": 1,
-                    "sessionType": "Q",
-                    "sessionDurationMinutes": 1
-                },
-                {
-                    "hourOfDay": 0,
-                    "dayOfWeekend": 3,
-                    "timeMultiplier": 1,
-                    "sessionType": "R",
-                    "sessionDurationMinutes": 1
-                }
-            ],
-            "configVersion": 1
-        }
-
-        self.settings = {
-            "serverName": "",
-            "adminPassword": "",
-            "password": "",
-            "spectatorPassword": "",
-            "centralEntryListPath": "",
-            "carGroup": "FreeForAll",
-            "trackMedalsRequirement": 0,
-            "safetyRatingRequirement": -1,
-            "racecraftRatingRequirement": -1,
-            "maxCarSlots": 10,
-            "isRaceLocked": 0,
-            "isLockedPrepPhase": 0,
-            "shortFormationLap": 1,
-            "dumpLeaderboards": 0,
-            "dumpEntryList": 0,
-            "randomizeTrackWhenEmpty": 0,
-            "allowAutoDQ": 0,
-            "formationLapType": 3,
-            "configVersion": 1
-        }
-
-        self.configuration = {
-            "udpPort": 9201,
-            "tcpPort": 9202,
-            "maxConnections": 30,
-            "lanDiscovery": 0,
-            "registerToLobby": 1,
-            "configVersion": 1
-        }
-
-        self.assistRules = {
-            "disableIdealLine": 0,
-            "disableAutosteer": 0,
-            "stabilityControlLevelMax": 100,
-            "disableAutoPitLimiter": 0,
-            "disableAutoGear": 0,
-            "disableAutoClutch": 0,
-            "disableAutoEngineStart": 0,
-            "disableAutoWiper": 0,
-            "disableAutoLights": 0
-        }
-
-        self.eventRules = {
-            "qualifyStandingType": 1,
-            "pitWindowLengthSec": -1,
-            "driverStintTimeSec": 600,
-            "mandatoryPitstopCount": 0,
-            "maxTotalDrivingTime": 1200,
-            "maxDriversCount": 1,
-            "tyreSetCount": 50,
-            "isRefuellingAllowedInRace": 0,
-            "isRefuellingTimeFixed": 0,
-            "isMandatoryPitstopRefuellingRequired": 0,
-            "isMandatoryPitstopTyreChangeRequired": 0,
-            "isMandatoryPitstopSwapDriverRequired": 0
-        }
-
         self.comboBox_track.addItems(tracklist)
         self.comboBox_car.addItems(carlist)
         self.comboBox_formationLapType.addItems(self.formationLapTypelist)
@@ -348,35 +252,74 @@ class Main(QMainWindow, Ui_MainWindow):
                 # print(type(settings))
 
                 # set value from json file
-                self.lineEdit_serverName.setText(self.settings['serverName'])
-                self.lineEdit_password.setText(self.settings['password'])
-                self.lineEdit_adminPassword.setText(self.settings['adminPassword'])
-                self.spinBox_maxCarSlots.setValue(self.settings['maxCarSlots'])
-                self.spinBox_trackMedalsRequirement.setValue(self.settings['trackMedalsRequirement'])
-                self.spinBox_safetyRatingRequirement.setValue(self.settings['safetyRatingRequirement'])
-                self.checkBox_dumpLeaderboards.setChecked(self.settings['dumpLeaderboards'])
-                self.checkBox_isRaceLocked.setChecked(self.settings['isRaceLocked'])
-                self.checkBox_allowAutoDQ.setChecked(self.settings['allowAutoDQ'])
-                self.comboBox_car.setCurrentText(self.settings['carGroup'])
-                self.checkBox_shortFormationLap.setChecked(self.settings['shortFormationLap'])
-                self.checkBox_dumpEntryList.setChecked(self.settings['dumpEntryList'])
-                self.checkBox_randomizeTrackWhenEmpty.setChecked(self.settings['randomizeTrackWhenEmpty'])
+                with suppress(KeyError):
+                    self.lineEdit_serverName.setText(self.settings['serverName'])
+                with suppress(KeyError):
+                    self.lineEdit_password.setText(self.settings['password'])
+                with suppress(KeyError):
+                    self.lineEdit_adminPassword.setText(self.settings['adminPassword'])
+                with suppress(KeyError):
+                    self.lineEdit_spectatorPassword.setText(self.settings['spectatorPassword'])
+                with suppress(KeyError):
+                    self.spinBox_maxCarSlots.setValue(self.settings['maxCarSlots'])
+                with suppress(KeyError):
+                    self.spinBox_trackMedalsRequirement.setValue(self.settings['trackMedalsRequirement'])
+                with suppress(KeyError):
+                    self.spinBox_safetyRatingRequirement.setValue(self.settings['safetyRatingRequirement'])
+                with suppress(KeyError):
+                    self.checkBox_dumpLeaderboards.setChecked(self.settings['dumpLeaderboards'])
+                with suppress(KeyError):
+                    self.checkBox_isRaceLocked.setChecked(self.settings['isRaceLocked'])
+                with suppress(KeyError):
+                    self.checkBox_allowAutoDQ.setChecked(self.settings['allowAutoDQ'])
+                with suppress(KeyError):
+                    self.comboBox_car.setCurrentText(self.settings['carGroup'])
+                with suppress(KeyError):
+                    self.checkBox_shortFormationLap.setChecked(self.settings['shortFormationLap'])
+                with suppress(KeyError):
+                    self.checkBox_dumpEntryList.setChecked(self.settings['dumpEntryList'])
+                with suppress(KeyError):
+                    self.checkBox_randomizeTrackWhenEmpty.setChecked(self.settings['randomizeTrackWhenEmpty'])
 
                 # formationLapType Logic
-                if self.settings['formationLapType'] == 3:
-                    self.comboBox_formationLapType.setCurrentText(self.formationLapTypelist[2])
-                elif self.settings['formationLapType'] == 0:
-                    self.comboBox_formationLapType.setCurrentText(self.formationLapTypelist[0])
-                elif self.settings['formationLapType'] == 1:
-                    self.comboBox_formationLapType.setCurrentText(self.formationLapTypelist[1])
-                elif self.settings['formationLapType'] == 4:
-                    self.comboBox_formationLapType.setCurrentText(self.formationLapTypelist[3])
-                else:
-                    self.comboBox_formationLapType.setCurrentText(self.formationLapTypelist[4])
+                try:
+                    if self.settings['formationLapType'] == 3:
+                        self.comboBox_formationLapType.setCurrentText(self.formationLapTypelist[2])
+                    elif self.settings['formationLapType'] == 0:
+                        self.comboBox_formationLapType.setCurrentText(self.formationLapTypelist[0])
+                    elif self.settings['formationLapType'] == 1:
+                        self.comboBox_formationLapType.setCurrentText(self.formationLapTypelist[1])
+                    elif self.settings['formationLapType'] == 4:
+                        self.comboBox_formationLapType.setCurrentText(self.formationLapTypelist[3])
+                    else:
+                        self.comboBox_formationLapType.setCurrentText(self.formationLapTypelist[4])
+                except KeyError:
+                    pass
 
         except FileNotFoundError:
             with open("cfg/settings.json", 'w', encoding='UTF-16') as make_file:
-                json.dump(self.settings, make_file, indent="\t")
+                settings_init = {
+                    "serverName": "",
+                    "adminPassword": "",
+                    "password": "",
+                    "spectatorPassword": "",
+                    "centralEntryListPath": "",
+                    "carGroup": "FreeForAll",
+                    "trackMedalsRequirement": 0,
+                    "safetyRatingRequirement": -1,
+                    "racecraftRatingRequirement": -1,
+                    "maxCarSlots": 10,
+                    "isRaceLocked": 0,
+                    "isLockedPrepPhase": 0,
+                    "shortFormationLap": 1,
+                    "dumpLeaderboards": 0,
+                    "dumpEntryList": 0,
+                    "randomizeTrackWhenEmpty": 0,
+                    "allowAutoDQ": 0,
+                    "formationLapType": 3,
+                    "configVersion": 1
+                }
+                json.dump(settings_init, make_file, indent="\t")
 
         # configuration.json
         try:
@@ -390,15 +333,23 @@ class Main(QMainWindow, Ui_MainWindow):
                 # print(io.getvalue())
 
                 # set value from json file
-                self.spinBox_maxConnections.setValue(self.configuration['maxConnections'])
-                self.lcdNumber_tcpPort.display(self.configuration['tcpPort'])
-                self.lcdNumber_udpPort.display(self.configuration['udpPort'])
-                self.checkBox_registerToLobby.setChecked(self.configuration['registerToLobby'])
-                self.checkBox_lanDiscovery.setChecked(self.configuration['lanDiscovery'])
+                with suppress(KeyError): self.spinBox_maxConnections.setValue(self.configuration['maxConnections'])
+                with suppress(KeyError): self.lcdNumber_tcpPort.display(self.configuration['tcpPort'])
+                with suppress(KeyError): self.lcdNumber_udpPort.display(self.configuration['udpPort'])
+                with suppress(KeyError): self.checkBox_registerToLobby.setChecked(self.configuration['registerToLobby'])
+                with suppress(KeyError): self.checkBox_lanDiscovery.setChecked(self.configuration['lanDiscovery'])
 
         except FileNotFoundError:
             with open("cfg/configuration.json", 'w', encoding='UTF-16') as make_file:
-                json.dump(self.configuration, make_file, indent="\t")
+                configuration_init = {
+                    "udpPort": 9201,
+                    "tcpPort": 9202,
+                    "maxConnections": 30,
+                    "lanDiscovery": 0,
+                    "registerToLobby": 1,
+                    "configVersion": 1
+                }
+                json.dump(configuration_init, make_file, indent="\t")
 
         # assistRules.json
         try:
@@ -412,19 +363,33 @@ class Main(QMainWindow, Ui_MainWindow):
                 # print(io.getvalue())
 
                 # set value from json file
-                self.checkBox_disableIdealLine.setChecked(self.assist['disableIdealLine'])
-                self.checkBox_disableAutosteer.setChecked(self.assist['disableAutosteer'])
-                self.checkBox_disableAutoLights.setChecked(self.assist['disableAutoLights'])
-                self.checkBox_disableAutoWiper.setChecked(self.assist['disableAutoWiper'])
-                self.checkBox_disableAutoEngineStart.setChecked(self.assist['disableAutoEngineStart'])
-                self.checkBox_disableAutoPitLimiter.setChecked(self.assist['disableAutoPitLimiter'])
-                self.checkBox_disableAutoGear.setChecked(self.assist['disableAutoGear'])
-                self.checkBox_disableAutoClutch.setChecked(self.assist['disableAutoClutch'])
-                self.horizontalSlider_stabilityControlLevelMax.setValue(self.assist['stabilityControlLevelMax'])
+                with suppress(KeyError): self.checkBox_disableIdealLine.setChecked(self.assist['disableIdealLine'])
+                with suppress(KeyError): self.checkBox_disableAutosteer.setChecked(self.assist['disableAutosteer'])
+                with suppress(KeyError): self.checkBox_disableAutoLights.setChecked(self.assist['disableAutoLights'])
+                with suppress(KeyError): self.checkBox_disableAutoWiper.setChecked(self.assist['disableAutoWiper'])
+                with suppress(KeyError): self.checkBox_disableAutoEngineStart.setChecked(
+                    self.assist['disableAutoEngineStart'])
+                with suppress(KeyError): self.checkBox_disableAutoPitLimiter.setChecked(
+                    self.assist['disableAutoPitLimiter'])
+                with suppress(KeyError): self.checkBox_disableAutoGear.setChecked(self.assist['disableAutoGear'])
+                with suppress(KeyError): self.checkBox_disableAutoClutch.setChecked(self.assist['disableAutoClutch'])
+                with suppress(KeyError): self.horizontalSlider_stabilityControlLevelMax.setValue(
+                    self.assist['stabilityControlLevelMax'])
 
         except FileNotFoundError:
             with open("cfg/assistRules.json", 'w', encoding='UTF-16') as make_file:
-                json.dump(self.assistRules, make_file, indent="\t")
+                assistRules_init = {
+                    "disableIdealLine": 0,
+                    "disableAutosteer": 0,
+                    "stabilityControlLevelMax": 100,
+                    "disableAutoPitLimiter": 0,
+                    "disableAutoGear": 0,
+                    "disableAutoClutch": 0,
+                    "disableAutoEngineStart": 0,
+                    "disableAutoWiper": 0,
+                    "disableAutoLights": 0
+                }
+                json.dump(assistRules_init, make_file, indent="\t")
 
         # event.json
         try:
@@ -438,78 +403,125 @@ class Main(QMainWindow, Ui_MainWindow):
                 # print(io.getvalue())
 
                 # set value from json file
-                self.comboBox_track.setCurrentText(self.event['track'])
-                self.spinBox_preRaceWaitingTimeSeconds.setValue(self.event['preRaceWaitingTimeSeconds'])
-                self.spinBox_sessionOverTimeSeconds.setValue(self.event['sessionOverTimeSeconds'])
-                self.horizontalSlider_ambientTemp.setValue(self.event['ambientTemp'])
-                self.lcdNumber_ambientTemp.display(self.event['ambientTemp'])
-                self.horizontalSlider_weatherRandomness.setValue(self.event['weatherRandomness'])
-                self.lcdNumber_weatherRandomness.display(self.event['weatherRandomness'])
-                self.doubleSpinBox_cloudLevel.setValue(self.event['cloudLevel'])
-                self.doubleSpinBox_rain.setValue(self.event['rain'])
-                with suppress(KeyError):self.spinBox_postQualySeconds.setValue(self.event['postQualySeconds'])
-                self.spinBox_postRaceSeconds.setValue(self.event['postRaceSeconds'])
+                with suppress(KeyError):
+                    self.comboBox_track.setCurrentText(self.event['track'])
+                with suppress(KeyError):
+                    self.spinBox_preRaceWaitingTimeSeconds.setValue(self.event['preRaceWaitingTimeSeconds'])
+                with suppress(KeyError):
+                    self.spinBox_sessionOverTimeSeconds.setValue(self.event['sessionOverTimeSeconds'])
+                with suppress(KeyError):
+                    self.horizontalSlider_ambientTemp.setValue(self.event['ambientTemp'])
+                with suppress(KeyError):
+                    self.lcdNumber_ambientTemp.display(self.event['ambientTemp'])
+                with suppress(KeyError):
+                    self.horizontalSlider_weatherRandomness.setValue(self.event['weatherRandomness'])
+                with suppress(KeyError):
+                    self.lcdNumber_weatherRandomness.display(self.event['weatherRandomness'])
+                with suppress(KeyError):
+                    self.doubleSpinBox_cloudLevel.setValue(self.event['cloudLevel'])
+                with suppress(KeyError):
+                    self.doubleSpinBox_rain.setValue(self.event['rain'])
+                with suppress(KeyError):
+                    self.spinBox_postQualySeconds.setValue(self.event['postQualySeconds'])
+                with suppress(KeyError):
+                    self.spinBox_postRaceSeconds.setValue(self.event['postRaceSeconds'])
 
                 # set value Session's value
-                def initSessison(index):
-                    if self.event['sessions'][index]['sessionType'] == "P":
+                def initSessison(book, index):
+                    if book['sessions'][index]['sessionType'] == "P":
                         self.groupBox_practice.setChecked(True)
-                        self.spinBox_practice_hourOfDay.setValue(self.event['sessions'][index]['hourOfDay'])
+                        self.spinBox_practice_hourOfDay.setValue(book['sessions'][index]['hourOfDay'])
                         self.spinBox_practice_timeMultiplier.setValue(
-                            self.event['sessions'][index]['timeMultiplier'])
+                            book['sessions'][index]['timeMultiplier'])
                         self.spinBox_practice_sessionDurationMinutes.setValue(
-                            self.event['sessions'][index]['sessionDurationMinutes'])
-                        if self.event['sessions'][index]['dayOfWeekend'] == 1:
+                            book['sessions'][index]['sessionDurationMinutes'])
+                        if book['sessions'][index]['dayOfWeekend'] == 1:
                             self.radioButton_practice_friday.setChecked(True)
-                        elif self.event['sessions'][index]['dayOfWeekend'] == 2:
+                        elif book['sessions'][index]['dayOfWeekend'] == 2:
                             self.radioButton_practice_saturday.setChecked(True)
-                        elif self.event['sessions'][index]['dayOfWeekend'] == 3:
+                        elif book['sessions'][index]['dayOfWeekend'] == 3:
                             self.radioButton_practice_sunday.setChecked(True)
 
-                    if self.event['sessions'][index]['sessionType'] == "Q":
+                    if book['sessions'][index]['sessionType'] == "Q":
                         self.groupBox_qualify.setChecked(True)
-                        self.spinBox_qualify_hourOfDay.setValue(self.event['sessions'][index]['hourOfDay'])
+                        self.spinBox_qualify_hourOfDay.setValue(book['sessions'][index]['hourOfDay'])
                         self.spinBox_qualify_timeMultiplier.setValue(
-                            self.event['sessions'][index]['timeMultiplier'])
+                            book['sessions'][index]['timeMultiplier'])
                         self.spinBox_qualify_sessionDurationMinutes.setValue(
-                            self.event['sessions'][index]['sessionDurationMinutes'])
-                        if self.event['sessions'][index]['dayOfWeekend'] == 1:
+                            book['sessions'][index]['sessionDurationMinutes'])
+                        if book['sessions'][index]['dayOfWeekend'] == 1:
                             self.radioButton_qualify_friday.setChecked(True)
-                        elif self.event['sessions'][index]['dayOfWeekend'] == 2:
+                        elif book['sessions'][index]['dayOfWeekend'] == 2:
                             self.radioButton_qualify_saturday.setChecked(True)
-                        elif self.event['sessions'][index]['dayOfWeekend'] == 3:
+                        elif book['sessions'][index]['dayOfWeekend'] == 3:
                             self.radioButton_qualify_sunday.setChecked(True)
 
-                    if self.event['sessions'][index]['sessionType'] == "R":
+                    if book['sessions'][index]['sessionType'] == "R":
                         self.groupBox_race.setChecked(True)
-                        self.spinBox_race_hourOfDay.setValue(self.event['sessions'][index]['hourOfDay'])
-                        self.spinBox_race_timeMultiplier.setValue(self.event['sessions'][index]['timeMultiplier'])
+                        self.spinBox_race_hourOfDay.setValue(book['sessions'][index]['hourOfDay'])
+                        self.spinBox_race_timeMultiplier.setValue(book['sessions'][index]['timeMultiplier'])
                         self.spinBox_race_sessionDurationMinutes.setValue(
-                            self.event['sessions'][index]['sessionDurationMinutes'])
-                        if self.event['sessions'][index]['dayOfWeekend'] == 1:
+                            book['sessions'][index]['sessionDurationMinutes'])
+                        if book['sessions'][index]['dayOfWeekend'] == 1:
                             self.radioButton_race_friday.setChecked(True)
-                        elif self.event['sessions'][index]['dayOfWeekend'] == 2:
+                        elif book['sessions'][index]['dayOfWeekend'] == 2:
                             self.radioButton_race_saturday.setChecked(True)
-                        elif self.event['sessions'][index]['dayOfWeekend'] == 3:
+                        elif book['sessions'][index]['dayOfWeekend'] == 3:
                             self.radioButton_race_sunday.setChecked(True)
 
                 # set value by session type
-                if self.event['sessions'][0]['sessionType'] == "P":
-                    initSessison(0)
-                    if self.event['sessions'][1]['sessionType'] == "Q":
-                        initSessison(1)
-                        if len(self.event['sessions']) > 2:
-                            initSessison(2)
-                    elif self.event['sessions'][1]['sessionType'] == "R":
-                        initSessison(1)
-                elif self.event['sessions'][0]['sessionType'] == "Q":
-                    initSessison(0)
-                    if self.event['sessions'][1]['sessionType'] == "R":
-                        initSessison(1)
+                try:
+                    if self.event['sessions'][0]['sessionType'] == "P":
+                        initSessison(self.event, 0)
+                        if self.event['sessions'][1]['sessionType'] == "Q":
+                            initSessison(self.event, 1)
+                            if len(self.event['sessions']) > 2:
+                                initSessison(self.event, 2)
+                        elif self.event['sessions'][1]['sessionType'] == "R":
+                            initSessison(self.event, 1)
+                    elif self.event['sessions'][0]['sessionType'] == "Q":
+                        initSessison(self.event, 0)
+                        if self.event['sessions'][1]['sessionType'] == "R":
+                            initSessison(self.event, 1)
+                except KeyError:
+                    pass
 
         except FileNotFoundError:
             with open("cfg/event.json", 'w', encoding='UTF-16') as make_file:
-                json.dump(self.event, make_file, indent="\t")
+                event_init = {
+                    "track": "mount_panorama_2019",
+                    "preRaceWaitingTimeSeconds": 80,
+                    "sessionOverTimeSeconds": 120,
+                    "ambientTemp": 22,
+                    "cloudLevel": 0.1,
+                    "rain": 0.0,
+                    "weatherRandomness": 1,
+                    "sessions": [
+                        {
+                            "hourOfDay": 6,
+                            "dayOfWeekend": 2,
+                            "timeMultiplier": 1,
+                            "sessionType": "P",
+                            "sessionDurationMinutes": 10
+                        },
+                        {
+                            "hourOfDay": 12,
+                            "dayOfWeekend": 2,
+                            "timeMultiplier": 1,
+                            "sessionType": "Q",
+                            "sessionDurationMinutes": 10
+                        },
+                        {
+                            "hourOfDay": 18,
+                            "dayOfWeekend": 3,
+                            "timeMultiplier": 2,
+                            "sessionType": "R",
+                            "sessionDurationMinutes": 20
+                        }
+                    ],
+                    "configVersion": 1
+                }
+                json.dump(event_init, make_file, indent="\t")
 
         # eventRules.json
         try:
@@ -523,24 +535,42 @@ class Main(QMainWindow, Ui_MainWindow):
                 # print(io.getvalue())
 
                 # set value from json file
-                self.spinBox_pitWindowLengthSec.setValue(self.eventRules["pitWindowLengthSec"])
-                self.spinBox_driverStintTimeSec.setValue(self.eventRules["driverStintTimeSec"])
-                self.spinBox_mandatoryPitstopCount.setValue(self.eventRules["mandatoryPitstopCount"])
-                self.spinBox_maxTotalDrivingTime.setValue(self.eventRules["maxTotalDrivingTime"])
-                self.spinBox_maxDriversCount.setValue(self.eventRules["maxDriversCount"])
-                self.spinBox_tyreSetCount.setValue(self.eventRules["tyreSetCount"])
-                self.checkBox_isRefuellingAllowedInRace.setChecked(self.eventRules["isRefuellingAllowedInRace"])
-                self.checkBox_isRefuellingTimeFixed.setChecked(self.eventRules["isRefuellingTimeFixed"])
-                self.checkBox_isMandatoryPitstopRefuellingRequired.setChecked(
+                with suppress(KeyError): self.spinBox_pitWindowLengthSec.setValue(self.eventRules["pitWindowLengthSec"])
+                with suppress(KeyError): self.spinBox_driverStintTimeSec.setValue(self.eventRules["driverStintTimeSec"])
+                with suppress(KeyError): self.spinBox_mandatoryPitstopCount.setValue(
+                    self.eventRules["mandatoryPitstopCount"])
+                with suppress(KeyError): self.spinBox_maxTotalDrivingTime.setValue(
+                    self.eventRules["maxTotalDrivingTime"])
+                with suppress(KeyError): self.spinBox_maxDriversCount.setValue(self.eventRules["maxDriversCount"])
+                with suppress(KeyError): self.spinBox_tyreSetCount.setValue(self.eventRules["tyreSetCount"])
+                with suppress(KeyError): self.checkBox_isRefuellingAllowedInRace.setChecked(
+                    self.eventRules["isRefuellingAllowedInRace"])
+                with suppress(KeyError): self.checkBox_isRefuellingTimeFixed.setChecked(
+                    self.eventRules["isRefuellingTimeFixed"])
+                with suppress(KeyError): self.checkBox_isMandatoryPitstopRefuellingRequired.setChecked(
                     self.eventRules["isMandatoryPitstopRefuellingRequired"])
-                self.checkBox_isMandatoryPitstopTyreChangeRequired.setChecked(
+                with suppress(KeyError): self.checkBox_isMandatoryPitstopTyreChangeRequired.setChecked(
                     self.eventRules["isMandatoryPitstopTyreChangeRequired"])
-                self.checkBox_isMandatoryPitstopSwapDriverRequired.setChecked(
+                with suppress(KeyError): self.checkBox_isMandatoryPitstopSwapDriverRequired.setChecked(
                     self.eventRules["isMandatoryPitstopSwapDriverRequired"])
 
         except FileNotFoundError:
             with open("cfg/eventRules.json", 'w', encoding='UTF-16') as make_file:
-                json.dump(self.eventRules, make_file, indent="\t")
+                eventRules_init = {
+                    "qualifyStandingType": 1,
+                    "pitWindowLengthSec": -1,
+                    "driverStintTimeSec": -1,
+                    "mandatoryPitstopCount": 0,
+                    "maxTotalDrivingTime": -1,
+                    "maxDriversCount": 1,
+                    "tyreSetCount": 50,
+                    "isRefuellingAllowedInRace": 0,
+                    "isRefuellingTimeFixed": 0,
+                    "isMandatoryPitstopRefuellingRequired": 0,
+                    "isMandatoryPitstopTyreChangeRequired": 0,
+                    "isMandatoryPitstopSwapDriverRequired": 0
+                }
+                json.dump(eventRules_init, make_file, indent="\t")
 
     # Necessary file check
     def fileCheck(self):
@@ -569,198 +599,137 @@ class Main(QMainWindow, Ui_MainWindow):
         else:
             # 1. get value from GUI
             # settings.json
-            self.settings["serverName"] = self.lineEdit_serverName.text()
-            self.settings["password"] = self.lineEdit_password.text()
-            self.settings["adminPassword"] = self.lineEdit_adminPassword.text()
-            self.settings["spectatorPassword"] = self.lineEdit_spectatorPassword.text()
-            self.settings["maxCarSlots"] = self.spinBox_maxCarSlots.value()
-            self.settings["trackMedalsRequirement"] = self.spinBox_trackMedalsRequirement.value()
-            self.settings["safetyRatingRequirement"] = self.spinBox_safetyRatingRequirement.value()
-            self.settings["dumpLeaderboards"] = int(self.checkBox_dumpLeaderboards.isChecked())
-            self.settings["isRaceLocked"] = int(self.checkBox_isRaceLocked.isChecked())
-            self.settings["allowAutoDQ"] = int(self.checkBox_allowAutoDQ.isChecked())
-            self.settings["carGroup"] = self.comboBox_car.currentText()
-            self.settings['shortFormationLap'] = int(self.checkBox_shortFormationLap.isChecked())
-            self.settings['dumpEntryList'] = int(self.checkBox_dumpEntryList.isChecked())
-            self.settings['randomizeTrackWhenEmpty'] = int(self.checkBox_randomizeTrackWhenEmpty.isChecked())
+            settings_end = {"serverName": self.lineEdit_serverName.text(),
+                            "password": self.lineEdit_password.text(),
+                            "adminPassword": self.lineEdit_adminPassword.text(),
+                            "spectatorPassword": self.lineEdit_spectatorPassword.text(),
+                            "maxCarSlots": self.spinBox_maxCarSlots.value(),
+                            "trackMedalsRequirement": self.spinBox_trackMedalsRequirement.value(),
+                            "safetyRatingRequirement": self.spinBox_safetyRatingRequirement.value(),
+                            "dumpLeaderboards": int(self.checkBox_dumpLeaderboards.isChecked()),
+                            "isRaceLocked": int(self.checkBox_isRaceLocked.isChecked()),
+                            "allowAutoDQ": int(self.checkBox_allowAutoDQ.isChecked()),
+                            "carGroup": self.comboBox_car.currentText(),
+                            'shortFormationLap': int(self.checkBox_shortFormationLap.isChecked()),
+                            'dumpEntryList': int(self.checkBox_dumpEntryList.isChecked()),
+                            'randomizeTrackWhenEmpty': int(self.checkBox_randomizeTrackWhenEmpty.isChecked())}
 
             # formationLapType logic
             if self.comboBox_formationLapType.currentText() == self.formationLapTypelist[2]:
-                self.settings['formationLapType'] = 3
+                settings_end['formationLapType'] = 3
             elif self.comboBox_formationLapType.currentText() == self.formationLapTypelist[0]:
-                self.settings['formationLapType'] = 0
+                settings_end['formationLapType'] = 0
             elif self.comboBox_formationLapType.currentText() == self.formationLapTypelist[1]:
-                self.settings['formationLapType'] = 1
+                settings_end['formationLapType'] = 1
             elif self.comboBox_formationLapType.currentText() == self.formationLapTypelist[3]:
-                self.settings['formationLapType'] = 4
+                settings_end['formationLapType'] = 4
             else:
-                self.settings['formationLapType'] = 5
+                settings_end['formationLapType'] = 5
 
             # configuration.json
-            self.configuration["maxConnections"] = self.spinBox_maxConnections.value()
-            self.configuration['registerToLobby'] = int(self.checkBox_registerToLobby.isChecked())
-            self.configuration['lanDiscovery'] = int(self.checkBox_lanDiscovery.isChecked())
+            configuration_end = {'maxConnections': self.spinBox_maxConnections.value(),
+                                 'registerToLobby': int(self.checkBox_registerToLobby.isChecked()),
+                                 'lanDiscovery': int(self.checkBox_lanDiscovery.isChecked())}
 
             # assistRules.json
-            self.assist["disableIdealLine"] = int(self.checkBox_disableIdealLine.isChecked())
-            self.assist["disableAutosteer"] = int(self.checkBox_disableAutosteer.isChecked())
-            self.assist["disableAutoLights"] = int(self.checkBox_disableAutoLights.isChecked())
-            self.assist["disableAutoWiper"] = int(self.checkBox_disableAutoWiper.isChecked())
-            self.assist["disableAutoEngineStart"] = int(self.checkBox_disableAutoEngineStart.isChecked())
-            self.assist["disableAutoPitLimiter"] = int(self.checkBox_disableAutoPitLimiter.isChecked())
-            self.assist["disableAutoGear"] = int(self.checkBox_disableAutoGear.isChecked())
-            self.assist["disableAutoClutch"] = int(self.checkBox_disableAutoClutch.isChecked())
-            self.assist["stabilityControlLevelMax"] = self.horizontalSlider_stabilityControlLevelMax.value()
+            assist_end = {"disableIdealLine": int(self.checkBox_disableIdealLine.isChecked()),
+                          "disableAutosteer": int(self.checkBox_disableAutosteer.isChecked()),
+                          "disableAutoLights": int(self.checkBox_disableAutoLights.isChecked()),
+                          "disableAutoWiper": int(self.checkBox_disableAutoWiper.isChecked()),
+                          "disableAutoEngineStart": int(self.checkBox_disableAutoEngineStart.isChecked()),
+                          "disableAutoPitLimiter": int(self.checkBox_disableAutoPitLimiter.isChecked()),
+                          "disableAutoGear": int(self.checkBox_disableAutoGear.isChecked()),
+                          "disableAutoClutch": int(self.checkBox_disableAutoClutch.isChecked()),
+                          "stabilityControlLevelMax": self.horizontalSlider_stabilityControlLevelMax.value()}
 
             # event.json
-            self.event["track"] = self.comboBox_track.currentText()
-            self.event["preRaceWaitingTimeSeconds"] = self.spinBox_preRaceWaitingTimeSeconds.value()
-            self.event["sessionOverTimeSeconds"] = self.spinBox_sessionOverTimeSeconds.value()
-            self.event["ambientTemp"] = self.horizontalSlider_ambientTemp.value()
-            self.event["weatherRandomness"] = self.horizontalSlider_weatherRandomness.value()
-            self.event["cloudLevel"] = self.doubleSpinBox_cloudLevel.value()
-            self.event["rain"] = self.doubleSpinBox_rain.value()
-
-            # event.json - postQualySeconds
-            # default .json don't have this key
-            try:
-                self.event["postQualySeconds"] = self.spinBox_postQualySeconds.value()
-            except KeyError:
-                self.event = self.event + {"postQualySeconds": self.spinBox_postQualySeconds.value()}
+            event_end = {"track": self.comboBox_track.currentText(),
+                         "preRaceWaitingTimeSeconds": self.spinBox_preRaceWaitingTimeSeconds.value(),
+                         "sessionOverTimeSeconds": self.spinBox_sessionOverTimeSeconds.value(),
+                         "ambientTemp": self.horizontalSlider_ambientTemp.value(),
+                         "weatherRandomness": self.horizontalSlider_weatherRandomness.value(),
+                         "cloudLevel": self.doubleSpinBox_cloudLevel.value(),
+                         "rain": self.doubleSpinBox_rain.value(),
+                         "postQualySeconds": self.spinBox_postQualySeconds.value(),
+                         "postRaceSeconds": self.spinBox_postRaceSeconds.value(),
+                         "sessions": []}
 
             # event.json - Session
-            # if loaded event['sessions'] is short when P,Q,R checked
-            # add the list to avoid Preventing access to missing list
-            if len(self.event['sessions']) < 3:
-                if self.groupBox_practice.isChecked():
-                    if self.groupBox_qualify.isChecked():
-                        if self.groupBox_race.isChecked():
-                            self.event['sessions'] = self.event['sessions'] + [{
-                                "sessionType": "",
-                                "hourOfDay": 0,
-                                "dayOfWeekend": 0,
-                                "timeMultiplier": 0,
-                                "sessionDurationMinutes": 0
-                            }]
-            else:
-                # avoid the duplication code
-                def Practice(index):
-                    self.event["sessions"][index]["sessionType"] = "P"
-                    self.event["sessions"][index]["hourOfDay"] = self.spinBox_practice_hourOfDay.value()
+            if self.groupBox_practice.isChecked():
+                if self.radioButton_practice_friday.isChecked():
+                    dow = 1
+                elif self.radioButton_practice_saturday.isChecked():
+                    dow = 2
+                elif self.radioButton_practice_sunday.isChecked():
+                    dow = 3
+                event_end["sessions"].append({
+                    "sessionType": "P",
+                    "hourOfDay": self.spinBox_practice_hourOfDay.value(),
+                    "timeMultiplier": self.spinBox_practice_timeMultiplier.value(),
+                    "sessionDurationMinutes": self.spinBox_practice_sessionDurationMinutes.value(),
+                    "dayOfWeekend": dow
+                })
 
-                    # dayOfWeekend
-                    if self.radioButton_practice_friday.isChecked():
-                        self.event["sessions"][index]["dayOfWeekend"] = 1
-                    elif self.radioButton_practice_saturday.isChecked():
-                        self.event["sessions"][index]["dayOfWeekend"] = 2
-                    else:
-                        self.event["sessions"][index]["dayOfWeekend"] = 3
-
-                    self.event["sessions"][index]["timeMultiplier"] = self.spinBox_practice_timeMultiplier.value()
-                    self.event["sessions"][index][
-                        "sessionDurationMinutes"] = self.spinBox_practice_sessionDurationMinutes.value()
-
-                def Qualify(index):
-                    self.event["sessions"][index]["sessionType"] = "Q"
-                    self.event["sessions"][index]["hourOfDay"] = self.spinBox_qualify_hourOfDay.value()
-
-                    # dayOfWeekend
-                    if self.radioButton_qualify_friday.isChecked():
-                        self.event["sessions"][index]["dayOfWeekend"] = 1
-                    elif self.radioButton_qualify_saturday.isChecked():
-                        self.event["sessions"][index]["dayOfWeekend"] = 2
-                    else:
-                        self.event["sessions"][index]["dayOfWeekend"] = 3
-
-                    self.event["sessions"][index]["timeMultiplier"] = self.spinBox_qualify_timeMultiplier.value()
-                    self.event["sessions"][index][
-                        "sessionDurationMinutes"] = self.spinBox_qualify_sessionDurationMinutes.value()
-
-                def Race(index):
-                    self.event["sessions"][index]["sessionType"] = "R"
-                    self.event["sessions"][index]["hourOfDay"] = self.spinBox_race_hourOfDay.value()
-
-                    # dayOfWeekend
-                    if self.radioButton_race_friday.isChecked():
-                        self.event["sessions"][index]["dayOfWeekend"] = 1
-                    elif self.radioButton_race_saturday.isChecked():
-                        self.event["sessions"][index]["dayOfWeekend"] = 2
-                    else:
-                        self.event["sessions"][index]["dayOfWeekend"] = 3
-
-                    self.event["sessions"][index]["timeMultiplier"] = self.spinBox_race_timeMultiplier.value()
-                    self.event["sessions"][index][
-                        "sessionDurationMinutes"] = self.spinBox_race_sessionDurationMinutes.value()
-
-                # if P, Q checked
-                if self.groupBox_practice.isChecked():
-                    if self.groupBox_qualify.isChecked():
-                        # -- Practice --
-                        Practice(0)
-                        # -- Qualify --
-                        Qualify(1)
-
-                # if P, R checked
-                if self.groupBox_practice.isChecked():
-                    if self.groupBox_qualify.isChecked():
-                        # -- Practice --
-                        Practice(0)
-                        # -- Race --
-                        Race(1)
-
-                # if Q, R checked
-                if self.groupBox_qualify.isChecked():
-                    if self.groupBox_race.isChecked():
-                        # -- Qualify --
-                        Qualify(0)
-                        # -- Race --
-                        Race(1)
-
-                # if P, Q, R checked
-                if self.groupBox_practice.isChecked():
-                    if self.groupBox_qualify.isChecked():
-                        if self.groupBox_race.isChecked():
-                            # -- Practice --
-                            Practice(0)
-                            # -- Qualify --
-                            Qualify(1)
-                            # -- Race --
-                            Race(2)
+            if self.groupBox_qualify.isChecked():
+                if self.radioButton_qualify_friday.isChecked():
+                    dow = 1
+                elif self.radioButton_qualify_saturday.isChecked():
+                    dow = 2
+                elif self.radioButton_qualify_sunday.isChecked():
+                    dow = 3
+                event_end["sessions"].append({
+                    "sessionType": "Q",
+                    "hourOfDay": self.spinBox_qualify_hourOfDay.value(),
+                    "timeMultiplier": self.spinBox_qualify_timeMultiplier.value(),
+                    "sessionDurationMinutes": self.spinBox_qualify_sessionDurationMinutes.value(),
+                    "dayOfWeekend": dow
+                })
+            if self.groupBox_race.isChecked():
+                if self.radioButton_race_friday.isChecked():
+                    dow = 1
+                elif self.radioButton_race_saturday.isChecked():
+                    dow = 2
+                elif self.radioButton_race_sunday.isChecked():
+                    dow = 3
+                event_end["sessions"].append({
+                    "sessionType": "R",
+                    "hourOfDay": self.spinBox_race_hourOfDay.value(),
+                    "timeMultiplier": self.spinBox_race_timeMultiplier.value(),
+                    "sessionDurationMinutes": self.spinBox_race_sessionDurationMinutes.value(),
+                    "dayOfWeekend": dow
+                })
 
             # eventRules.json
-            self.eventRules["pitWindowLengthSec"] = self.spinBox_pitWindowLengthSec.value()
-            self.eventRules["driverStintTimeSec"] = self.spinBox_driverStintTimeSec.value()
-            self.eventRules["mandatoryPitstopCount"] = self.spinBox_mandatoryPitstopCount.value()
-            self.eventRules["maxTotalDrivingTime"] = self.spinBox_maxTotalDrivingTime.value()
-            self.eventRules["maxDriversCount"] = self.spinBox_maxDriversCount.value()
-            self.eventRules["tyreSetCount"] = self.spinBox_tyreSetCount.value()
-            self.eventRules["isRefuellingAllowedInRace"] = self.checkBox_isRefuellingAllowedInRace.isChecked()
-            self.eventRules["isRefuellingTimeFixed"] = self.checkBox_isRefuellingTimeFixed.isChecked()
-            self.eventRules[
-                "isMandatoryPitstopRefuellingRequired"] = self.checkBox_isMandatoryPitstopRefuellingRequired.isChecked()
-            self.eventRules[
-                "isMandatoryPitstopTyreChangeRequired"] = self.checkBox_isMandatoryPitstopTyreChangeRequired.isChecked()
-            self.eventRules[
-                "isMandatoryPitstopSwapDriverRequired"] = self.checkBox_isMandatoryPitstopSwapDriverRequired.isChecked()
+            eventRules_end = {"pitWindowLengthSec": self.spinBox_pitWindowLengthSec.value(),
+                              "driverStintTimeSec": self.spinBox_driverStintTimeSec.value(),
+                              "mandatoryPitstopCount": self.spinBox_mandatoryPitstopCount.value(),
+                              "maxTotalDrivingTime": self.spinBox_maxTotalDrivingTime.value(),
+                              "maxDriversCount": self.spinBox_maxDriversCount.value(),
+                              "tyreSetCount": self.spinBox_tyreSetCount.value(),
+                              "isRefuellingAllowedInRace": self.checkBox_isRefuellingAllowedInRace.isChecked(),
+                              "isRefuellingTimeFixed": self.checkBox_isRefuellingTimeFixed.isChecked(),
+                              "isMandatoryPitstopRefuellingRequired": self.checkBox_isMandatoryPitstopRefuellingRequired.isChecked(),
+                              "isMandatoryPitstopTyreChangeRequired": self.checkBox_isMandatoryPitstopTyreChangeRequired.isChecked(),
+                              "isMandatoryPitstopSwapDriverRequired": self.checkBox_isMandatoryPitstopSwapDriverRequired.isChecked()}
 
             # 2. Save json file
             with open('cfg/configuration.json', 'w', encoding='utf-16') as make_file:
-                json.dump(self.configuration, make_file, indent="\t")
+                json.dump(configuration_end, make_file, indent="\t")
 
             with open('cfg/settings.json', 'w', encoding='utf-16') as make_file:
-                json.dump(self.settings, make_file, indent="\t")
+                json.dump(settings_end, make_file, indent="\t")
 
             with open('cfg/assistRules.json', 'w', encoding='utf-16') as make_file:
-                json.dump(self.assist, make_file, indent="\t")
+                json.dump(assist_end, make_file, indent="\t")
 
             with open('cfg/event.json', 'w', encoding='utf-16') as make_file:
-                json.dump(self.event, make_file, indent="\t")
+                json.dump(event_end, make_file, indent="\t")
 
             with open('cfg/eventRules.json', 'w', encoding='utf-16') as make_file:
-                json.dump(self.eventRules, make_file, indent="\t")
+                json.dump(eventRules_end, make_file, indent="\t")
 
             # 3. Start server with accServer.exe
-            os.popen('accServer.exe')
+            subprocess.Popen('accServer.exe', close_fds=True)
 
             # 4. enable and disable
             self.pushButton_exit.setEnabled(True)
@@ -769,7 +738,7 @@ class Main(QMainWindow, Ui_MainWindow):
     # Click signal slot from PushButton_exit
     def serverStop(self):
         # 1. kill accServer.exe
-        os.system('taskkill /f /im accServer.exe')
+        subprocess.Popen('taskkill /f /im accServer.exe', close_fds=True)
 
         # 2. enable and disable
         self.pushButton_exit.setEnabled(False)
@@ -778,7 +747,7 @@ class Main(QMainWindow, Ui_MainWindow):
     # When you clicked "X" button
     def closeEvent(self, QCloseEvent) -> None:
         # kill the accServer.exe also
-        os.system('taskkill /f /im accServer.exe')
+        subprocess.Popen('taskkill /f /im accServer.exe', close_fds=True)
 
 
 if __name__ == '__main__':
