@@ -321,6 +321,51 @@ class Main(QMainWindow, Ui_MainWindow):
                 }
                 json.dump(settings_init, make_file, indent="\t")
 
+                # set value from init
+                with suppress(KeyError):
+                    self.lineEdit_serverName.setText(settings_init['serverName'])
+                with suppress(KeyError):
+                    self.lineEdit_password.setText(settings_init['password'])
+                with suppress(KeyError):
+                    self.lineEdit_adminPassword.setText(settings_init['adminPassword'])
+                with suppress(KeyError):
+                    self.lineEdit_spectatorPassword.setText(settings_init['spectatorPassword'])
+                with suppress(KeyError):
+                    self.spinBox_maxCarSlots.setValue(settings_init['maxCarSlots'])
+                with suppress(KeyError):
+                    self.spinBox_trackMedalsRequirement.setValue(settings_init['trackMedalsRequirement'])
+                with suppress(KeyError):
+                    self.spinBox_safetyRatingRequirement.setValue(settings_init['safetyRatingRequirement'])
+                with suppress(KeyError):
+                    self.checkBox_dumpLeaderboards.setChecked(settings_init['dumpLeaderboards'])
+                with suppress(KeyError):
+                    self.checkBox_isRaceLocked.setChecked(settings_init['isRaceLocked'])
+                with suppress(KeyError):
+                    self.checkBox_allowAutoDQ.setChecked(settings_init['allowAutoDQ'])
+                with suppress(KeyError):
+                    self.comboBox_car.setCurrentText(settings_init['carGroup'])
+                with suppress(KeyError):
+                    self.checkBox_shortFormationLap.setChecked(settings_init['shortFormationLap'])
+                with suppress(KeyError):
+                    self.checkBox_dumpEntryList.setChecked(settings_init['dumpEntryList'])
+                with suppress(KeyError):
+                    self.checkBox_randomizeTrackWhenEmpty.setChecked(settings_init['randomizeTrackWhenEmpty'])
+
+                # formationLapType Logic
+                try:
+                    if settings_init['formationLapType'] == 3:
+                        self.comboBox_formationLapType.setCurrentText(self.formationLapTypelist[2])
+                    elif settings_init['formationLapType'] == 0:
+                        self.comboBox_formationLapType.setCurrentText(self.formationLapTypelist[0])
+                    elif settings_init['formationLapType'] == 1:
+                        self.comboBox_formationLapType.setCurrentText(self.formationLapTypelist[1])
+                    elif settings_init['formationLapType'] == 4:
+                        self.comboBox_formationLapType.setCurrentText(self.formationLapTypelist[3])
+                    else:
+                        self.comboBox_formationLapType.setCurrentText(self.formationLapTypelist[4])
+                except KeyError:
+                    pass
+
         # configuration.json
         try:
             with(open("cfg/configuration.json", encoding="UTF-16")) as configuration:
@@ -334,8 +379,8 @@ class Main(QMainWindow, Ui_MainWindow):
 
                 # set value from json file
                 with suppress(KeyError): self.spinBox_maxConnections.setValue(self.configuration['maxConnections'])
-                with suppress(KeyError): self.lcdNumber_tcpPort.display(self.configuration['tcpPort'])
-                with suppress(KeyError): self.lcdNumber_udpPort.display(self.configuration['udpPort'])
+                with suppress(KeyError): self.spinBox_tcpPort.setValue(self.configuration['tcpPort'])
+                with suppress(KeyError): self.spinBox_udpPort.setValue(self.configuration['udpPort'])
                 with suppress(KeyError): self.checkBox_registerToLobby.setChecked(self.configuration['registerToLobby'])
                 with suppress(KeyError): self.checkBox_lanDiscovery.setChecked(self.configuration['lanDiscovery'])
 
@@ -350,6 +395,13 @@ class Main(QMainWindow, Ui_MainWindow):
                     "configVersion": 1
                 }
                 json.dump(configuration_init, make_file, indent="\t")
+
+                # set value from init
+                with suppress(KeyError): self.spinBox_maxConnections.setValue(configuration_init['maxConnections'])
+                with suppress(KeyError): self.spinBox_tcpPort.setValue(configuration_init['tcpPort'])
+                with suppress(KeyError): self.spinBox_udpPort.setValue(configuration_init['udpPort'])
+                with suppress(KeyError): self.checkBox_registerToLobby.setChecked(configuration_init['registerToLobby'])
+                with suppress(KeyError): self.checkBox_lanDiscovery.setChecked(configuration_init['lanDiscovery'])
 
         # assistRules.json
         try:
@@ -390,6 +442,20 @@ class Main(QMainWindow, Ui_MainWindow):
                     "disableAutoLights": 0
                 }
                 json.dump(assistRules_init, make_file, indent="\t")
+
+                # set value from json file
+                with suppress(KeyError): self.checkBox_disableIdealLine.setChecked(assistRules_init['disableIdealLine'])
+                with suppress(KeyError): self.checkBox_disableAutosteer.setChecked(assistRules_init['disableAutosteer'])
+                with suppress(KeyError): self.checkBox_disableAutoLights.setChecked(assistRules_init['disableAutoLights'])
+                with suppress(KeyError): self.checkBox_disableAutoWiper.setChecked(assistRules_init['disableAutoWiper'])
+                with suppress(KeyError): self.checkBox_disableAutoEngineStart.setChecked(
+                    assistRules_init['disableAutoEngineStart'])
+                with suppress(KeyError): self.checkBox_disableAutoPitLimiter.setChecked(
+                    assistRules_init['disableAutoPitLimiter'])
+                with suppress(KeyError): self.checkBox_disableAutoGear.setChecked(assistRules_init['disableAutoGear'])
+                with suppress(KeyError): self.checkBox_disableAutoClutch.setChecked(assistRules_init['disableAutoClutch'])
+                with suppress(KeyError): self.horizontalSlider_stabilityControlLevelMax.setValue(
+                    assistRules_init['stabilityControlLevelMax'])
 
         # event.json
         try:
@@ -523,6 +589,90 @@ class Main(QMainWindow, Ui_MainWindow):
                 }
                 json.dump(event_init, make_file, indent="\t")
 
+                # set value from init
+                with suppress(KeyError):
+                    self.comboBox_track.setCurrentText(event_init['track'])
+                with suppress(KeyError):
+                    self.spinBox_preRaceWaitingTimeSeconds.setValue(event_init['preRaceWaitingTimeSeconds'])
+                with suppress(KeyError):
+                    self.spinBox_sessionOverTimeSeconds.setValue(event_init['sessionOverTimeSeconds'])
+                with suppress(KeyError):
+                    self.horizontalSlider_ambientTemp.setValue(event_init['ambientTemp'])
+                with suppress(KeyError):
+                    self.lcdNumber_ambientTemp.display(event_init['ambientTemp'])
+                with suppress(KeyError):
+                    self.horizontalSlider_weatherRandomness.setValue(event_init['weatherRandomness'])
+                with suppress(KeyError):
+                    self.lcdNumber_weatherRandomness.display(event_init['weatherRandomness'])
+                with suppress(KeyError):
+                    self.doubleSpinBox_cloudLevel.setValue(event_init['cloudLevel'])
+                with suppress(KeyError):
+                    self.doubleSpinBox_rain.setValue(event_init['rain'])
+                with suppress(KeyError):
+                    self.spinBox_postQualySeconds.setValue(event_init['postQualySeconds'])
+                with suppress(KeyError):
+                    self.spinBox_postRaceSeconds.setValue(event_init['postRaceSeconds'])
+
+                # set value Session's value
+                def initSessison(book, index):
+                    if book['sessions'][index]['sessionType'] == "P":
+                        self.groupBox_practice.setChecked(True)
+                        self.spinBox_practice_hourOfDay.setValue(book['sessions'][index]['hourOfDay'])
+                        self.spinBox_practice_timeMultiplier.setValue(
+                            book['sessions'][index]['timeMultiplier'])
+                        self.spinBox_practice_sessionDurationMinutes.setValue(
+                            book['sessions'][index]['sessionDurationMinutes'])
+                        if book['sessions'][index]['dayOfWeekend'] == 1:
+                            self.radioButton_practice_friday.setChecked(True)
+                        elif book['sessions'][index]['dayOfWeekend'] == 2:
+                            self.radioButton_practice_saturday.setChecked(True)
+                        elif book['sessions'][index]['dayOfWeekend'] == 3:
+                            self.radioButton_practice_sunday.setChecked(True)
+
+                    if book['sessions'][index]['sessionType'] == "Q":
+                        self.groupBox_qualify.setChecked(True)
+                        self.spinBox_qualify_hourOfDay.setValue(book['sessions'][index]['hourOfDay'])
+                        self.spinBox_qualify_timeMultiplier.setValue(
+                            book['sessions'][index]['timeMultiplier'])
+                        self.spinBox_qualify_sessionDurationMinutes.setValue(
+                            book['sessions'][index]['sessionDurationMinutes'])
+                        if book['sessions'][index]['dayOfWeekend'] == 1:
+                            self.radioButton_qualify_friday.setChecked(True)
+                        elif book['sessions'][index]['dayOfWeekend'] == 2:
+                            self.radioButton_qualify_saturday.setChecked(True)
+                        elif book['sessions'][index]['dayOfWeekend'] == 3:
+                            self.radioButton_qualify_sunday.setChecked(True)
+
+                    if book['sessions'][index]['sessionType'] == "R":
+                        self.groupBox_race.setChecked(True)
+                        self.spinBox_race_hourOfDay.setValue(book['sessions'][index]['hourOfDay'])
+                        self.spinBox_race_timeMultiplier.setValue(book['sessions'][index]['timeMultiplier'])
+                        self.spinBox_race_sessionDurationMinutes.setValue(
+                            book['sessions'][index]['sessionDurationMinutes'])
+                        if book['sessions'][index]['dayOfWeekend'] == 1:
+                            self.radioButton_race_friday.setChecked(True)
+                        elif book['sessions'][index]['dayOfWeekend'] == 2:
+                            self.radioButton_race_saturday.setChecked(True)
+                        elif book['sessions'][index]['dayOfWeekend'] == 3:
+                            self.radioButton_race_sunday.setChecked(True)
+
+                # set value by session type
+                try:
+                    if event_init['sessions'][0]['sessionType'] == "P":
+                        initSessison(event_init, 0)
+                        if event_init['sessions'][1]['sessionType'] == "Q":
+                            initSessison(event_init, 1)
+                            if len(event_init['sessions']) > 2:
+                                initSessison(event_init, 2)
+                        elif event_init['sessions'][1]['sessionType'] == "R":
+                            initSessison(event_init, 1)
+                    elif event_init['sessions'][0]['sessionType'] == "Q":
+                        initSessison(event_init, 0)
+                        if event_init['sessions'][1]['sessionType'] == "R":
+                            initSessison(event_init, 1)
+                except KeyError:
+                    pass
+
         # eventRules.json
         try:
             with open("cfg/eventRules.json", encoding='UTF-16') as eventRules:
@@ -571,6 +721,26 @@ class Main(QMainWindow, Ui_MainWindow):
                     "isMandatoryPitstopSwapDriverRequired": 0
                 }
                 json.dump(eventRules_init, make_file, indent="\t")
+
+                # set value from json file
+                with suppress(KeyError): self.spinBox_pitWindowLengthSec.setValue(eventRules_init["pitWindowLengthSec"])
+                with suppress(KeyError): self.spinBox_driverStintTimeSec.setValue(eventRules_init["driverStintTimeSec"])
+                with suppress(KeyError): self.spinBox_mandatoryPitstopCount.setValue(
+                    eventRules_init["mandatoryPitstopCount"])
+                with suppress(KeyError): self.spinBox_maxTotalDrivingTime.setValue(
+                    eventRules_init["maxTotalDrivingTime"])
+                with suppress(KeyError): self.spinBox_maxDriversCount.setValue(eventRules_init["maxDriversCount"])
+                with suppress(KeyError): self.spinBox_tyreSetCount.setValue(eventRules_init["tyreSetCount"])
+                with suppress(KeyError): self.checkBox_isRefuellingAllowedInRace.setChecked(
+                    eventRules_init["isRefuellingAllowedInRace"])
+                with suppress(KeyError): self.checkBox_isRefuellingTimeFixed.setChecked(
+                    eventRules_init["isRefuellingTimeFixed"])
+                with suppress(KeyError): self.checkBox_isMandatoryPitstopRefuellingRequired.setChecked(
+                    eventRules_init["isMandatoryPitstopRefuellingRequired"])
+                with suppress(KeyError): self.checkBox_isMandatoryPitstopTyreChangeRequired.setChecked(
+                    eventRules_init["isMandatoryPitstopTyreChangeRequired"])
+                with suppress(KeyError): self.checkBox_isMandatoryPitstopSwapDriverRequired.setChecked(
+                    eventRules_init["isMandatoryPitstopSwapDriverRequired"])
 
     # Necessary file check
     def fileCheck(self):
@@ -627,9 +797,12 @@ class Main(QMainWindow, Ui_MainWindow):
                 settings_end['formationLapType'] = 5
 
             # configuration.json
-            configuration_end = {'maxConnections': self.spinBox_maxConnections.value(),
+            configuration_end = {"udpPort": self.spinBox_udpPort.value(),
+                                 "tcpPort": self.spinBox_tcpPort.value(),
+                                 'maxConnections': self.spinBox_maxConnections.value(),
                                  'registerToLobby': int(self.checkBox_registerToLobby.isChecked()),
-                                 'lanDiscovery': int(self.checkBox_lanDiscovery.isChecked())}
+                                 'lanDiscovery': int(self.checkBox_lanDiscovery.isChecked()),
+                                 "configVersion": 1}
 
             # assistRules.json
             assist_end = {"disableIdealLine": int(self.checkBox_disableIdealLine.isChecked()),
@@ -729,7 +902,7 @@ class Main(QMainWindow, Ui_MainWindow):
                 json.dump(eventRules_end, make_file, indent="\t")
 
             # 3. Start server with accServer.exe
-            subprocess.Popen('accServer.exe', close_fds=True)
+            # subprocess.Popen('accServer.exe', close_fds=True)
 
             # 4. enable and disable
             self.pushButton_exit.setEnabled(True)
